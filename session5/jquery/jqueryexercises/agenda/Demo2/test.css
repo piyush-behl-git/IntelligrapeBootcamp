@@ -1,0 +1,14 @@
+.odd {
+  background-color: #ffc; /* pale yellow for odd rows */
+}
+.even {
+  background-color: #cef; /* pale blue for even rows */
+}
+.highlight {
+  font-weight:bold; 
+  color: #f00;
+}
+.table-heading{
+  background-color: yellow;
+  text-align: left;
+}

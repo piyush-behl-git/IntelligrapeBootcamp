@@ -1,0 +1,45 @@
+<html>                                                                  
+ <head>                                                                  
+ <script type="text/javascript" src="jquery.js"></script>
+ <link rel="stylesheet" href="test.css" type="text/css" media="screen"/>     
+   
+                                                              
+ </head>                                                                 
+ <body>         
+ <table>
+<tr>
+  <th>Title</th>
+  <th>Category</th>
+</tr>
+<tr>
+  <td>As You Like It</td>
+  <td>Comedy</td>
+</tr>
+<tr>
+  <td>All's Well that Ends Well</td>
+  <td>Comedy</td>
+</tr>
+<tr>
+  <td>Hamlet</td>
+  <td>Tragedy</td>
+</tr>
+<tr>
+  <td>Macbeth</td>
+  <td>Tragedy</td>
+</tr>
+<tr>
+  <td>Romeo and Juliet</td>
+  <td>Tragedy</td>
+</tr>
+<tr>
+  <td>Henry IV, Part I</td>
+  <td>History</td>
+</tr>
+<tr>
+  <td>Henry V</td>
+  <td>History</td>
+</tr>
+</table>
+ </body>                                                                 
+ </html>
+

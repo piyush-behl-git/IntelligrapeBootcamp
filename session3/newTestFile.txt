@@ -1,0 +1,228 @@
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>
+1 <html>
+3 <title></title>
+5 <body>
+7 <p>Name: <input type="text" name="name"/></p>
+9 <p><input type="radio" name="name"/> Male</p>
+11 <p>Select Highest Qualifications</p>
+13 <option>B.Tech</option>
+15 <option selected>M.Tech</option>
+17 <option>XII</option>
+19 <p>Comment</p>
+21 <p><input type="submit" value="Submit"/></p>
+23 </html>

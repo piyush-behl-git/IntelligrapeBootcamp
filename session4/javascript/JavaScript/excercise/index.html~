@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script type="text/javascript" src="app.js"></script>
+    <style>
+        #timeDisp {
+            float: right;
+            text-align: center;
+            color: #2cfffc;
+            background-image: url("clock0.png") ;
+            width: 130px;
+            line-height: 125px;
+            padding-left: 0px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body onload="load()">
+<div id="timeDisp">&nbsp;</div>
+<button id="stopInterval" onclick="stopInterval()">Stop</button>
+<div id="footer">&nbsp;</div>
+
+<div id="nameDiv">&nbsp;</div>
+<button name="nameButton" onclick="nameAlert()">Click Me</button>
+
+</body>
+</html>

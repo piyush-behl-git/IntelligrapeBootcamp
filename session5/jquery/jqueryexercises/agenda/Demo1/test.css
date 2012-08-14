@@ -1,0 +1,23 @@
+.horizontal {
+  float: left;
+  list-style: none;
+  margin: 10px;
+}
+.sub-level {
+background-color: #ffa;
+}
+
+a {
+  color: #00f; /* make plain links blue */
+}
+a.mailto {
+  color: #f00; /* make email links red */
+}
+a.pdflink {
+  color: #090; /* make PDF links green */
+}
+a.mysite {
+  text-decoration: none; /* remove internal link underline */
+  border-bottom: 1px dotted #00f;
+}
+

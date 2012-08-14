@@ -1,0 +1,67 @@
+<html>
+<head>
+    <script type="text/javascript" src="app.js"></script>
+    <style>
+        #timeDisp {
+            float: right;
+            text-align: center;
+            color: #2cfffc;
+            background-image: url("clock0.png") ;
+            width: 130px;
+            line-height: 125px;
+            padding-left: 0px;
+            font-size: 12px;
+        }
+	#stopInterval {
+		float: right;
+	}
+        #inputDiv {
+            width: 200px;
+        }
+        #inputDiv input{
+            width:150px;
+        }
+        #userForm   {
+            width: 300px;
+            float: left;
+        }
+        #colorDiv   {
+            width: 400px;
+            padding: 20px;
+            line-height: 10px;
+            font-family: SANS-SERIF CURSIVE SERIF;
+        }
+        #nameDiv    {
+           width: 500px;
+        }
+        #myForm {
+            width: 400px;
+        }
+    </style>
+</head>
+<body onload="load()">
+<button name="nameButton" id="nameButton" onclick="nameAlert()">Click Me</button>
+<div id="timeDisp">&nbsp;</div>
+<button id="stopInterval" onclick="stopInterval()">Stop Watch</button>
+
+<div id="nameDiv">&nbsp;</div>
+
+
+<div id="myForm">
+
+    <form id="userForm" onsubmit="validateUserForm()" action="one.html">
+        Name: <input type="text" name="username">
+        Age: <input type="text" name="age">
+        <input type="submit" value="Submit"></submit>
+    </form>
+</div>
+<div id="inputDiv">
+    <input id="originalText" type="text" onchange="copyText()"/>
+    <input id="copiedText" type="text" />
+</div>
+ <div id="colorDiv" onmouseover="loadColor()" onmouseout="resetColor()">
+     Hover mouse over here to change color
+ </div>
+
+</body>
+</html>

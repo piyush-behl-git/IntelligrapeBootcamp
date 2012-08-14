@@ -1,0 +1,88 @@
+Que1: add your custom alias
+Ans: 												
+	cd ~
+	vim .bash_aliases
+		
+		alias cls="clear"
+		alias hs="history | grep -y"
+		alias mkdirs="mkdir -p"
+		alias q="exit"
+		alias on="ssh"
+
+---------------------------------------------------------------------------
+
+Que2: create a soft link to a dir
+Ans: 
+	cd ~
+	mkdir -p music/sonu_nigam
+	ln -s /home/intelligrape/music/sonu_nigam ~/Desktop/sonu
+	cd ~/Desktop
+	Now you will see link name sonu on desktop
+---------------------------------------------------------------------------
+									
+Que3: export env_vars MY_HOME and set it to /home/<userName>	
+Ans: 
+	cd ~
+	vim .bash_profile
+		
+		export MY_HOME=/home/intelligrape	
+---------------------------------------------------------------------------
+										
+Que4: Add a folder ~/myScripts to PATH	
+Ans:	
+	cd ~
+	vim .bash_profile
+		
+		PATH=$PATH:$MY_HOME/myScripts
+		export PATH
+---------------------------------------------------------------------------
+											
+Que5: install cheese from apt-get
+Ans:
+	sudo apt-get install cheese
+---------------------------------------------------------------------------												
+Que6: find the occurances of "intelligrape" in the file a.txt
+Ans: 
+	grep -wn "intelligrape" a.txt
+---------------------------------------------------------------------------												
+Que7: find number of files with the text "intelligrape" in folder "a1	
+Ans: 
+	grep -rl "intelligrape" a1
+---------------------------------------------------------------------------											
+Que8: find number of lines in a file	
+Ans: 
+	wc -l <file-name>
+---------------------------------------------------------------------------											
+Que9: How to find file changed after a certain date	
+Ans: 
+	find . -ctime -7
+---------------------------------------------------------------------------											
+Que10: copy file from server - intelligrape@downloads.intelligrape.com - igdefault : The complete /home/intelligrape/downloads.intelligrape.com/books folder	
+Ans: 		
+	scp intelligrape@downloads.intelligrape.com:/home/intelligrape/downloads.intelligrape.com/books ~/intelligrape/remote
+----------------------------------------------------------------------------									
+Que11: create a file using any command line editor(vim/pico) : c.txt, with the following text:    "This is a sample file, welcome to intelligrape"  and save the file and quit	
+Ans: 
+	vim c.txt
+	i
+	This is a sample file, welcome to intelligrape
+	Esc:wq
+----------------------------------------------------------------------------											
+Que12: copy file to server		
+Ans: 
+	scp <path_where_file_is_present> <server-name>@<ip-address>:<path_where_to_copy>
+----------------------------------------------------------------------------										
+Que13: rename dir b1 to YOUR_NAME_B
+Ans:
+	mv b1 PUNEET_B			
+----------------------------------------------------------------------------									
+Que14: copy file from a.txt to /tmp/b.txt
+Ans: 
+	cp a.txt /tmp/b.txt	
+----------------------------------------------------------------------------											
+Que15: Try getting dump of selected table instead of the whole database		
+Ans:
+
+	mysqldump -u <user_name> -p <database_name> <list_of_tables_seperated_with_space> > dump.sql
+	example: mysqldump -u test -p bootcamp stud color > dump.sql	
+----------------------------------------------------------------------------								

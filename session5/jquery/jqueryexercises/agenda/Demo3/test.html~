@@ -1,0 +1,53 @@
+<!DOCTYPE html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>                                                                  
+ <head>                                                                  
+ <script type="text/javascript" src="jquery-1.8.0.js"></script>
+ </head>                                                                 
+ <body>
+<form>         
+	<div id="firstTextBox">
+		Your text here <input type="text" name="text1" size="30"/>
+		<input type="checkbox">Make Read Only
+
+	</div>
+
+
+	<div id="secondTextBox">
+		Your Text repeats here <input type="text" id="text2" readonly size="30"/><a href="#" id="sh"> Show/Hide this line</a>
+	</div>
+
+	<div>
+		<input type="button" value="Clear Text boxes"/>
+		<input type="button" value="Put a border around divs"/>
+	</div>
+</form>
+<script>
+$(document).ready(function(){
+ 	$('input[value="Put a border around divs"]').click(function()    {
+    			$('div').css('border', '2px solid yellow')
+	})
+	$('a#sh').toggle(function() {
+    			$('input[id=text2]').hide()
+		},
+		function() {
+    			$('input[id=text2]').show()
+		}
+	)
+	$('input[value="Clear Text boxes"]').click(function()    {
+    		$('input[name=text1]').attr('value','')
+    		$('input#text2').attr('value','') 
+	})
+	$('input[name=text1]').change(function()  {
+    		$('input#text2').val($('input[name=text1]').val())
+	})
+	$('input[type=checkbox]').click(
+    	function ()    {
+        	$('input[name=text1]').attr('readonly')? $('input[name=text1]').attr('readonly',false): $('input[name=text1]').attr('readonly', true);
+	})
+})
+
+//9716034191
+</script>
+ </body>                                                                 
+ </html>
+
