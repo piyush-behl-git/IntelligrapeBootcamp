@@ -1,5 +1,6 @@
 package com.ig.bc
-import com.ig.bc.enums.*
+
+import com.ig.bc.enums.Seriousness
 
 class Subscription {
     User subscriber
@@ -8,6 +9,5 @@ class Subscription {
     Date lastUpdated
     Seriousness seriousness
     static constraints = {
-        topic(unique: true)
     }
 }

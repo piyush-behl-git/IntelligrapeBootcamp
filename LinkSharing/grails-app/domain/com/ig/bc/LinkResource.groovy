@@ -4,6 +4,6 @@ class LinkResource extends Resource {
     String url
 
     static constraints = {
-        url(url: true, blank: false, nullable: false, unique: true)
+        url(url: true, blank: false, nullable: false)
     }
 }
