@@ -16,7 +16,7 @@ environments {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-//            url = "com:mysql/localhost:3306/dn"
+           // url = "jdbc:mysql://localhost:3306/bootcamp"
         }
     }
     test {

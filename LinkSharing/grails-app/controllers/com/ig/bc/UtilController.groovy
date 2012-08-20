@@ -37,6 +37,18 @@ class UtilController {
         subscribeTopic(puneet, groovyGrailsTopic, Seriousness.VERY_SERIOUS)
         subscribeTopic(puneet, htmlTopic, Seriousness.SERIOUS)
 
+        User admin = User.findByEmail('admin@intelligrape.com')
+
+        println "User ${admin.fullName} found :)"
+
+        Topic jqueryTopic = Topic.findByName('JQuery')
+
+        println "Topic ${jqueryTopic.name} found ....."
+        println "${admin.fullName} is subscribing to ${htmlTopic.name} ${jqueryTopic.name}"
+
+        subscribeTopic(admin, jqueryTopic, Seriousness.VERY_SERIOUS)
+        subscribeTopic(admin, htmlTopic, Seriousness.SERIOUS)
+
         println "All subcriptions completed successfully..."
     }
 
@@ -200,6 +212,9 @@ class UtilController {
         User puneet = new User(email: 'puneet.behl007@gmail.com', password: '123456789', fullName: 'Puneet Behl', male: true)
         puneet.save(failOnError: true)
 
+        User admin = new User(email: 'admin@intelligrape.com', password: 'igdefault', fullName: 'Administrator', male: true)
+        admin.save(failOnError: true)
+
 
         Topic javaTopic = new Topic(name: "Java", visibility: Visibility.PRIVATE, owner: vijay)
         javaTopic.save()
@@ -210,6 +225,8 @@ class UtilController {
         Topic htmlTopic = new Topic(name: 'html', visibility: Visibility.PUBLIC, owner: puneet)
         htmlTopic.save()
 
+        Topic jqueryTopic = new Topic(name: 'JQuery', visibility: Visibility.PUBLIC, owner: admin)
+        jqueryTopic.save(failOnError: true)
 
         vijay.addToTopics javaTopic
         vijay.addToTopics htmlTopic
@@ -219,5 +236,8 @@ class UtilController {
         puneet.addToTopics htmlTopic
         puneet.save(failOnError: true)
 
+        admin.addToTopics jqueryTopic
+        admin.addToTopics htmlTopic
+        admin.save(failOnError: true)
     }
 }
