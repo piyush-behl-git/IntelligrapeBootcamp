@@ -16,10 +16,22 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
 		<g:layoutHead/>
 		<r:layoutResources />
+    <style type="text/css">
+        #logout {
+            float: right;
+            width: 100px
+        }
+        #stats {
+            float: left;
+            width: 200px;
+        }
+    </style>
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
-		<g:layoutBody/>
+		<div id="grailsLogo" role="banner"><a href="${createLink(controller: "login", action: "index")}"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
+        <div id="logout"><g:link controller="login" action="logout">Logout</g:link> </div>
+        <div id="stats"><g:link controller="admin" action="stats">Stats</g:link></div>
+        <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>

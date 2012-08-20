@@ -10,6 +10,25 @@ class UserController {
         redirect(action: "loginHandler", params: params)
     }
 
+    def dashboard() {
+        User user = User.findByEmail(session.email)
+        //render "Hello ${user.fullName}!"
+        println "Looking for user.."
+
+        println "User found:  ${user.fullName}"
+        println "Looking for ${user.fullName} resources"
+
+        List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndRead(user, false)
+        List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
+        List<Topic> topics = Topic.findAllByOwner(user)
+
+        println unreadItems
+        println subscriptions
+        println topics
+
+        [unreadItems: unreadItems, subscriptions: subscriptions, topics: topics]
+    }
+
     def loginHandler() {
         println params.email
         if (params.email && params.password)  {
@@ -18,6 +37,7 @@ class UserController {
                 session.email = params.email
                 println session.email
             }
+            redirect controller: "user", action: "dashboard"
         }
     }
 

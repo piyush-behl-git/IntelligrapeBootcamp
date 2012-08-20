@@ -7,7 +7,9 @@ class LoginController {
 
     def index() {
         if (!session.email)
-            redirect(uri: "/pogin.html")
+            redirect uri: "/pogin.html"
+        else
+            redirect controller: "user", action: "dashboard"
     }
 
     def login() {
@@ -23,9 +25,9 @@ class LoginController {
             redirect action: 'register', params: [email:email]
         }else {
             println "Login Successful...:)"
+            println params
+            redirect(controller: "user", action: "loginHandler", params: params)
         }
-        println params
-        redirect(controller: "user", action: "loginHandler", params: params)
     }
 
     def logout() {

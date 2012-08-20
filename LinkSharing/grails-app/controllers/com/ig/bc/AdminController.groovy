@@ -23,6 +23,6 @@ class AdminController {
     def stats() {
         Integer numberOfUsers = User.count
         Integer numberOfSubscriptions = Subscription.count
-        render "No of users : ${numberOfUsers} No of subscriptions : ${numberOfSubscriptions}"
+        render view: "stats", model: [numberOfUsers: numberOfUsers, numberOfSubscriptions: numberOfSubscriptions]
     }
 }

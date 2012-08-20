@@ -94,7 +94,7 @@ class UtilController {
 
                 for (resource in resources) {
 
-                    ReadingItem readingItem = new ReadingItem(user: subscriber, resource: resource)
+                    ReadingItem readingItem = new ReadingItem(user: subscriber, resource: resource, favorite: false, read: false)
                     readingItem.save(failOnError: true)
 
                     println "Item ${readingItem.id} intialized with ${resource.title} by ${subscriber.fullName}"

@@ -20,36 +20,7 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>
-					
-						<g:sortableColumn property="favorite" title="${message(code: 'readingItem.favorite.label', default: 'Favorite')}" />
-					
-						<g:sortableColumn property="read" title="${message(code: 'readingItem.read.label', default: 'Read')}" />
-					
-						<th><g:message code="readingItem.resource.label" default="Resource" /></th>
-					
-						<th><g:message code="readingItem.user.label" default="User" /></th>
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${readingItemInstanceList}" status="i" var="readingItemInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${readingItemInstance.id}">${fieldValue(bean: readingItemInstance, field: "favorite")}</g:link></td>
-					
-						<td><g:formatBoolean boolean="${readingItemInstance.read}" /></td>
-					
-						<td>${fieldValue(bean: readingItemInstance, field: "resource")}</td>
-					
-						<td>${fieldValue(bean: readingItemInstance, field: "user")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
+            <g:render template="list" model="[list: readingItemInstanceList]"/>
 			<div class="pagination">
 				<g:paginate total="${readingItemInstanceTotal}" />
 			</div>

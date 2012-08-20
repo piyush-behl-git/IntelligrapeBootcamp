@@ -7,4 +7,7 @@ class DocumentResource extends Resource {
         fileName(nullable: false, blank: false)
         contentType(nullable: false, blank: false)
     }
+    String toString() {
+        fileName
+    }
 }

@@ -13,4 +13,7 @@ class User {
         email (unique: true, blank: false, nullable: false, email: true)
         dateOfBirth(nullable: true)
     }
+    String toString() {
+        fullName
+    }
 }
