@@ -14,7 +14,7 @@
     <g:each in="${list}" status="i" var="item">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-            <td><g:link action="show" id="${item.id}">${fieldValue(bean: item, field: "name")}</g:link></td>
+            <td><g:link controller="topic" action="show" id="${item.id}">${fieldValue(bean: item, field: "name")}</g:link></td>
 
             <td>${fieldValue(bean: item, field: "owner")}</td>
 

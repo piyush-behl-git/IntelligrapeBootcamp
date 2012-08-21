@@ -2,14 +2,29 @@ package com.ig.bc
 
 class LoginController {
 
-    static  defaultAction = "index"
 
+    def beforeInterceptor = [action: this.&auth, except: 'logout']
+/*
+    def beforeInterceptor = {
+        Boolean isActionRestricted = ['logout'].contains(actionName)
+        if (!isActionRestricted && session.email)             {
+            redirect controller: "user", action: "dashboard"
+            return false
+        }*/
+//        render( view: "login")
+
+
+
+    private auth() {
+        println session.email
+        if (session.email) {
+            redirect controller: "user", action: "dashboard"
+            return false
+        }
+    }
 
     def index() {
-        if (!session.email)
-            redirect uri: "/pogin.html"
-        else
-            redirect controller: "user", action: "dashboard"
+          render(view: 'login')
     }
 
     def login() {
@@ -20,22 +35,23 @@ class LoginController {
         password = params.password
 
         User user = User.findByEmailAndPassword(email,password)
-        if (user==null) {
-            println "Invalid login!"
-            redirect action: 'register', params: [email:email]
-        }else {
+        if (user) {
             println "Login Successful...:)"
             println params
             redirect(controller: "user", action: "loginHandler", params: params)
-        }
-    }
 
-    def logout() {
-        session.invalidate()
-        redirect(action: "index")
+        }else {
+            println "Invalid login!"
+            redirect action: 'register', params: [email:email]
+        }
     }
 
     def register() {
 
+    }
+
+    def logout() {
+        session.invalidate()
+        redirect(action: 'index')
     }
 }

@@ -10,9 +10,12 @@
 <html>
 <head>
     <meta content="main" name="layout">
-  <title>Error</title>
+    <title>Error</title>
 </head>
+
 <body>
-      ${message}
+<div>
+    Access Denied!
+</div>
 </body>
 </html>

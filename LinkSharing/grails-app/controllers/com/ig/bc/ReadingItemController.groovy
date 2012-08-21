@@ -103,6 +103,7 @@ class ReadingItemController {
     def markRead(Long id) {
         def readingItem = ReadingItem.get(id)
         readingItem.isRead = true
+        readingItem.save(failOnError: true)
         redirect(controller: "user", action: "dashboard")
     }
 }
