@@ -34,7 +34,7 @@
 					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'user.lastUpdated.label', default: 'Last Updated')}" />
 					
-						<g:sortableColumn property="male" title="${message(code: 'user.male.label', default: 'Male')}" />
+						<g:sortableColumn property="male" title="${message(code: 'user.isMale.label', default: 'Male')}" />
 					
 					</tr>
 				</thead>
@@ -44,15 +44,15 @@
 					
 						<td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "email")}</g:link></td>
 					
-						<td><g:formatDate date="${userInstance.dateOfBirth}" /></td>
+						<td><ls:formattedDate date="${userInstance.dateOfBirth}" /></td>
 					
-						<td><g:formatDate date="${userInstance.dateCreated}" /></td>
+						<td><ls:formattedDate date="${userInstance.dateCreated}" /></td>
 					
 						<td>${fieldValue(bean: userInstance, field: "fullName")}</td>
 					
-						<td><g:formatDate date="${userInstance.lastUpdated}" /></td>
+						<td><ls:formattedDate date="${userInstance.lastUpdated}" /></td>
 					
-						<td><g:formatBoolean boolean="${userInstance.male}" /></td>
+						<td><g:formatBoolean boolean="${userInstance.isMale}" /></td>
 					
 					</tr>
 				</g:each>

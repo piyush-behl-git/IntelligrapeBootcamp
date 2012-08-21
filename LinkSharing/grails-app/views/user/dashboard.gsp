@@ -14,10 +14,12 @@
 </head>
 <body>
     Unread Items
-    <g:render template="/readingItem/list" model="[list: unreadItems]"/>
+    <ls:unreadItems count="10" />
+    %{--<g:render template="/readingItem/list" model="[list: unreadItems]"/>--}%
     Subscriptions
-    <g:render template="/subscription/list" model="[list: subscriptions]"/>
-    Topics Created
-    <g:render template="/topic/list" model="[list: topics]" />
+    <ls:subscribedTopics />
+    %{--<g:render template="/subscription/list" model="[list: subscriptions]"/>--}%
+    <ls:ownedTopics count="5">Owned Topics</ls:ownedTopics>
+    %{--<g:render template="/topic/list" model="[list: topics]" />--}%
 </body>
 </html>

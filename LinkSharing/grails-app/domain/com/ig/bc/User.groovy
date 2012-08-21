@@ -7,7 +7,7 @@ class User {
     Date dateOfBirth
     Date dateCreated
     Date lastUpdated
-    boolean male
+    boolean isMale
     static hasMany = [topics: Topic, subscriptions: Subscription]
     static constraints = {
         email (unique: true, blank: false, nullable: false, email: true)

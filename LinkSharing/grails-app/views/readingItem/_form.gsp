@@ -2,20 +2,20 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: readingItemInstance, field: 'favorite', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: readingItemInstance, field: 'isFavorite', 'error')} ">
 	<label for="favorite">
 		<g:message code="readingItem.favorite.label" default="Favorite" />
 		
 	</label>
-	<g:checkBox name="favorite" value="${readingItemInstance?.favorite}" />
+	<g:checkBox name="favorite" value="${readingItemInstance?.isFavorite}" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: readingItemInstance, field: 'read', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: readingItemInstance, field: 'isRead', 'error')} ">
 	<label for="read">
 		<g:message code="readingItem.read.label" default="Read" />
 		
 	</label>
-	<g:checkBox name="read" value="${readingItemInstance?.read}" />
+	<g:checkBox name="read" value="${readingItemInstance?.isRead}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: readingItemInstance, field: 'resource', 'error')} required">

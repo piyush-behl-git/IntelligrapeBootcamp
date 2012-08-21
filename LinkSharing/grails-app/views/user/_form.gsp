@@ -26,12 +26,12 @@
 	<g:textField name="fullName" value="${userInstance?.fullName}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'male', 'error')} ">
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'isMale', 'error')} ">
 	<label for="male">
 		<g:message code="user.male.label" default="Male" />
 		
 	</label>
-	<g:checkBox name="male" value="${userInstance?.male}" />
+	<g:checkBox name="male" value="${userInstance?.isMale}" />
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} ">

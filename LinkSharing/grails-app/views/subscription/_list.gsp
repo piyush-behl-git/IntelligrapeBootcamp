@@ -18,9 +18,9 @@
     <g:each in="${list}" status="i" var="item">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-            <td><g:link action="show" id="${item.id}">${fieldValue(bean: item, field: "dateCreated")}</g:link></td>
+            <td><g:link action="show" id="${item.id}"><ls:formattedDate date="{$item.dateCreated}" /></g:link></td>
 
-            <td><g:formatDate date="${item.lastUpdated}" /></td>
+            <td><ls:formattedDate date="${item.lastUpdated}" /></td>
 
             <td>${fieldValue(bean: item, field: "seriousness")}</td>
 

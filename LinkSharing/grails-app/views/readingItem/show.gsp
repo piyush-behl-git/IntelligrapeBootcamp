@@ -23,20 +23,20 @@
 			</g:if>
 			<ol class="property-list readingItem">
 			
-				<g:if test="${readingItemInstance?.favorite}">
+				<g:if test="${readingItemInstance?.isFavorite}">
 				<li class="fieldcontain">
 					<span id="favorite-label" class="property-label"><g:message code="readingItem.favorite.label" default="Favorite" /></span>
 					
-						<span class="property-value" aria-labelledby="favorite-label"><g:formatBoolean boolean="${readingItemInstance?.favorite}" /></span>
+						<span class="property-value" aria-labelledby="favorite-label"><g:formatBoolean boolean="${readingItemInstance?.isFavorite}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${readingItemInstance?.read}">
+				<g:if test="${readingItemInstance?.isRead}">
 				<li class="fieldcontain">
 					<span id="read-label" class="property-label"><g:message code="readingItem.read.label" default="Read" /></span>
 					
-						<span class="property-value" aria-labelledby="read-label"><g:formatBoolean boolean="${readingItemInstance?.read}" /></span>
+						<span class="property-value" aria-labelledby="read-label"><g:formatBoolean boolean="${readingItemInstance?.isRead}" /></span>
 					
 				</li>
 				</g:if>

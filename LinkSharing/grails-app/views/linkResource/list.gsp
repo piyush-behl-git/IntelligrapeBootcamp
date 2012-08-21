@@ -46,9 +46,9 @@
 					
 						<td>${fieldValue(bean: linkResourceInstance, field: "url")}</td>
 					
-						<td><g:formatDate date="${linkResourceInstance.dateCreated}" /></td>
+						<td><ls:formattedDate date="${linkResourceInstance.dateCreated}" /></td>
 					
-						<td><g:formatDate date="${linkResourceInstance.lastUpdated}" /></td>
+						<td><ls:formattedDate date="${linkResourceInstance.lastUpdated}" /></td>
 					
 					</tr>
 				</g:each>

@@ -11,6 +11,13 @@
 <head>
     <meta name="layout" content="main">
   <title>Stats</title>
+    <style type="text/css">
+      #stats {
+          width: 400px;
+          margin: 5px 5px;
+          display: block;
+      }
+    </style>
 </head>
 <body>
 <div id="stats">

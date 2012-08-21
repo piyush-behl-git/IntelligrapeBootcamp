@@ -40,9 +40,9 @@
 				<g:each in="${subscriptionInstanceList}" status="i" var="subscriptionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${subscriptionInstance.id}">${fieldValue(bean: subscriptionInstance, field: "dateCreated")}</g:link></td>
+						<td><g:link action="show" id="${subscriptionInstance.id}">%{--${fieldValue(bean: subscriptionInstance, field: "dateCreated")}--}%<ls:formattedDate date="${subscriptionInstance.dateCreated}" /></g:link></td>
 					
-						<td><g:formatDate date="${subscriptionInstance.lastUpdated}" /></td>
+						<td><ls:formattedDate date="${subscriptionInstance.lastUpdated}" /></td>
 					
 						<td>${fieldValue(bean: subscriptionInstance, field: "seriousness")}</td>
 					

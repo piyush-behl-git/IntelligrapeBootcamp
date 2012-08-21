@@ -18,15 +18,15 @@ class UserController {
         println "User found:  ${user.fullName}"
         println "Looking for ${user.fullName} resources"
 
-        List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndRead(user, false)
-        List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
-        List<Topic> topics = Topic.findAllByOwner(user)
-
-        println unreadItems
-        println subscriptions
-        println topics
-
-        [unreadItems: unreadItems, subscriptions: subscriptions, topics: topics]
+//        List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndIsRead(user, false)
+//        List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
+//        List<Topic> topics = Topic.findAllByOwner(user)
+//
+//        println unreadItems
+//        println subscriptions
+//        println topics
+//
+//        [unreadItems: unreadItems, subscriptions: subscriptions, topics: topics]
     }
 
     def loginHandler() {

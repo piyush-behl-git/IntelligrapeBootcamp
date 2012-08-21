@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="linkResource.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${linkResourceInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><ls:formattedDate date="${linkResourceInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
@@ -63,7 +63,7 @@
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="linkResource.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${linkResourceInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><ls:formattedDate date="${linkResourceInstance?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>

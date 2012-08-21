@@ -94,7 +94,7 @@ class UtilController {
 
                 for (resource in resources) {
 
-                    ReadingItem readingItem = new ReadingItem(user: subscriber, resource: resource, favorite: false, read: false)
+                    ReadingItem readingItem = new ReadingItem(user: subscriber, resource: resource, isFavorite: false, isRead: false)
                     readingItem.save(failOnError: true)
 
                     println "Item ${readingItem.id} intialized with ${resource.title} by ${subscriber.fullName}"
@@ -137,15 +137,15 @@ class UtilController {
 
         println "Shuffle completed."
         println readingItems
-        println "Randomly marking reading items as read"
+        println "Randomly marking reading items as isRead"
 
         for (index in list) {
             ReadingItem readingItem = readingItems[index]
-            readingItem.read = true
+            readingItem.isRead = true
             readingItem.save(failOnError: true)
         }
 
-        println "Mark read completed"
+        println "Mark isRead completed"
     }
 
     void createResource() {
@@ -195,7 +195,7 @@ class UtilController {
         println "User found:  ${user.fullName}"
         println "Looking for ${user.fullName} resources"
 
-        List<ReadingItem> readingItems = ReadingItem.findAllByUserAndRead(user, false)
+        List<ReadingItem> readingItems = ReadingItem.findAllByUserAndIsRead(user, false)
         List resources = readingItems*.resource
         println resources*.url
     }
@@ -206,13 +206,13 @@ class UtilController {
 
     void initUserTopic() {
 
-        User vijay= new User(email: 'javajooba@gmail.com',password: 'admin123', fullName: "Vijay Kumar", male: true)
+        User vijay= new User(email: 'javajooba@gmail.com',password: 'admin123', fullName: "Vijay Kumar", isMale: true)
         vijay.save(failOnError: true)
 
-        User puneet = new User(email: 'puneet.behl007@gmail.com', password: '123456789', fullName: 'Puneet Behl', male: true)
+        User puneet = new User(email: 'puneet.behl007@gmail.com', password: '123456789', fullName: 'Puneet Behl', isMale: true)
         puneet.save(failOnError: true)
 
-        User admin = new User(email: 'admin@intelligrape.com', password: 'igdefault', fullName: 'Administrator', male: true)
+        User admin = new User(email: 'admin@intelligrape.com', password: 'igdefault', fullName: 'Administrator', isMale: true)
         admin.save(failOnError: true)
 
 

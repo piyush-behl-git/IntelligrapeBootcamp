@@ -27,7 +27,7 @@
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="subscription.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${subscriptionInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><ls:formattedDate date="${subscriptionInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
@@ -36,7 +36,7 @@
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="subscription.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${subscriptionInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><ls:formattedDate date="${subscriptionInstance?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>

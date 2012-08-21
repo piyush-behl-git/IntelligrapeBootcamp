@@ -45,7 +45,7 @@
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="user.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${userInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><ls:formattedDate date="${userInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
@@ -63,16 +63,16 @@
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="user.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${userInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><ls:formattedDate date="${userInstance?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.male}">
+				<g:if test="${userInstance?.isMale}">
 				<li class="fieldcontain">
 					<span id="male-label" class="property-label"><g:message code="user.male.label" default="Male" /></span>
 					
-						<span class="property-value" aria-labelledby="male-label"><g:formatBoolean boolean="${userInstance?.male}" /></span>
+						<span class="property-value" aria-labelledby="male-label"><g:formatBoolean boolean="${userInstance?.isMale}" /></span>
 					
 				</li>
 				</g:if>
