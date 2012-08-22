@@ -29,8 +29,10 @@
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="${createLink(controller: "login", action: "index")}"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
-        <div id="logout"><g:link controller="login" action="logout">Logout</g:link> </div>
-        <div id="stats"><g:link controller="admin" action="stats">Stats</g:link></div>
+        <g:if test="${session.email}">
+            <div id="logout"><g:link controller="login" action="logout">Logout</g:link> </div>
+            <div id="stats"><g:link controller="admin" action="stats">Stats</g:link></div>
+        </g:if>
         <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

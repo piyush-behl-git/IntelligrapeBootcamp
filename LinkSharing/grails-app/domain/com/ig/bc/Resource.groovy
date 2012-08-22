@@ -10,6 +10,10 @@ abstract class Resource {
         summary(size:0..1024)
         title(unique: true, blank: false, nullable: false)
     }
+    static mapping = {
+        summary(type: 'text')
+        tablePerHierarchy false
+    }
     String toString() {
         title
     }
