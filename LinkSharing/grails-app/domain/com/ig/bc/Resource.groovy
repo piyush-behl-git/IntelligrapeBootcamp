@@ -7,8 +7,8 @@ abstract class Resource {
     String summary
     static hasMany = [readingItems: ReadingItem]
     static constraints = {
-        summary(size:0..1024)
-        title(unique: true, blank: false, nullable: false)
+        summary(size:0..1024, nullable: true)
+        title(unique: true, blank: false, nullable: true)
     }
     static mapping = {
         summary(type: 'text')

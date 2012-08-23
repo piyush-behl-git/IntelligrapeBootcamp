@@ -99,4 +99,26 @@ class TopicController {
             redirect(action: "show", id: id)
         }
     }
+    def invitationBinding(InvitationCommand invitation) {
+
+        println invitation.email1
+        println invitation.email2
+        println invitation.email3
+
+        if (invitation.hasErrors())
+              println invitation.errors
+//            log.info "Errors in BookCommand : " + invitation.errors
+        flash.message = "Please Enter valid emails"
+        redirect(action: 'list')
+    }
+}
+class InvitationCommand {
+    String email1
+    String email2
+    String email3
+    static constraints = {
+        email1(email:true)
+        email2(email: true)
+        email3(email: true)
+    }
 }
