@@ -100,3 +100,7 @@ class DocumentResourceController {
         }
     }
 }
+class FileCommand {
+    byte[] fileContent
+
+}

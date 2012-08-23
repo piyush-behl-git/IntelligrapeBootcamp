@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class TopicController {
 
+    def invitationService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -99,15 +101,9 @@ class TopicController {
             redirect(action: "show", id: id)
         }
     }
-    def invitationBinding(InvitationCommand invitation) {
+    def invitationBinding(InvitationCommand invitationCommand) {
 
-        println invitation.email1
-        println invitation.email2
-        println invitation.email3
-
-        if (invitation.hasErrors())
-              println invitation.errors
-//            log.info "Errors in BookCommand : " + invitation.errors
+        invitationService.invitation(invitationCommand)
         flash.message = "Please Enter valid emails"
         redirect(action: 'list')
     }
