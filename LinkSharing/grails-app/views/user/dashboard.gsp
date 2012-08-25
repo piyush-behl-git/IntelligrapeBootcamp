@@ -21,5 +21,7 @@
     %{--<g:render template="/subscription/list" model="[list: subscriptions]"/>--}%
     <ls:ownedTopics count="5">Owned Topics</ls:ownedTopics>
     %{--<g:render template="/topic/list" model="[list: topics]" />--}%
+    Highest Subscribed Topic
+    <g:render template="/topic/list" model="[list: highestSubscribedTopic]"/>
 </body>
 </html>

@@ -16,12 +16,9 @@ class BootstrapService {
 
     def initializeData() {
         userService.initializeUsers()
-
         topicSubscriptionService.initializeTopics()
-
         resourcesService.initializeResources()
-
         readingItemService.initializeReadingItems()
-        readingItemService.markRandomlyAsRead([1, 5 , 8])
+        readingItemService.markRandomlyAsRead([1, 5, 8])
     }
 }

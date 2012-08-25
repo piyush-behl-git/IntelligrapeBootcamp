@@ -8,8 +8,8 @@ class UtilController {
     def index() { }
 
     def create() {
-          initUserTopic()
-     }
+        initUserTopic()
+    }
 
     def subscribe() {
         User vijay = User.findByEmail('javajooba@gmail.com')
@@ -22,7 +22,7 @@ class UtilController {
         println "Topic ${javaTopic.name} & ${htmlTopic.name} found...."
         println "Now ${vijay.fullName} is subscribing to ${htmlTopic.name} ${javaTopic.name}"
 
-        subscribeTopic(vijay, javaTopic,Seriousness.VERY_SERIOUS)
+        subscribeTopic(vijay, javaTopic, Seriousness.VERY_SERIOUS)
         subscribeTopic(vijay, htmlTopic, Seriousness.SERIOUS)
 
         User puneet = User.findByEmail('puneet.behl007@gmail.com')
@@ -104,7 +104,7 @@ class UtilController {
     }
 
     def markRead() {
-        randomRead([1, 5 , 8])
+        randomRead([1, 5, 8])
     }
 
     def update() {
@@ -155,7 +155,7 @@ class UtilController {
 
         println "Topics found"
         println topics*.name
-        int count=1
+        int count = 1
         LinkResource linkResource
         for (topic in topics) {
 
@@ -179,7 +179,7 @@ class UtilController {
 
     void subscribeTopic(User user, Topic topic, Seriousness seriousness) {
         Subscription subscription
-        if (topic.visibility == Visibility.PUBLIC || (topic.visibility == Visibility.PRIVATE && topic.owner == user))  {
+        if (topic.visibility == Visibility.PUBLIC || (topic.visibility == Visibility.PRIVATE && topic.owner == user)) {
             subscription = new Subscription(subscriber: user, topic: topic, seriousness: seriousness)
             subscription.save(failOnError: true)
         }
@@ -206,7 +206,7 @@ class UtilController {
 
     void initUserTopic() {
 
-        User vijay= new User(email: 'javajooba@gmail.com',password: 'admin123', fullName: "Vijay Kumar", isMale: true)
+        User vijay = new User(email: 'javajooba@gmail.com', password: 'admin123', fullName: "Vijay Kumar", isMale: true)
         vijay.save(failOnError: true)
 
         User puneet = new User(email: 'puneet.behl007@gmail.com', password: '123456789', fullName: 'Puneet Behl', isMale: true)
@@ -239,5 +239,18 @@ class UtilController {
         admin.addToTopics jqueryTopic
         admin.addToTopics htmlTopic
         admin.save(failOnError: true)
+    }
+
+    def checkBaseDir() {
+        render grailsApplication.config.uploadPath
+    }
+
+    def searchAllUserResourceInSubscription() {
+        def result = Subscription.createCriteria().list {
+            projections {
+                property('topic')
+            }
+
+        }
     }
 }

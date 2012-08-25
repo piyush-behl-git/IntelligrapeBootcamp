@@ -2,6 +2,7 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <meta content="main" name="layout">
     <title>Login</title>
     <style type="text/css">
         #loginDiv {
@@ -22,7 +23,7 @@
 </head>
 <body>
 <div id="loginDiv">
-    <form action="/LinkSharing/login/login" method="POST">
+    <form action="${createLink(controller: 'user', action: 'loginHandler')}" method="POST">
       <div class="inputDiv">
           <label for="email"> Email ID </label>
           <input type="text" name="email" size="15"/>

@@ -3,9 +3,7 @@ class BootStrap {
     def bootstrapService
 
     def init = { servletContext ->
-
-       bootstrapService.initializeData()
-
+        bootstrapService.initializeData()
     }
     def destroy = {
     }

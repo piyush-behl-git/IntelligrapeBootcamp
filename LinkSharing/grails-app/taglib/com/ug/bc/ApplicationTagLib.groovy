@@ -31,6 +31,10 @@ class ApplicationTagLib {
 
     }
 
+    def highestSubscribedTopic = { attrs->
+
+    }
+
     def formattedDate = { attrs->
         Date date = attrs.date
         if (date!=null)

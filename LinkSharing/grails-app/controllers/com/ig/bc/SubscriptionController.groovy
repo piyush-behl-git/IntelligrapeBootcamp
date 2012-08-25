@@ -6,6 +6,8 @@ class SubscriptionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def subscriptionService
+
     def index() {
         redirect(action: "list", params: params)
     }

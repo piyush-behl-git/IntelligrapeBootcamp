@@ -1,8 +1,12 @@
 package com.ig.bc
 
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.web.multipart.MultipartFile
+import com.ig.bc.co.FileCommand
 
 class DocumentResourceController {
+
+    def documentResourceService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -63,8 +67,8 @@ class DocumentResourceController {
         if (version != null) {
             if (documentResourceInstance.version > version) {
                 documentResourceInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'documentResource.label', default: 'DocumentResource')] as Object[],
-                          "Another user has updated this DocumentResource while you were editing")
+                        [message(code: 'documentResource.label', default: 'DocumentResource')] as Object[],
+                        "Another user has updated this DocumentResource while you were editing")
                 render(view: "edit", model: [documentResourceInstance: documentResourceInstance])
                 return
             }
@@ -99,8 +103,24 @@ class DocumentResourceController {
             redirect(action: "show", id: id)
         }
     }
-}
-class FileCommand {
-    byte[] fileContent
 
+    def fileUpload(FileCommand fileCommand) {
+        println "FileUpload controller entered...."
+        println fileCommand
+
+        params.contentType = fileCommand.file.contentType
+
+        println "Adding File details ${params} to database"
+
+        DocumentResource documentResource = documentResourceService.saveDocumentDetails(fileCommand, params)
+        println "Details added successfully...."
+        println "Saving file...."
+
+//        File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResource.id}")
+//        fileCommand.file.transferTo(fileToSave)
+
+        println "File Transfer completed..."
+        println "File saved by name ${documentResource.id}"
+
+    }
 }
