@@ -1,8 +1,8 @@
 package com.ig.bc
 
 class ReadingItem {
-    Boolean isFavorite
-    Boolean isRead
+    boolean isFavorite
+    boolean isRead
     User user
     Resource resource
     static constraints = {

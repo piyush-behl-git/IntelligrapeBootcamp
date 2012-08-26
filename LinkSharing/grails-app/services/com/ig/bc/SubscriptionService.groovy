@@ -5,6 +5,8 @@ import com.ig.bc.vo.TopicSubscriptionCount
 
 class SubscriptionService {
 
+    def userService
+
     def serviceMethod() {
 
     }
@@ -26,5 +28,18 @@ class SubscriptionService {
         Integer subscriptionCount = publicSubscriptionCountByTopic.last()
         TopicSubscriptionCount topicSubscriptionCount = new TopicSubscriptionCount(topic: topic, subscriptionCount: subscriptionCount)
         return topicSubscriptionCount
+    }
+
+    def getCurrentUserSubscriptions(String currentUserEmail) {
+        User currentUserInstance = userService.getCurrentUser(currentUserEmail)
+        List<Subscription> currentUserSubscriptions = Subscription.findAllBySubscriber(currentUserInstance)
+        return currentUserSubscriptions
+    }
+
+    def getCurrentUserSubscribedTopics(String currentUserEmail) {
+        List<Topic> currentUserSubscribedTopics = getCurrentUserSubscriptions(currentUserEmail).collect{
+            it.topic
+        }
+        println currentUserSubscribedTopics
     }
 }

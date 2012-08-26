@@ -39,4 +39,9 @@ class UserService {
             userStatus = false
         return userStatus
     }
+
+    User getCurrentUser(String currentUserEmail) {
+        User currentUser = User.findByEmail(currentUserEmail)
+        return currentUser
+    }
 }

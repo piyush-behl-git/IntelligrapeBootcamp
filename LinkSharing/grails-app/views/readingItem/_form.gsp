@@ -27,10 +27,6 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: readingItemInstance, field: 'user', 'error')} required">
-	<label for="user">
-		<g:message code="readingItem.user.label" default="User" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="user" name="user.id" from="${com.ig.bc.User.list()}" optionKey="id" required="" value="${readingItemInstance?.user?.id}" class="many-to-one"/>
+	<g:hiddenField id="user" name="user.id" required="" value="${currentUserInstance?.id}" class="many-to-one"/>
 </div>
 

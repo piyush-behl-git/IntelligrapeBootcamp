@@ -10,18 +10,37 @@
 <html>
 <head>
     <meta name="layout" content="main">
-  <title>Dashboard</title>
+    <title>Dashboard</title>
 </head>
+
 <body>
+<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+
+<div class="nav" role="navigation">
+    <ul>
+        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+        <li><g:link class="stats" controller="admin" action="stats">Statistics</g:link></li>
+        <li><g:link class="logout" controller="login" action="logout">Logout</g:link></li>
+    </ul>
+</div>
+
+<div>
     Unread Items
-    <ls:unreadItems count="10" />
-    %{--<g:render template="/readingItem/list" model="[list: unreadItems]"/>--}%
+    <ls:unreadItems count="10"/>
+</div>
+
+<div>
     Subscriptions
-    <ls:subscribedTopics />
-    %{--<g:render template="/subscription/list" model="[list: subscriptions]"/>--}%
+    <ls:subscribedTopics/>
+</div>
+
+<div>
     <ls:ownedTopics count="5">Owned Topics</ls:ownedTopics>
-    %{--<g:render template="/topic/list" model="[list: topics]" />--}%
+</div>
+
+<div>
     Highest Subscribed Topic
     <g:render template="/topic/list" model="[list: highestSubscribedTopic]"/>
+</div>
 </body>
 </html>

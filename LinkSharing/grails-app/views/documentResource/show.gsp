@@ -63,7 +63,7 @@
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="documentResource.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${documentResourceInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><ls:formattedDate date="${documentResourceInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
@@ -72,7 +72,7 @@
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="documentResource.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${documentResourceInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><ls:formattedDate date="${documentResourceInstance?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>

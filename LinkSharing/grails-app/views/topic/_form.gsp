@@ -11,17 +11,13 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'owner', 'error')} required">
-	<label for="owner">
-		<g:message code="topic.owner.label" default="Owner" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="owner" name="owner.id" from="${com.ig.bc.User.list()}" optionKey="id" required="" value="${topicInstance?.owner?.id}" class="many-to-one"/>
+	<g:hiddenField id="owner" name="owner.id" required="" value="${currentUserInstance?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'resources', 'error')} ">
 	<label for="resources">
 		<g:message code="topic.resources.label" default="Resources" />
-		
+
 	</label>
 	<g:select name="resources" from="${com.ig.bc.Resource.list()}" multiple="multiple" optionKey="id" size="5" value="${topicInstance?.resources*.id}" class="many-to-many"/>
 </div>
@@ -29,9 +25,9 @@
 <div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'subscriptions', 'error')} ">
 	<label for="subscriptions">
 		<g:message code="topic.subscriptions.label" default="Subscriptions" />
-		
+
 	</label>
-	
+
 <ul class="one-to-many">
 <g:each in="${topicInstance?.subscriptions?}" var="s">
     <li><g:link controller="subscription" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></li>

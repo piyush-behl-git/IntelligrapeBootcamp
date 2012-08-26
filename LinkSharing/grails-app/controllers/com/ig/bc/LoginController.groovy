@@ -20,7 +20,6 @@ class LoginController {
     }
 
     def login() {
-        println "in login"
         render(view: 'login')
     }
 

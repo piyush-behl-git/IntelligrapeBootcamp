@@ -3,34 +3,6 @@ package com.ig.bc
 class ApplicationFilters {
 
     def filters = {
-
-        blockAllDeleteActions(controller: 'user', action: 'delete') {
-            before = {
-                redirect(controller: "admin", action: "accessDenied")
-                return false
-            }
-        }
-
-        blockAccessToCreateAndUpdateUser(controller: "user", action: "create|edit|update|save") {
-            before = {
-                if (session.email != "admin@intelligrape.com") {
-                    redirect(controller: "admin", action: "accessDenied")
-                    return false
-                }
-                return
-            }
-        }
-
-        blockAccessToUserTopicAndResourceList(action: 'list') {
-            before = {
-                if (session.email != "admin@intelligrape.com") {
-                    redirect(controller: "admin", action: "accessDenied")
-                    return false
-                }
-                return
-            }
-        }
-
         allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'login|loginHandler|register', invert: true) {
             before = {
                 if (!session.email) {
@@ -39,6 +11,33 @@ class ApplicationFilters {
                 }
             }
         }
+
+        blockAllDeleteActions(controller: 'user', action: 'delete') {
+            before = {
+                redirect(controller: "admin", action: "accessDenied")
+                return false
+            }
+        }
+
+        blockAccessToCreateAndUpdateUser(controller: "user", action: "create|edit|update") {
+            before = {
+                if (session.email != "admin@intelligrape.com") {
+                    redirect(controller: "admin", action: "accessDenied")
+                    return false
+                }
+                return
+            }
+        }
+
+        /*blockAccessToUserTopicAndResourceList(controller: "*", action: 'list') {
+            before = {
+                if (session.email != "admin@intelligrape.com") {
+                    redirect(controller: "admin", action: "accessDenied")
+                    return false
+                }
+                return
+            }
+        }*/
 
         all(controller: '*', action: '*') {
             before = {

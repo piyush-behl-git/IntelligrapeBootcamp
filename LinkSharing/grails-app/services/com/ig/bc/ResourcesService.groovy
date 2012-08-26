@@ -2,6 +2,8 @@ package com.ig.bc
 
 class ResourcesService {
 
+    def subscriptionService
+
     def serviceMethod() {
 
     }
@@ -17,9 +19,9 @@ class ResourcesService {
         DocumentResource documentResource
 
         for (topic in topics) {
-                               int count=1
+            int count = 1
             println "Adding document resource ..."
-            documentResource = new DocumentResource(fileName: "Doc"+topic.name)
+            documentResource = new DocumentResource(fileName: "Doc" + topic.name)
             documentResource.save(failOnError: true)
             topic.addToResources(documentResource)
             topic.save(failOnError: true)
@@ -40,4 +42,13 @@ class ResourcesService {
             println "Resources successfully added to ${topic.name} ;)"
         }
     }
+
+    def getCurrentUserResources(String currentUserEmail) {
+        List<Topic> currentUserSubscribedTopics = subscriptionService.getCurrentUserSubscribedTopics(currentUserEmail)
+        List<Resource> currentUserResourceList = currentUserSubscribedTopics.collect { topic ->
+            topic.resources
+        }
+        return currentUserResourceList
+    }
 }
+

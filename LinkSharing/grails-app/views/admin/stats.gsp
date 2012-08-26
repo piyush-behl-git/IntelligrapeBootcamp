@@ -10,19 +10,22 @@
 <html>
 <head>
     <meta name="layout" content="main">
-  <title>Stats</title>
+    <title>Stats</title>
     <style type="text/css">
-      #stats {
-          width: 400px;
-          margin: 5px 5px;
-          display: block;
-      }
+    #stats {
+        width: 800px;
+        margin: 5px 5px;
+        float: left;
+    }
     </style>
 </head>
+
 <body>
 <div id="stats">
-    Number of Users : ${numberOfUsers} <br>
-    Number of Subscriptions : ${numberOfSubscriptions}
+    <pre>
+        Number of Users : ${numberOfUsers} <br>
+        Number of Subscriptions : ${numberOfSubscriptions}
+    </pre>
 </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.ig.bc
 
 import org.springframework.dao.DataIntegrityViolationException
+import com.ig.bc.co.InvitationCommand
 
 class TopicController {
 
@@ -18,7 +19,8 @@ class TopicController {
     }
 
     def create() {
-        [topicInstance: new Topic(params)]
+        User currentUserInstance = User.findByEmail("${session.email}")
+        [topicInstance: new Topic(params), currentUserInstance: currentUserInstance]
     }
 
     def save() {
@@ -108,13 +110,4 @@ class TopicController {
         redirect(action: 'list')
     }
 }
-class InvitationCommand {
-    String email1
-    String email2
-    String email3
-    static constraints = {
-        email1(email:true)
-        email2(email: true)
-        email3(email: true)
-    }
-}
+

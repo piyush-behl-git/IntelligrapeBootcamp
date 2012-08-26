@@ -26,7 +26,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="fileUpload" method="post" enctype="multipart/form-data">
+			<g:form action="save" method="post" enctype="multipart/form-data">
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

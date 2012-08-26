@@ -11,38 +11,24 @@ class UserController {
     def subscriptionService
 
     def index() {
+        redirect(action: "list")
     }
 
     def loginHandler() {
-        println params.email
         User user = User.findByEmailAndPassword(params.email, params.password)
         if (user) {
             session.email = params.email
-            println session.email
             redirect action: "dashboard"
         }
         render view: "/login/login"
     }
 
     def dashboard() {
-        println session.email
-
         User user = User.findByEmail(session.email)
-        println "Looking for user.."
-
-        println "User found: ${user.fullName}"
-        println "Looking for ${user.fullName} resources"
-
         List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndIsRead(user, false)
         List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
         List<Topic> topics = Topic.findAllByOwner(user)
         Topic highestSubscribedTopic = subscriptionService.findHighestSubscribedPublicTopic().topic
-
-
-        println unreadItems
-        println subscriptions
-        println topics
-
         [highestSubscribedTopic: highestSubscribedTopic]
     }
 
@@ -77,7 +63,6 @@ class UserController {
             redirect(action: "list")
             return
         }
-
         [userInstance: userInstance]
     }
 

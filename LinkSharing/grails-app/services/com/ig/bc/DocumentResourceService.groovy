@@ -1,19 +1,18 @@
 package com.ig.bc
 
-import com.ig.bc.co.FileCommand
-
 class DocumentResourceService {
+
+    def resourcesService
 
     def serviceMethod() {
 
     }
 
-    def saveDocumentDetails(FileCommand fileCommand, params) {
-        DocumentResource documentResource = new DocumentResource(fileName:'test', title: 'test', contentType: 'test', summary: 'test')
-        documentResource.save(failOnError: true)
-        return documentResource
-    }
-
-    def uploadDocument(FileCommand fileCommand) {
+    def getCurrentUserDocumentResourceList(String currentUserEmail) {
+        List<Resource> currentUserResourceList = resourcesService.getCurrentUserResources(currentUserEmail)
+        List<DocumentResource> currentUserDocumentResourceList = currentUserResourceList.collect { resource->
+                    if(resource.instanceOf(DocumentResource))
+                        return resource
+        }
     }
 }

@@ -20,18 +20,27 @@ class DocumentResourceController {
     }
 
     def create() {
-        [documentResourceInstance: new DocumentResource(params)]
+        User currentUserInstance = User.findByEmail("${session.email}")
+        [documentResourceInstance: new DocumentResource(params), currentUserInstance: currentUserInstance]
     }
 
-    def save() {
-        def documentResourceInstance = new DocumentResource(params)
-        if (!documentResourceInstance.save(flush: true)) {
-            render(view: "create", model: [documentResourceInstance: documentResourceInstance])
-            return
+    def save(FileCommand fileCommand) {
+        if (fileCommand.file.contentType == 'application/pdf') {
+            params.contentType = fileCommand.file.contentType
+            def documentResourceInstance = new DocumentResource(params)
+            if (!documentResourceInstance.save(flush: true)) {
+                render(view: "create", model: [documentResourceInstance: documentResourceInstance])
+                return
+            }
+            File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
+            fileCommand.file.transferTo(fileToSave)
+            flash.message = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), documentResourceInstance.id])
+            redirect(action: "show", id: documentResourceInstance.id)
+        } else {
+            flash.message = "Sorry! couldn't create document resource. Only pdf are allowed."
+            redirect(action: "create")
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), documentResourceInstance.id])
-        redirect(action: "show", id: documentResourceInstance.id)
     }
 
     def show(Long id) {
@@ -102,25 +111,5 @@ class DocumentResourceController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), id])
             redirect(action: "show", id: id)
         }
-    }
-
-    def fileUpload(FileCommand fileCommand) {
-        println "FileUpload controller entered...."
-        println fileCommand
-
-        params.contentType = fileCommand.file.contentType
-
-        println "Adding File details ${params} to database"
-
-        DocumentResource documentResource = documentResourceService.saveDocumentDetails(fileCommand, params)
-        println "Details added successfully...."
-        println "Saving file...."
-
-//        File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResource.id}")
-//        fileCommand.file.transferTo(fileToSave)
-
-        println "File Transfer completed..."
-        println "File saved by name ${documentResource.id}"
-
     }
 }

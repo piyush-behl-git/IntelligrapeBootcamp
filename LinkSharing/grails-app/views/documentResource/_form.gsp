@@ -20,11 +20,7 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: documentResourceInstance, field: 'contentType', 'error')} required">
-    <label for="contentType">
-        <g:message code="documentResource.contentType.label" default="Content Type" />
-        <span class="required-indicator">*</span>
-    </label>
-    <g:textField name="contentType" required="" value="${documentResourceInstance?.contentType}"/>
+    <g:hiddenField name="contentType"/>        User currentUserInstance = User.findByEmail("${session.email}")
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: documentResourceInstance, field: 'fileName', 'error')} required">

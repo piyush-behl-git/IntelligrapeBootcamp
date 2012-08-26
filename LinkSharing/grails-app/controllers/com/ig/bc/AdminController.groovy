@@ -3,6 +3,7 @@ package com.ig.bc
 class AdminController {
 
     def index() {
+        redirect(action: "stats")
     }
 
     def beforeInterceptor = [action: this.&checkAdmin, except: 'accessDenied']
@@ -16,7 +17,7 @@ class AdminController {
         if (!accessForStats) {
              redirect action: "accessDenied"
         }
-
+        return accessForStats
     }
 
     def stats() {

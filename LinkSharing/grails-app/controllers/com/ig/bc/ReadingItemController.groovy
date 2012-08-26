@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class ReadingItemController {
 
+    def  readingItemService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -11,12 +13,14 @@ class ReadingItemController {
     }
 
     def list(Integer max) {
+        String currentUserEmail = session.email
         params.max = Math.min(max ?: 10, 100)
-        [readingItemInstanceList: ReadingItem.list(params), readingItemInstanceTotal: ReadingItem.count()]
+        [readingItemInstanceList: readingItemService.getCurrentUserResources(currentUserEmail), readingItemInstanceTotal: 10]
     }
 
     def create() {
-        [readingItemInstance: new ReadingItem(params)]
+        User currentUserInstance = User.findByEmail("${session.email}")
+        [readingItemInstance: new ReadingItem(params), currentUserInstance: currentUserInstance]
     }
 
     def save() {

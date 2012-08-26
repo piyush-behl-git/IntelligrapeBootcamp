@@ -1,5 +1,7 @@
 package com.ig.bc
 
+import com.ig.bc.co.InvitationCommand
+
 class InvitationService {
     static transactional = false
 
@@ -17,7 +19,7 @@ class InvitationService {
         println invitation.email2
         println invitation.email3
 
-        if (invitation.hasErrors())     {
+        if (invitation.hasErrors()) {
             println invitation.errors
             log.info "Errors in BookCommand : " + invitation.errors
         }
