@@ -50,8 +50,18 @@ class DocumentResourceController {
             redirect(action: "list")
             return
         }
+        String documentLink = grailsApplication.config.uploadPath + "/" + id
+        [documentResourceInstance: documentResourceInstance, documentLink: documentLink]
 
-        [documentResourceInstance: documentResourceInstance]
+    }
+
+    def documentDownload(Long id) {
+        def documentResourceInstance = DocumentResource.get(id)
+        byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}").bytes
+        response.setContentType("application/pdf")
+        response.setHeader("Content-disposition","attachment; filename="+documentResourceInstance.fileName)
+        response.contentLength=sourcePdf.length
+        response.outputStream<<sourcePdf
     }
 
     def edit(Long id) {
