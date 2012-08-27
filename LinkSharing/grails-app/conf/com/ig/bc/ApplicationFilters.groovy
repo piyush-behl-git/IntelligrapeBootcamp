@@ -6,8 +6,13 @@ class ApplicationFilters {
         allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'login|loginHandler|register', invert: true) {
             before = {
                 if (!session.email) {
-                    redirect controller: 'login', action: 'login'
-                    return false
+                    if (actionName) {
+                        redirect controller: 'login', action: 'login'
+                        return false
+
+                    } else {
+                        redirect controller: 'login', action: 'login'
+                    }
                 }
             }
         }
