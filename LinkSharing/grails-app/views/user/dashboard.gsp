@@ -25,7 +25,7 @@
 </div>
 
 <div>
-    Unread Items
+    <span class="unread">Unread Items</span>
     <ls:unreadItems count="10"/>
 </div>
 
@@ -42,5 +42,12 @@
     Highest Subscribed Topic
     <g:render template="/topic/list" model="[list: highestSubscribedTopic]"/>
 </div>
+<script type="text/javascript">
+    $(function(){
+      $(".unread").on("click", function(){
+          $("#dlist").fadeToggle(1000)
+      });
+    });
+</script>
 </body>
 </html>

@@ -58,7 +58,7 @@
                     Email :<g:textField name="email2" />
                     Email :<g:textField name="email3" />
                     Content
-                    <g:textArea name="subject" rows="" cols="" />
+                    <g:textArea name="content" rows="" cols="" />
                     <g:submitButton name="submit" value="Invite"/>
                 </pre>
             </g:form>

@@ -13,7 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
+			</ul>
 		</div>
 		<div id="list-documentResource" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
@@ -42,17 +42,17 @@
 				<g:each in="${documentResourceInstanceList}" status="i" var="documentResourceInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td>${fieldValue(bean: documentResourceInstance, field: "summary")}</td>
+						<td><g:link action="show" id="${documentResourceInstance.id}">${fieldValue(bean: documentResourceInstance, field: "summary")}</g:link></td>
 					
 						<td>${fieldValue(bean: documentResourceInstance, field: "title")}</td>
 					
-						<td><g:link action="show" id="${documentResourceInstance.id}">${fieldValue(bean: documentResourceInstance, field: "fileName")}</g:link></td>
+						<td>${fieldValue(bean: documentResourceInstance, field: "fileName")}</td>
 					
 						<td>${fieldValue(bean: documentResourceInstance, field: "contentType")}</td>
 					
-						<td><ls:formattedDate date="${documentResourceInstance.dateCreated}" /></td>
+						<td><g:formatDate date="${documentResourceInstance.dateCreated}" /></td>
 					
-						<td><ls:formattedDate date="${documentResourceInstance.lastUpdated}" /></td>
+						<td><g:formatDate date="${documentResourceInstance.lastUpdated}" /></td>
 					
 					</tr>
 				</g:each>

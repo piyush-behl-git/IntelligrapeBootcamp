@@ -5,9 +5,7 @@ import com.ig.bc.co.InvitationCommand
 class InvitationService {
     static transactional = false
 
-    def serviceMethod() {
-
-    }
+    def asynchronousMailService
 
     void invite() {
 
@@ -15,13 +13,18 @@ class InvitationService {
 
     def invitation(InvitationCommand invitation) {
 
-        println invitation.email1
-        println invitation.email2
-        println invitation.email3
+        asynchronousMailService.sendAsynchronousMail {
+            to invitation.email1, invitation.email2, invitation.email3
+            subject "Linksharing Invitation"
+            body invitation.content
 
+        }
         if (invitation.hasErrors()) {
-            println invitation.errors
             log.info "Errors in BookCommand : " + invitation.errors
         }
+    }
+
+    def sendInvites() {
+
     }
 }

@@ -20,7 +20,7 @@ class SubscriptionService {
             'topic' {
                 eq("visibility", Visibility.PUBLIC)
             }
-            maxResults 1
+            maxResults 10
             order('t', 'desc')
         }
         def publicSubscriptionCountByTopic = publicSubscriptionCountByTopicList.get(0)
@@ -30,16 +30,25 @@ class SubscriptionService {
         return topicSubscriptionCount
     }
 
-    def getCurrentUserSubscriptions(String currentUserEmail) {
-        User currentUserInstance = userService.getCurrentUser(currentUserEmail)
-        List<Subscription> currentUserSubscriptions = Subscription.findAllBySubscriber(currentUserInstance)
-        return currentUserSubscriptions
+    def getCurrentLoggedInUserSubscriptions(String currentLoggedInUserEmail) {
+        User currentUserInstance = userService.getCurrentUser(currentLoggedInUserEmail)
+        List<Subscription> currentLoggedInUserSubscriptions = Subscription.findAllBySubscriber(currentUserInstance)
+        return currentLoggedInUserSubscriptions
     }
 
-    def getCurrentUserSubscribedTopics(String currentUserEmail) {
-        List<Topic> currentUserSubscribedTopics = getCurrentUserSubscriptions(currentUserEmail).collect{
+    def countCurrentLoggedInUserTotalSubscriptions(String currentLoggedInUserEmail) {
+        User currentLoggedInUser = userService.getCurrentUser(currentLoggedInUserEmail)
+        Integer currentLoggedInUserTotalSubscriptions = Subscription.createCriteria().count {
+            eq("subscriber", currentLoggedInUser)
+        }
+        return  currentLoggedInUserTotalSubscriptions
+
+    }
+
+    def getCurrentLoggedInUserAllSubscribedTopics(String currentUserEmail) {
+        List<Topic> currentLoggedInUserAllSubscribedTopics = getCurrentLoggedInUserSubscriptions(currentUserEmail).collect {
             it.topic
         }
-        println currentUserSubscribedTopics
+        return currentLoggedInUserAllSubscribedTopics
     }
 }

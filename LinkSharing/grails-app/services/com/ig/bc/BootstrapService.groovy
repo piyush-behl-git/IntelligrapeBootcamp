@@ -34,7 +34,6 @@ class BootstrapService {
 
         5.times {
             def user = new User(email: it + "@intelligrape.com", password: 'igdefault', confirmPassword: 'igdefault', fullName: "Name${it}", isMale: false)
-            println user.email
             user.save(failOnError: true)
         }
     }
@@ -102,14 +101,12 @@ class BootstrapService {
         for (topic in topics) {
             int count = 1
             documentResource = new DocumentResource(fileName: "Doc" + topic.name)
-            documentResource.save(failOnError: true)
             topic.addToResources(documentResource)
             topic.save(failOnError: true)
             count++
             10.times {
                 linkResource = new LinkResource(title: "${topic.name} ${it}", url: "http://www.enfopedia.com/${it}", summary: "Details of topic ${topic.name} ${topic.id}")
                 topic.addToResources(linkResource)
-                linkResource.save(failOnError: true)
             }
             topic.save(failOnError: true)
         }

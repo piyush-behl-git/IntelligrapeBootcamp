@@ -3,14 +3,14 @@ package com.ig.bc
 class ApplicationFilters {
 
     def filters = {
+
         allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'login|loginHandler|register', invert: true) {
             before = {
                 if (!session.email) {
                     if (actionName) {
                         redirect controller: 'login', action: 'login'
                         return false
-
-                    } else {
+                    }else {
                         redirect controller: 'login', action: 'login'
                     }
                 }
@@ -34,7 +34,7 @@ class ApplicationFilters {
             }
         }
 
-        /*blockAccessToUserTopicAndResourceList(controller: "*", action: 'list') {
+        blockAccessToUserTopicAndResourceList(controller: "user", action: 'list') {
             before = {
                 if (session.email != "admin@intelligrape.com") {
                     redirect(controller: "admin", action: "accessDenied")
@@ -42,7 +42,7 @@ class ApplicationFilters {
                 }
                 return
             }
-        }*/
+        }
 
         all(controller: '*', action: '*') {
             before = {

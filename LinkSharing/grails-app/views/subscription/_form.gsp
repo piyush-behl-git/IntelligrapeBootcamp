@@ -11,11 +11,7 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: subscriptionInstance, field: 'subscriber', 'error')} required">
-	<label for="subscriber">
-		<g:message code="subscription.subscriber.label" default="Subscriber" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="subscriber" name="subscriber.id" from="${com.ig.bc.User.list()}" optionKey="id" required="" value="${subscriptionInstance?.subscriber?.id}" class="many-to-one"/>
+	<g:hiddenField id="subscriber" name="subscriber.id" value="${subscriptionInstance?.subscriber?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: subscriptionInstance, field: 'topic', 'error')} required">
@@ -23,6 +19,6 @@
 		<g:message code="subscription.topic.label" default="Topic" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="topic" name="topic.id" from="${com.ig.bc.Topic.list()}" optionKey="id" required="" value="${subscriptionInstance?.topic?.id}" class="many-to-one"/>
+	<g:select id="topic" name="topic.id" from="${topicInstanceList}" optionKey="id" required="" value="${subscriptionInstance?.topic?.id}" class="many-to-one"/>
 </div>
 

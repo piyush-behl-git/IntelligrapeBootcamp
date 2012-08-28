@@ -1,10 +1,12 @@
 package com.ig.bc
 
 import org.springframework.dao.DataIntegrityViolationException
+import com.ig.bc.vo.TopicResourceCount
 
 class ReadingItemController {
 
-    def  readingItemService
+    def readingItemService
+    def subscriptionService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -13,9 +15,10 @@ class ReadingItemController {
     }
 
     def list(Integer max) {
-        String currentUserEmail = session.email
+        String currentLoggedInUserEmail = session.email
         params.max = Math.min(max ?: 10, 100)
-        [readingItemInstanceList: readingItemService.getCurrentUserResources(currentUserEmail), readingItemInstanceTotal: 10]
+        [readingItemInstanceList: readingItemService.getCurrentLoggedInUserReadingItems(currentLoggedInUserEmail),
+                readingItemInstanceTotal: readingItemService.countCurrentLoggedInUserTotalReadingItems(currentLoggedInUserEmail)]
     }
 
     def create() {
@@ -67,8 +70,8 @@ class ReadingItemController {
         if (version != null) {
             if (readingItemInstance.version > version) {
                 readingItemInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'readingItem.label', default: 'ReadingItem')] as Object[],
-                          "Another user has updated this ReadingItem while you were editing")
+                        [message(code: 'readingItem.label', default: 'ReadingItem')] as Object[],
+                        "Another user has updated this ReadingItem while you were editing")
                 render(view: "edit", model: [readingItemInstance: readingItemInstance])
                 return
             }
@@ -109,5 +112,12 @@ class ReadingItemController {
         readingItem.isRead = true
         readingItem.save(failOnError: true)
         redirect(controller: "user", action: "dashboard")
+    }
+
+    def mostReadResources() {
+        String currentLoggedInUserEmail = session.email
+        def topicResourceCountList = readingItemService.currentUserSubscribedTopicsMostReadResources(currentLoggedInUserEmail)
+        println topicResourceCountList
+        [topicResourceCountList: topicResourceCountList]
     }
 }

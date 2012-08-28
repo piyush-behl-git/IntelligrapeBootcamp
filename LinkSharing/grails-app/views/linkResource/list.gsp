@@ -34,6 +34,8 @@
 					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'linkResource.lastUpdated.label', default: 'Last Updated')}" />
 					
+						<th><g:message code="linkResource.topic.label" default="Topic" /></th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -46,9 +48,11 @@
 					
 						<td>${fieldValue(bean: linkResourceInstance, field: "url")}</td>
 					
-						<td><ls:formattedDate date="${linkResourceInstance.dateCreated}" /></td>
+						<td><g:formatDate date="${linkResourceInstance.dateCreated}" /></td>
 					
-						<td><ls:formattedDate date="${linkResourceInstance.lastUpdated}" /></td>
+						<td><g:formatDate date="${linkResourceInstance.lastUpdated}" /></td>
+					
+						<td>${fieldValue(bean: linkResourceInstance, field: "topic")}</td>
 					
 					</tr>
 				</g:each>

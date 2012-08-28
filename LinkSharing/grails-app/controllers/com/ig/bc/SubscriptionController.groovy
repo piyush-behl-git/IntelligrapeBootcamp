@@ -7,18 +7,23 @@ class SubscriptionController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def subscriptionService
+    def topicService
 
     def index() {
         redirect(action: "list", params: params)
     }
 
     def list(Integer max) {
+        String currentLoggedInUserEmail = session.email
         params.max = Math.min(max ?: 10, 100)
-        [subscriptionInstanceList: Subscription.list(params), subscriptionInstanceTotal: Subscription.count()]
+        [subscriptionInstanceList: subscriptionService.getCurrentLoggedInUserSubscriptions(currentLoggedInUserEmail),
+                subscriptionInstanceTotal: subscriptionService.countCurrentLoggedInUserTotalSubscriptions(currentLoggedInUserEmail)]
     }
 
     def create() {
-        [subscriptionInstance: new Subscription(params)]
+        String currentLoggedInUserEmail = session.email
+        List<Topic> allPublicOrOwnedTopics = topicService.getCurrentLoggedInUserAllOwnedOrPublicTopics(currentLoggedInUserEmail)
+        [subscriptionInstance: new Subscription(params), topicInstanceList: allPublicOrOwnedTopics]
     }
 
     def save() {

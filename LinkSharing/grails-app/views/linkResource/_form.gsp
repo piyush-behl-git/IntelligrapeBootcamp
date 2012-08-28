@@ -10,12 +10,12 @@
 	<g:textArea name="summary" cols="40" rows="5" maxlength="1024" value="${linkResourceInstance?.summary}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'title', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'title', 'error')} ">
 	<label for="title">
 		<g:message code="linkResource.title.label" default="Title" />
-		<span class="required-indicator">*</span>
+		
 	</label>
-	<g:textField name="title" required="" value="${linkResourceInstance?.title}"/>
+	<g:textField name="title" value="${linkResourceInstance?.title}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'url', 'error')} required">
@@ -41,5 +41,13 @@
 </li>
 </ul>
 
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'topic', 'error')} required">
+	<label for="topic">
+		<g:message code="linkResource.topic.label" default="Topic" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="topic" name="topic.id" from="${com.ig.bc.Topic.list()}" optionKey="id" required="" value="${linkResourceInstance?.topic?.id}" class="many-to-one"/>
 </div>
 

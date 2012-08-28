@@ -6,6 +6,7 @@ import com.ig.bc.co.InvitationCommand
 class TopicController {
 
     def invitationService
+    def userService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -19,7 +20,8 @@ class TopicController {
     }
 
     def create() {
-        User currentUserInstance = User.findByEmail("${session.email}")
+        String currentLoggedInUserEmail = session.email
+        User currentUserInstance = userService.getCurrentUser(currentLoggedInUserEmail)
         [topicInstance: new Topic(params), currentUserInstance: currentUserInstance]
     }
 
@@ -104,9 +106,8 @@ class TopicController {
         }
     }
     def invitationBinding(InvitationCommand invitationCommand) {
-
         invitationService.invitation(invitationCommand)
-        flash.message = "Please Enter valid emails"
+        flash.message = "Invitations sent"
         redirect(action: 'list')
     }
 }

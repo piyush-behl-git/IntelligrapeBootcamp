@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="linkResource.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><ls:formattedDate date="${linkResourceInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${linkResourceInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
@@ -63,7 +63,7 @@
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="linkResource.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><ls:formattedDate date="${linkResourceInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${linkResourceInstance?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>
@@ -75,6 +75,15 @@
 						<g:each in="${linkResourceInstance.readingItems}" var="r">
 						<span class="property-value" aria-labelledby="readingItems-label"><g:link controller="readingItem" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></span>
 						</g:each>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${linkResourceInstance?.topic}">
+				<li class="fieldcontain">
+					<span id="topic-label" class="property-label"><g:message code="linkResource.topic.label" default="Topic" /></span>
+					
+						<span class="property-value" aria-labelledby="topic-label"><g:link controller="topic" action="show" id="${linkResourceInstance?.topic?.id}">${linkResourceInstance?.topic?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

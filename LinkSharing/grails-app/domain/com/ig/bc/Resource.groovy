@@ -5,6 +5,8 @@ abstract class Resource {
     Date lastUpdated
     String title
     String summary
+
+    static  belongsTo = [topic: Topic]
     static hasMany = [readingItems: ReadingItem]
     static constraints = {
         summary(size:0..1024, nullable: true)
