@@ -4,7 +4,7 @@ class ApplicationFilters {
 
     def filters = {
 
-        allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'login|loginHandler|register', invert: true) {
+        allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'checkEmailUrl|login|loginHandler|register|registrationHandler', invert: true) {
             before = {
                 if (!session.email) {
                     if (actionName) {

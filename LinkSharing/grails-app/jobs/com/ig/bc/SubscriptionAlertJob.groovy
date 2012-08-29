@@ -3,19 +3,15 @@ package com.ig.bc
 
 
 class SubscriptionAlertJob {
-
-    def readingItemService
+    def invitationService
+    def asynchronousMailService
 
     static triggers = {
-        cron(name: "subscriptionAlertTrigger", cronExpression: "0 0 22 * * ?")
+//        simple repeatInterval: 1000*60
+//        cron(name: "subscriptionAlertTrigger", cronExpression: "0 0 22 * * ?")
     }
 
     def execute() {
-        asynchronousMailService.sendAsynchronousMail {
-            to
-            subject "Linksharing Invitation"
-            body invitation.content
-
-        }
+        invitationService.subscriptionAlerts()
     }
 }

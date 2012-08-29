@@ -2,11 +2,14 @@ package com.ig.bc
 
 import com.ig.bc.enums.Seriousness
 import com.ig.bc.enums.Visibility
+import com.ig.bc.vo.TopicResourceCount
+import com.ig.bc.vo.SubscriberTopicReadingItem
 
 class UtilController {
 
-    def readingItemService
+    def resourcesService
     def subscriptionService
+    def invitationService
 
     def index() { }
 
@@ -15,14 +18,18 @@ class UtilController {
     }
 
     def test() {
-        Topic html = Topic.findByName("html")
-        String currentLoggedInUserEmail = session.email
-        User user =
-//        subscriptionService.getCurrentLoggedInUserAllSubscribedTopics(currentLoggedInUserEmail)
-        readingItemService.currentUserSubscribedTopicsMostReadResources(currentLoggedInUserEmail)
+        String email = session.email
+        println email
+        def a = resourcesService.allUnreadResources(email)
+        println a
     }
 
     def currentUser() {
         render("${session.email}")
+    }
+
+
+    def testAction() {
+        render("HEllo")
     }
 }

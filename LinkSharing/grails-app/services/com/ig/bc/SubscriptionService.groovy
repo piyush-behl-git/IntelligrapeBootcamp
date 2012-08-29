@@ -2,6 +2,8 @@ package com.ig.bc
 
 import com.ig.bc.enums.Visibility
 import com.ig.bc.vo.TopicSubscriptionCount
+import com.ig.bc.enums.Seriousness
+import com.ig.bc.vo.TopicSubscriberVO
 
 class SubscriptionService {
 
@@ -41,7 +43,7 @@ class SubscriptionService {
         Integer currentLoggedInUserTotalSubscriptions = Subscription.createCriteria().count {
             eq("subscriber", currentLoggedInUser)
         }
-        return  currentLoggedInUserTotalSubscriptions
+        return currentLoggedInUserTotalSubscriptions
 
     }
 
@@ -50,5 +52,38 @@ class SubscriptionService {
             it.topic
         }
         return currentLoggedInUserAllSubscribedTopics
+    }
+
+    def getAllVerySeriousSubscriptions() {
+        def allVerySeriousSubscriptions = Subscription.createCriteria().list {
+            projections {
+                property("subscriber")
+                property("topic")
+            }
+            eq("seriousness", Seriousness.VERY_SERIOUS)
+        }
+        List<TopicSubscriberVO> topicSubscriberVOList = []
+        for (subscription in allVerySeriousSubscriptions) {
+            User subscriber = subscription.first()
+            Topic topic = subscription.last()
+            TopicSubscriberVO topicSubscriberVO = new TopicSubscriberVO(topic: topic, subscriber: subscriber)
+            topicSubscriberVOList << topicSubscriberVO
+        }
+        def subscribersTopicMap = topicSubscriberVOList.groupBy {
+            it.subscriber
+        }
+        return subscribersTopicMap
+    }
+
+    def getAllImportantTopics(String email) {
+        User subscriber = userService.getCurrentUser(email)
+        List<Topic> topics = Subscription.createCriteria().list {
+                projections {
+                    property("topic")
+                }
+            eq("seriousness", Seriousness.VERY_SERIOUS)
+            eq("subscriber", subscriber)
+        }
+        return topics
     }
 }

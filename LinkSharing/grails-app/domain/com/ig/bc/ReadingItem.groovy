@@ -3,8 +3,11 @@ package com.ig.bc
 class ReadingItem {
     boolean isFavorite
     boolean isRead
-    User user
-    Resource resource
+    static belongsTo = [user: User, resource: Resource]
     static constraints = {
+    }
+
+    String toString() {
+        return "${user}_${resource}"
     }
 }

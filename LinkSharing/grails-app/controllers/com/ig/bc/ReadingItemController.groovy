@@ -117,7 +117,6 @@ class ReadingItemController {
     def mostReadResources() {
         String currentLoggedInUserEmail = session.email
         def topicResourceCountList = readingItemService.currentUserSubscribedTopicsMostReadResources(currentLoggedInUserEmail)
-        println topicResourceCountList
         [topicResourceCountList: topicResourceCountList]
     }
 }

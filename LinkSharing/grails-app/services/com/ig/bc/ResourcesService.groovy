@@ -15,5 +15,17 @@ class ResourcesService {
         }
         return currentUserResourceList
     }
+
+    def allUnreadResources(String email) {
+        List<Topic> topicsSubList = subscriptionService.getAllImportantTopics(email)
+        List<Resource> unreadResources = Resource.createCriteria().list {
+            inList("topic", topicsSubList)
+            'readingItems' {
+                eq("isRead", false)
+            }
+        }
+        return unreadResources
+    }
+
 }
 

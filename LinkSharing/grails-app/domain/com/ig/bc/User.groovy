@@ -15,6 +15,8 @@ class User {
         email (unique: true, blank: false, nullable: false, email: true)
         dateOfBirth(nullable: true)
         confirmPassword(bindable: true)
+        topics(nullable: true)
+        subscriptions(nullable: true)
         password(validator: {val, user->
                 if(val==user.confirmPassword)
                     return true

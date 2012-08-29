@@ -6,16 +6,18 @@ abstract class Resource {
     String title
     String summary
 
-    static  belongsTo = [topic: Topic]
+    static belongsTo = [topic: Topic]
     static hasMany = [readingItems: ReadingItem]
+
     static constraints = {
-        summary(size:0..1024, nullable: true)
+        summary(size: 0..1024, nullable: true)
         title(unique: true, blank: false, nullable: true)
     }
     static mapping = {
         summary(type: 'text')
         tablePerHierarchy false
     }
+
     String toString() {
         title
     }

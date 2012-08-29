@@ -11,7 +11,7 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: subscriptionInstance, field: 'subscriber', 'error')} required">
-	<g:hiddenField id="subscriber" name="subscriber.id" value="${subscriptionInstance?.subscriber?.id}" class="many-to-one"/>
+	<g:hiddenField id="subscriber" name="subscriber.id" value="${currentLoggedInUser?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: subscriptionInstance, field: 'topic', 'error')} required">

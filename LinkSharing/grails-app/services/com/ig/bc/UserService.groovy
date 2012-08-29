@@ -20,4 +20,10 @@ class UserService {
         User currentUser = User.findByEmail(currentUserEmail)
         return currentUser
     }
+
+    List<String> getAllRegisteredEmails() {
+        List<User> userList = User.list()
+        List<String> registeredEmails = userList*.email
+        return registeredEmails
+    }
 }

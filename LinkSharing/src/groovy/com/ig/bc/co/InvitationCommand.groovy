@@ -1,5 +1,8 @@
 package com.ig.bc.co
 
+import org.codehaus.groovy.grails.validation.Validateable
+
+@Validateable
 class InvitationCommand {
     String email1
     String email2

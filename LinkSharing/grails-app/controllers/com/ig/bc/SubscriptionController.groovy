@@ -8,6 +8,7 @@ class SubscriptionController {
 
     def subscriptionService
     def topicService
+    def userService
 
     def index() {
         redirect(action: "list", params: params)
@@ -22,8 +23,9 @@ class SubscriptionController {
 
     def create() {
         String currentLoggedInUserEmail = session.email
+        User currentLoggedInUser = userService.getCurrentUser(currentLoggedInUserEmail)
         List<Topic> allPublicOrOwnedTopics = topicService.getCurrentLoggedInUserAllOwnedOrPublicTopics(currentLoggedInUserEmail)
-        [subscriptionInstance: new Subscription(params), topicInstanceList: allPublicOrOwnedTopics]
+        [subscriptionInstance: new Subscription(params), topicInstanceList: allPublicOrOwnedTopics, currentLoggedInUser: currentLoggedInUser]
     }
 
     def save() {

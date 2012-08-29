@@ -1,4 +1,4 @@
-<%@ page import="com.ig.bc.ReadingItem" %>
+<%@ page import="com.ig.bc.LinkResource; com.ig.bc.DocumentResource; com.ig.bc.ReadingItem" %>
 <!doctype html>
 <html>
 <head>
@@ -28,20 +28,25 @@
                 <th>${item.topic.name}</th>
             </tr>
             <tr>
-                <g:sortableColumn property="title" title="${message(code: 'documentResource.title.label', default: 'Title')}"/>
-                <g:sortableColumn property="fileName" title="${message(code: 'documentResource.fileName.label', default: 'File Name')}"/>
-                <g:sortableColumn property="url" title="${message(code: 'linkResource.url.label', default: 'Url')}"/>
+                <th>Resource</th>
                 <g:sortableColumn property="dateCreated" title="${message(code: 'documentResource.dateCreated.label', default: 'Date Created')}"/>
                 <g:sortableColumn property="lastUpdated" title="${message(code: 'documentResource.lastUpdated.label', default: 'Last Updated')}"/>
-                <th>Read Count</th>
+                <th>Subscription Count</th>
             </tr>
             </thead>
             <g:each in="${item.resourceAndCountList}" status="j" var="rc">
                 <tr class="${(j % 2) == 0 ? 'even' : 'odd'}">
-                    <td>${rc.resource.title}</td>
-                    <td>${rc.resource.dateCreated}</td>
-                    <td>${rc.resource.lastUpdated}</td>
-                    <td>${rc.readCount}</td>
+                <g:if test="${rc.resource.instanceOf(DocumentResource)}">
+                    <td>
+                        <g:link controller="documentResource" action="show" id="${rc.resource?.id}">${rc.resource?.fileName}</g:link>
+                    </td>
+                </g:if>
+                <g:if test="${rc.resource.instanceOf(LinkResource)}">
+                    <td><g:link controller="linkResource" action="show" id="${rc.resource?.id}">${rc.resource?.url}</g:link></td>
+                </g:if>
+                <td><ls:formattedDate date="${rc.resource.dateCreated}"/></td>
+                <td><ls:formattedDate date="${rc.resource.lastUpdated}"/></td>
+                <td>${rc.subscriptionCount}</td>
                 </tr>
             </g:each>
         </g:each>

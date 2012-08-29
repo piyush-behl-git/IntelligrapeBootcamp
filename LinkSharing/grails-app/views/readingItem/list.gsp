@@ -1,4 +1,3 @@
-
 <%@ page import="com.ig.bc.ReadingItem" %>
 <!doctype html>
 <html>

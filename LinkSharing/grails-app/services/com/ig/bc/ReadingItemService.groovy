@@ -1,7 +1,7 @@
 package com.ig.bc
 
-import com.ig.bc.vo.ResourceAndCount
 import com.ig.bc.vo.TopicResourceCount
+import com.ig.bc.vo.ResourceVO
 
 class ReadingItemService {
 
@@ -26,17 +26,9 @@ class ReadingItemService {
         return currentUserTotalReadingItems
     }
 
-    def getAllUnreadResourcesAndEmail() {
-        def userEmailAndUnreadResources = ReadingItem.createCriteria().list {
-            projections {
-                groupProperty('user')
-            }
-        }
-    }
-
-    def getMostReadResourcesForTopic(Topic topic) {
+    List getMostReadResourcesForTopic(Topic topic) {
         Set<Resource> topicSpecificSubscribedResourceList = topic.resources
-        def resourcesAndCounts = ReadingItem.createCriteria().list {
+        List resourcesAndCounts = ReadingItem.createCriteria().list {
             projections {
                 groupProperty("resource")
                 count("resource", "r")
@@ -45,12 +37,12 @@ class ReadingItemService {
             maxResults 10
             order("r", "desc")
         }
-        List<ResourceAndCount> resourceAndReadingCountList = []
+        List<ResourceVO> resourceAndReadingCountList = []
         for (resourceAndCount in resourcesAndCounts) {
             Resource resource = resourceAndCount.first()
             Integer readCount = resourceAndCount.last()
-            ResourceAndCount resourceAndReadCount = new ResourceAndCount(resource: resource, readCount: readCount)
-            resourceAndReadingCountList<<resourceAndReadCount
+            ResourceVO resourceVO = new ResourceVO(resource: resource, subscriptionCount: readCount)
+            resourceAndReadingCountList << resourceVO
         }
         return resourceAndReadingCountList
     }
@@ -59,13 +51,18 @@ class ReadingItemService {
         List<TopicResourceCount> topicResourceCountList = []
         def topics = subscriptionService.getCurrentLoggedInUserAllSubscribedTopics(currentLoggedInUserEmail)
         for (topic in topics) {
-            List<ResourceAndCount> resourceAndCountList = getMostReadResourcesForTopic(topic)
-            println topic
-            println resourceAndCountList
+            List<ResourceVO> resourceAndCountList = getMostReadResourcesForTopic(topic)
             TopicResourceCount topicResourceCount = new TopicResourceCount(topic: topic, resourceAndCountList: resourceAndCountList)
-            topicResourceCountList<<topicResourceCount
+            topicResourceCountList << topicResourceCount
         }
         return topicResourceCountList
     }
 
+    def getAllUnreadReadingItems(User subscriber, List<Resource> topicResources) {
+        List<ReadingItem> unreadReadingItems = ReadingItem.createCriteria().list {
+            eq("user", subscriber)
+            inList("resource", topicResources)
+        }
+        return unreadReadingItems
+    }
 }

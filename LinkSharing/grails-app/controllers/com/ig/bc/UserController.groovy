@@ -44,7 +44,6 @@ class UserController {
     }
 
     def save() {
-        println "Params ${params}"
         def userInstance = new User(params)
         println "User : ${userInstance.confirmPassword} >>>> ${userInstance.password} >>> ${userInstance.confirmPassword == userInstance.password}"
         if (!userInstance.save(flush: true)) {
