@@ -1,7 +1,6 @@
 package com.ig.bc
 
 import org.springframework.dao.DataIntegrityViolationException
-import com.ig.bc.vo.TopicResourceCount
 
 class ReadingItemController {
 

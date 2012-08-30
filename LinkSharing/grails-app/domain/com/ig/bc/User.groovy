@@ -1,5 +1,7 @@
 package com.ig.bc
 
+import com.ig.bc.enums.Seriousness
+
 class User {
     String email
     String password
@@ -23,6 +25,19 @@ class User {
             return false
         })
     }
+
+    List<Topic> getAllVerySeriousTopics() {
+        List<Topic> topics = Subscription.createCriteria().list {
+            projections {
+                property("topic")
+            }
+            eq("seriousness", Seriousness.VERY_SERIOUS)
+            eq("subscriber", this)
+        }
+        return topics
+    }
+
+
     String toString() {
         fullName
     }

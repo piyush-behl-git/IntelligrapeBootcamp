@@ -25,7 +25,6 @@ class LinkResourceController {
             render(view: "create", model: [linkResourceInstance: linkResourceInstance])
             return
         }
-
         flash.message = message(code: 'default.created.message', args: [message(code: 'linkResource.label', default: 'LinkResource'), linkResourceInstance.id])
         redirect(action: "show", id: linkResourceInstance.id)
     }
@@ -37,7 +36,6 @@ class LinkResourceController {
             redirect(action: "list")
             return
         }
-
         [linkResourceInstance: linkResourceInstance]
     }
 
@@ -48,7 +46,6 @@ class LinkResourceController {
             redirect(action: "list")
             return
         }
-
         [linkResourceInstance: linkResourceInstance]
     }
 
@@ -59,7 +56,6 @@ class LinkResourceController {
             redirect(action: "list")
             return
         }
-
         if (version != null) {
             if (linkResourceInstance.version > version) {
                 linkResourceInstance.errors.rejectValue("version", "default.optimistic.locking.failure",

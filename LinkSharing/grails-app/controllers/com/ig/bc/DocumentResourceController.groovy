@@ -32,6 +32,7 @@ class DocumentResourceController {
                 render(view: "create", model: [documentResourceInstance: documentResourceInstance])
                 return
             }
+            //TODO create separate function for uploading file & call it here
             File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
             fileCommand.file.transferTo(fileToSave)
             flash.message = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), documentResourceInstance.id])
@@ -50,11 +51,13 @@ class DocumentResourceController {
             redirect(action: "list")
             return
         }
+        //TODO change variable name documentLink
         String documentLink = grailsApplication.config.uploadPath + "/" + id
         [documentResourceInstance: documentResourceInstance, documentLink: documentLink]
 
     }
 
+    //TODO name of function should be verb
     def documentDownload(Long id) {
         def documentResourceInstance = DocumentResource.get(id)
         byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}").bytes
@@ -71,7 +74,6 @@ class DocumentResourceController {
             redirect(action: "list")
             return
         }
-
         [documentResourceInstance: documentResourceInstance]
     }
 

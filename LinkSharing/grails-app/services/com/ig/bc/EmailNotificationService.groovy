@@ -3,7 +3,7 @@ package com.ig.bc
 import com.ig.bc.co.InvitationCommand
 import com.ig.bc.vo.TopicResourceVO
 
-class MailService {
+class EmailNotificationService {
     def asynchronousMailService
     def resourceService
     def userService
@@ -23,9 +23,11 @@ class MailService {
     }
 
     def newResourceEmailAlerts() {
-        List<String> emails = userService.allRegisteredEmails
+        List<String> emails = userService.getAllRegisteredEmails()
+        println emails
         for (email in emails) {
-            Map<Topic, Resource> topicResourceMap = resourceService.allUpadatesAboutUserSubscriptions(email)
+            Map<Topic, Resource> topicResourceMap = resourceService.allUpdatesAboutUserSubscriptions(email)
+            println topicResourceMap
             Set<Topic> topics = topicResourceMap.keySet()
             List<TopicResourceVO> newTopicResourceList = []
             for (topic in topics) {
@@ -34,7 +36,7 @@ class MailService {
             asynchronousMailService.sendAsynchronousMail {
                 to email
                 subject "LinkSharing Updates"
-                html groovyPageRenderer.render(template: "/mail/newResources", model: [newTopicResourceList: newTopicResourceList])
+                html "${groovyPageRenderer.render(template: "/mail/newResources", model: [newTopicResourceList: newTopicResourceList])}"
 
             }
         }

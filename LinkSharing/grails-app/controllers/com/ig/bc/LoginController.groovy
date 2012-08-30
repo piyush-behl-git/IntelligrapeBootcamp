@@ -28,6 +28,7 @@ class LoginController {
     }
 
     def registrationHandler() {
+        //TODO create dd/mm/yyyy a constant or define in config
         params.dateOfBirth = Date.parse("dd/mm/yyyy", params.dateOfBirth)
         User userInstance = new User(params);
         userInstance.save(failOnError: true)

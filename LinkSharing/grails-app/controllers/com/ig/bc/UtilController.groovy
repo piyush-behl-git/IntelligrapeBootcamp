@@ -12,7 +12,7 @@ class UtilController {
 
     def test() {
         String email = session.email
-        def topicResourceMap = resourceService.allUpadatesAboutUserSubscriptions(email)
+        def topicResourceMap = resourceService.allUpdatesAboutUserSubscriptions(email)
         Set<Topic> topics = topicResourceMap.keySet()
         for (topic in topics) {
             println "Topic : "+topic
@@ -27,6 +27,6 @@ class UtilController {
 
     def testAction() {
         String email= session.email
-        resourceService.allUpadatesAboutUserSubscriptions(email)
+        resourceService.allUpdatesAboutUserSubscriptions(email)
     }
 }

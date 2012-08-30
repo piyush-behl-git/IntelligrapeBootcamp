@@ -10,7 +10,8 @@ class Subscription {
     Seriousness seriousness
     static constraints = {
     }
+
     String toString() {
-        subscriber.fullName+"_"+topic.name
+        subscriber.fullName + "_" + topic.name
     }
 }

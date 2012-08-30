@@ -12,6 +12,7 @@ class SubscriptionService {
     def resourceService
     def groovyPageRenderer
 
+    //TODO  refactor
     def findHighestSubscribedPublicTopic() {
         def publicSubscriptionCountByTopicList = Subscription.createCriteria().list {
             projections {
@@ -31,12 +32,14 @@ class SubscriptionService {
         return topicSubscriptionCount
     }
 
+    //TODO
     def getCurrentLoggedInUserSubscriptions(String currentLoggedInUserEmail) {
         User currentUserInstance = userService.getCurrentUser(currentLoggedInUserEmail)
         List<Subscription> currentLoggedInUserSubscriptions = Subscription.findAllBySubscriber(currentUserInstance)
         return currentLoggedInUserSubscriptions
     }
 
+    //TODO
     def countCurrentLoggedInUserTotalSubscriptions(String currentLoggedInUserEmail) {
         User currentLoggedInUser = userService.getCurrentUser(currentLoggedInUserEmail)
         Integer currentLoggedInUserTotalSubscriptions = Subscription.createCriteria().count {
@@ -46,6 +49,7 @@ class SubscriptionService {
 
     }
 
+    //TODO
     def getCurrentLoggedInUserAllSubscribedTopics(String currentUserEmail) {
         List<Topic> currentLoggedInUserAllSubscribedTopics = getCurrentLoggedInUserSubscriptions(currentUserEmail).collect {
             it.topic
@@ -53,6 +57,7 @@ class SubscriptionService {
         return currentLoggedInUserAllSubscribedTopics
     }
 
+    //TODO
     def getAllVerySeriousSubscriptions() {
         def allVerySeriousSubscriptions = Subscription.createCriteria().list {
             projections {
@@ -74,6 +79,7 @@ class SubscriptionService {
         return subscribersTopicMap
     }
 
+    //TODO
     def getAllImportantTopics(String email) {
         User subscriber = userService.getCurrentUser(email)
         List<Topic> topics = Subscription.createCriteria().list {
@@ -86,6 +92,7 @@ class SubscriptionService {
         return topics
     }
 
+    //TODO name refactor, userService to User domain
     def subscriptionAlerts() {
         List<String> emails = userService.getAllRegisteredEmails()
         for (email in emails) {
