@@ -12,10 +12,6 @@ class SubscriptionService {
     def resourceService
     def groovyPageRenderer
 
-    def serviceMethod() {
-
-    }
-
     def findHighestSubscribedPublicTopic() {
         def publicSubscriptionCountByTopicList = Subscription.createCriteria().list {
             projections {
