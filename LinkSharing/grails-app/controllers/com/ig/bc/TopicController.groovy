@@ -5,8 +5,8 @@ import com.ig.bc.co.InvitationCommand
 
 class TopicController {
 
-    def invitationService
     def userService
+    def emailNotificationService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -105,8 +105,10 @@ class TopicController {
             redirect(action: "show", id: id)
         }
     }
+
+    //TODO refactor name, it should start with verb
     def invitationBinding(InvitationCommand invitationCommand) {
-        invitationService.invitation(invitationCommand)
+        emailNotificationService.invitation(invitationCommand)
         flash.message = "Invitations sent"
         redirect(action: 'list')
     }

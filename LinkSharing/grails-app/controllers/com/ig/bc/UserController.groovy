@@ -15,6 +15,7 @@ class UserController {
     }
 
     def loginHandler() {
+        //TODO move to domain class
         User user = User.findByEmailAndPassword(params.email, params.password)
         if (user) {
             session.email = params.email
@@ -24,9 +25,13 @@ class UserController {
     }
 
     def dashboard() {
+        //TODO move to domain class
         User user = User.findByEmail(session.email)
+        //TODO move to domain class
         List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndIsRead(user, false)
+        //TODO move to domain class
         List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
+        //TODO move to domain class
         List<Topic> topics = Topic.findAllByOwner(user)
         Topic highestSubscribedTopic = subscriptionService.findHighestSubscribedPublicTopic().topic
         [highestSubscribedTopic: highestSubscribedTopic]

@@ -9,7 +9,6 @@ class SubscriptionService {
 
     def userService
     def asynchronousMailService
-    def resourceService
     def groovyPageRenderer
 
     //TODO  refactor
@@ -32,14 +31,14 @@ class SubscriptionService {
         return topicSubscriptionCount
     }
 
-    //TODO
+    //TODO move to user domain
     def getCurrentLoggedInUserSubscriptions(String currentLoggedInUserEmail) {
         User currentUserInstance = userService.getCurrentUser(currentLoggedInUserEmail)
         List<Subscription> currentLoggedInUserSubscriptions = Subscription.findAllBySubscriber(currentUserInstance)
         return currentLoggedInUserSubscriptions
     }
 
-    //TODO
+    //TODO move to user domain
     def countCurrentLoggedInUserTotalSubscriptions(String currentLoggedInUserEmail) {
         User currentLoggedInUser = userService.getCurrentUser(currentLoggedInUserEmail)
         Integer currentLoggedInUserTotalSubscriptions = Subscription.createCriteria().count {
@@ -49,7 +48,7 @@ class SubscriptionService {
 
     }
 
-    //TODO
+    //TODO move to user domain
     def getCurrentLoggedInUserAllSubscribedTopics(String currentUserEmail) {
         List<Topic> currentLoggedInUserAllSubscribedTopics = getCurrentLoggedInUserSubscriptions(currentUserEmail).collect {
             it.topic
@@ -57,7 +56,7 @@ class SubscriptionService {
         return currentLoggedInUserAllSubscribedTopics
     }
 
-    //TODO
+    //TODO move to user domain, also LOC limit exceeds & def??????
     def getAllVerySeriousSubscriptions() {
         def allVerySeriousSubscriptions = Subscription.createCriteria().list {
             projections {
@@ -79,7 +78,7 @@ class SubscriptionService {
         return subscribersTopicMap
     }
 
-    //TODO
+    //TODO move to user domain & also refactor name
     def getAllImportantTopics(String email) {
         User subscriber = userService.getCurrentUser(email)
         List<Topic> topics = Subscription.createCriteria().list {
@@ -90,19 +89,5 @@ class SubscriptionService {
             eq("subscriber", subscriber)
         }
         return topics
-    }
-
-    //TODO name refactor, userService to User domain
-    def subscriptionAlerts() {
-        List<String> emails = userService.getAllRegisteredEmails()
-        for (email in emails) {
-            List<Resource> unreadResourceList = resourceService.allUnreadResources(email)
-            Integer totalResources = unreadResourceList.size()
-            asynchronousMailService.sendAsynchronousMail {
-                to email
-                subject "Subscription Reminder Link Sharing"
-                html(groovyPageRenderer.render(template: "reminder/resources", model: [unreadResourceList: unreadResourceList]))
-            }
-        }
     }
 }
