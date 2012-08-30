@@ -598,6 +598,10 @@ th:hover, tr:hover {
     background-image: url(../images/skin/database_save.png);
 }
 
+.buttons .addResource {
+
+}
+
 a.skip {
     position: absolute;
     left: -9999px;

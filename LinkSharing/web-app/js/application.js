@@ -27,5 +27,26 @@ $(document).ready(function () {
             }
         }
     });
+    $('#resource-dialog').dialog({
+        autoOpen: false,
+        draggable: false,
+        modal: true,
+        show: 'transforms',
+        hide: 'transport',
+        width:700,
+        resizable:false,
+        buttons:{
+            Ok:function(){
+                $(this).dialog("close")
+            },
+            Cancel: function() {
+                $(this).dialog("close")
+            }
+        }
+
+    });
+    $('#addResource').bind("click",function(){
+        $('#resource-dialog').dialog("open")
+    });
 });
 
