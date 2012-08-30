@@ -26,7 +26,7 @@
     </fieldset>
 </g:form>
 <script type="text/javascript">
-    var urls = {
+    urls = {
         checkEmailUrl: "${createLink(controller: "login", action: "checkEmailUrl")}"
     }
 </script>

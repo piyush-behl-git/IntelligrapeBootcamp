@@ -22,11 +22,11 @@ class LinkResourceController {
     def save() {
         def linkResourceInstance = new LinkResource(params)
         if (!linkResourceInstance.save(flush: true)) {
-            render(view: "create", model: [linkResourceInstance: linkResourceInstance])
+            render(view: "/topic/show", model: [linkResourceInstance: linkResourceInstance,id:linkResourceInstance.topic.id])
             return
         }
         flash.message = message(code: 'default.created.message', args: [message(code: 'linkResource.label', default: 'LinkResource'), linkResourceInstance.id])
-        redirect(action: "show", id: linkResourceInstance.id)
+        redirect(action: "show",controller: 'topic', id: linkResourceInstance.topic.id)
     }
 
     def show(Long id) {

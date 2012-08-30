@@ -83,13 +83,19 @@
             <g:link class="edit" action="edit" id="${topicInstance?.id}"><g:message code="default.button.edit.label" default="Edit"/></g:link>
             <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                             onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-            <input type="button" id="addResource">Add Resource</input>
+            <a href="javascript:void(0)" id="addResource"> Add Resource</a>
         </fieldset>
     </g:form>
 </div>
 <div id="resource-dialog" title="New Resource">
-    <label id="doc">Document</label>
-    <label id="link">Link</label>
+    <a href="javascript:void(0)" id="docButton">Document</a>
+    <a href="javascript:void(0)" id="linkButton">Link</a>
+</div>
+<div id="document-dialog">
+    <g:render template="/documentResource/form"/>
+</div>
+<div id="link-dialog">
+    <g:render template="/linkResource/form"/>
 </div>
 </body>
 </html>

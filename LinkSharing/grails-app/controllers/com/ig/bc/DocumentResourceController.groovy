@@ -26,17 +26,19 @@ class DocumentResourceController {
 
     def save(FileCommand fileCommand) {
         if (fileCommand.file.contentType == 'application/pdf') {
-            params.contentType = fileCommand.file.contentType
             def documentResourceInstance = new DocumentResource(params)
+            documentResourceInstance.fileName = fileCommand.file.name
+            documentResourceInstance.contentType = fileCommand.file.contentType
             if (!documentResourceInstance.save(flush: true)) {
                 render(view: "create", model: [documentResourceInstance: documentResourceInstance])
                 return
+            } else {
+                //TODO create separate function for uploading file & call it here
+                File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
+                fileCommand.file.transferTo(fileToSave)
+                flash.message = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), documentResourceInstance.id])
+                redirect(action: "show", controller: "topic", id: documentResourceInstance.topic.id)
             }
-            //TODO create separate function for uploading file & call it here
-            File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
-            fileCommand.file.transferTo(fileToSave)
-            flash.message = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), documentResourceInstance.id])
-            redirect(action: "show", id: documentResourceInstance.id)
         } else {
             flash.message = "Sorry! couldn't create document resource. Only pdf are allowed."
             redirect(action: "create")
@@ -62,9 +64,9 @@ class DocumentResourceController {
         def documentResourceInstance = DocumentResource.get(id)
         byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}").bytes
         response.setContentType("application/pdf")
-        response.setHeader("Content-disposition","attachment; filename="+documentResourceInstance.fileName)
-        response.contentLength=sourcePdf.length
-        response.outputStream<<sourcePdf
+        response.setHeader("Content-disposition", "attachment; filename=" + documentResourceInstance.fileName)
+        response.contentLength = sourcePdf.length
+        response.outputStream << sourcePdf
     }
 
     def edit(Long id) {

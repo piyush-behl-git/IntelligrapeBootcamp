@@ -1,53 +1,57 @@
 <%@ page import="com.ig.bc.LinkResource" %>
 
+<div id="create-linkResource" class="content scaffold-create" role="main">
+    <h1><g:message code="default.create.label" args="[entityName]"/></h1>
+    <g:if test="${flash.message}">
+        <div class="message" role="status">${flash.message}</div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#link-dialog').dialog('open')
+            })
+        </script>
+    </g:if>
+    <g:hasErrors bean="${linkResourceInstance}">
+        <ul class="errors" role="alert">
+            <g:eachError bean="${linkResourceInstance}" var="error">
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+            </g:eachError>
+        </ul>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#link-dialog').dialog('open')
+        })
+    </script>
+    </g:hasErrors>
+    <g:form action="save" controller="linkResource" name="linkForm" class="linkForm">
+        <fieldset class="form">
+            <div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'title', 'error')} ">
+                <label for="title">
+                    <g:message code="linkResource.title.label" default="Title"/>
 
+                </label>
+                <g:textField name="title" value="${linkResourceInstance?.title}"/>
+            </div>
 
-<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'summary', 'error')} ">
-	<label for="summary">
-		<g:message code="linkResource.summary.label" default="Summary" />
-		
-	</label>
-	<g:textArea name="summary" cols="40" rows="5" maxlength="1024" value="${linkResourceInstance?.summary}"/>
+            <div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'url', 'error')} required">
+                <label for="url">
+                    <g:message code="linkResource.url.label" default="Url"/>
+                    <span class="required-indicator">*</span>
+                </label>
+                <g:field type="url" name="url" required="" value="${linkResourceInstance?.url}"/>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'summary', 'error')} ">
+                <label for="summary">
+                    <g:message code="linkResource.summary.label" default="Summary"/>
+
+                </label>
+                <g:textArea name="summary" cols="40" rows="5" maxlength="1024" value="${linkResourceInstance?.summary}"/>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'topic', 'error')} required">
+                <g:hiddenField name="topic.id" id="topic" value="${topicInstance?.id}"/>
+            </div>
+
+        </fieldset>
+       </g:form>
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'title', 'error')} ">
-	<label for="title">
-		<g:message code="linkResource.title.label" default="Title" />
-		
-	</label>
-	<g:textField name="title" value="${linkResourceInstance?.title}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'url', 'error')} required">
-	<label for="url">
-		<g:message code="linkResource.url.label" default="Url" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field type="url" name="url" required="" value="${linkResourceInstance?.url}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'readingItems', 'error')} ">
-	<label for="readingItems">
-		<g:message code="linkResource.readingItems.label" default="Reading Items" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${linkResourceInstance?.readingItems?}" var="r">
-    <li><g:link controller="readingItem" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="readingItem" action="create" params="['linkResource.id': linkResourceInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'readingItem.label', default: 'ReadingItem')])}</g:link>
-</li>
-</ul>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: linkResourceInstance, field: 'topic', 'error')} required">
-	<label for="topic">
-		<g:message code="linkResource.topic.label" default="Topic" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="topic" name="topic.id" from="${com.ig.bc.Topic.list()}" optionKey="id" required="" value="${linkResourceInstance?.topic?.id}" class="many-to-one"/>
-</div>
-
