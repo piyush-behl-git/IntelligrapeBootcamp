@@ -1,15 +1,8 @@
 package com.ig.bc
 
-import com.ig.bc.enums.Seriousness
-import com.ig.bc.enums.Visibility
-import com.ig.bc.vo.TopicResourceCount
-import com.ig.bc.vo.SubscriberTopicReadingItem
-
 class UtilController {
 
-    def resourcesService
-    def subscriptionService
-    def invitationService
+    def resourceService
 
     def index() { }
 
@@ -19,9 +12,12 @@ class UtilController {
 
     def test() {
         String email = session.email
-        println email
-        def a = resourcesService.allUnreadResources(email)
-        println a
+        def topicResourceMap = resourceService.allUpadatesAboutUserSubscriptions(email)
+        Set<Topic> topics = topicResourceMap.keySet()
+        for (topic in topics) {
+            println "Topic : "+topic
+            println "Resources : "+topicResourceMap[topic]
+        }
     }
 
     def currentUser() {
@@ -30,6 +26,7 @@ class UtilController {
 
 
     def testAction() {
-        render("HEllo")
+        String email= session.email
+        resourceService.allUpadatesAboutUserSubscriptions(email)
     }
 }

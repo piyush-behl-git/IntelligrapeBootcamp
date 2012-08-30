@@ -7,7 +7,7 @@ class BootstrapService {
 
     def topicSubscriptionService
     def readingItemService
-    def resourcesService
+    def resourceService
     def userService
 
     def serviceMethod() {

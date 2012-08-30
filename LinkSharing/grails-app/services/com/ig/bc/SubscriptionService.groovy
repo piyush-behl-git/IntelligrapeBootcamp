@@ -8,6 +8,9 @@ import com.ig.bc.vo.TopicSubscriberVO
 class SubscriptionService {
 
     def userService
+    def asynchronousMailService
+    def resourceService
+    def groovyPageRenderer
 
     def serviceMethod() {
 
@@ -85,5 +88,18 @@ class SubscriptionService {
             eq("subscriber", subscriber)
         }
         return topics
+    }
+
+    def subscriptionAlerts() {
+        List<String> emails = userService.getAllRegisteredEmails()
+        for (email in emails) {
+            List<Resource> unreadResourceList = resourceService.allUnreadResources(email)
+            Integer totalResources = unreadResourceList.size()
+            asynchronousMailService.sendAsynchronousMail {
+                to email
+                subject "Subscription Reminder Link Sharing"
+                html(groovyPageRenderer.render(template: "reminder/resources", model: [unreadResourceList: unreadResourceList]))
+            }
+        }
     }
 }

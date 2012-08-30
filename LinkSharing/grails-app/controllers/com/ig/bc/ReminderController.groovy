@@ -1,7 +1,7 @@
 package com.ig.bc
 
 class ReminderController {
-    def resourcesService
+    def resourceService
     def userService
     def asynchronousMailService
 
@@ -11,7 +11,7 @@ class ReminderController {
 
     def unreadResources() {
         String email = session.email
-        List<Resource> unreadResourceList = resourcesService.allUnreadResources(email)
+        List<Resource> unreadResourceList = resourceService.allUnreadResources(email)
         Integer totalResources = unreadResourceList.size()
         render(view: "unreadResources", model:[unreadResourceList: unreadResourceList, totalResources: totalResources])
     }

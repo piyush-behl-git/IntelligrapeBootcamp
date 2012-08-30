@@ -13,10 +13,11 @@
         <thead>
         <tr>
 
+            <td>Title</td>
             <td>Resource</td>
-            <td>Resource</td>
-            <td>Resource</td>
-            <td>Resource</td>
+            <td>Date Created</td>
+            <td>Last Updated</td>
+            <td>Summary</td>
 
         </tr>
 
