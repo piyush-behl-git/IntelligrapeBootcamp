@@ -14,14 +14,14 @@ class User {
     static hasMany = [topics: Topic, subscriptions: Subscription]
     static transients = ['confirmPassword']
     static constraints = {
-        email (unique: true, blank: false, nullable: false, email: true)
+        email(unique: true, blank: false, nullable: false, email: true)
         dateOfBirth(nullable: true)
         confirmPassword(bindable: true)
         topics(nullable: true)
         subscriptions(nullable: true)
-        password(validator: {val, user->
-                if(val==user.confirmPassword)
-                    return true
+        password(validator: {val, user ->
+            if (val == user.confirmPassword)
+                return true
             return false
         })
     }
@@ -37,6 +37,17 @@ class User {
         return topics
     }
 
+    List<Resource> getResources() {
+        return Resource.findAllByUser(this)
+    }
+
+    List<DocumentResource> getDocumentResources() {
+        List<Resource> resources = getResources()
+        List<DocumentResource> documentResources = resources.collect {resource ->
+            if(resource.instanceOf(DocumentResource))
+                return resource
+        }
+    }
 
     String toString() {
         fullName
