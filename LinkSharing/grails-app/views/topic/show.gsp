@@ -83,19 +83,30 @@
             <g:link class="edit" action="edit" id="${topicInstance?.id}"><g:message code="default.button.edit.label" default="Edit"/></g:link>
             <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                             onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-            <a href="javascript:void(0)" id="addResource"> Add Resource</a>
+            <a href="javascript:void(0)" id="addResource">Add Resource</a>
         </fieldset>
     </g:form>
 </div>
+
 <div id="resource-dialog" title="New Resource">
-    <a href="javascript:void(0)" id="docButton">Document</a>
-    <a href="javascript:void(0)" id="linkButton">Link</a>
+    <table>
+        <tr><td><a href="javascript:void(0)" id="docButton">Add Document Resource</a></td></tr>
+        <tr><td><a href="javascript:void(0)" id="linkButton">Addd Link Resource</a></td></tr>
+</table>
 </div>
+
 <div id="document-dialog">
     <g:render template="/documentResource/form"/>
 </div>
+
 <div id="link-dialog">
     <g:render template="/linkResource/form"/>
 </div>
+<script type="text/javascript">
+    urls = {
+        checkDocUrl:"${createLink(controller: 'documentResource', action: 'checkDocumentResourceTitle')}",
+        checkDocContentTypeUrl: "${createLink(controller: "documentResource", action: "checkDocumentResourceContentType")}"
+    }
+</script>
 </body>
 </html>
