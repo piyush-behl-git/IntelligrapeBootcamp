@@ -16,9 +16,10 @@ class SubscriptionController {
 
     def list(Integer max) {
         String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
         params.max = Math.min(max ?: 10, 100)
-        [subscriptionInstanceList: subscriptionService.getCurrentLoggedInUserSubscriptions(currentLoggedInUserEmail),
-                subscriptionInstanceTotal: subscriptionService.countCurrentLoggedInUserTotalSubscriptions(currentLoggedInUserEmail)]
+        [subscriptionInstanceList: currentUser.getSubscriptions(),
+                subscriptionInstanceTotal: currentUser.getSubscriptionCount()]
     }
 
     def create() {
