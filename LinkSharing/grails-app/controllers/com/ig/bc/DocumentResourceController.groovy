@@ -26,24 +26,23 @@ class DocumentResourceController {
 
     def save(FileCommand fileCommand) {
         if (fileCommand.file.contentType == 'application/pdf') {
-            def documentResourceInstance = new DocumentResource(params)
-            documentResourceInstance.fileName = fileCommand.file.name
-            documentResourceInstance.contentType = fileCommand.file.contentType
+            params.put("contentType",fileCommand.file.contentType)
+            params.put("fileName",fileCommand.file.originalFilename)
+            DocumentResource documentResourceInstance = new DocumentResource(params)
+            println("just check the flow ${documentResourceInstance}")
             if (!documentResourceInstance.save(flush: true)) {
-                render(view: "create", model: [documentResourceInstance: documentResourceInstance])
-                return
+                flash.message = "Error! Saving to database"
             } else {
                 //TODO create separate function for uploading file & call it here
                 File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
                 fileCommand.file.transferTo(fileToSave)
-                flash.message = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), documentResourceInstance.id])
-                redirect(action: "show", controller: "topic", id: documentResourceInstance.topic.id)
+                flash.documentResource = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'),
+                        documentResourceInstance.id])
             }
         } else {
-            flash.message = "Sorry! couldn't create document resource. Only pdf are allowed."
-            redirect(action: "create")
+            flash.documentResource = "Sorry! couldn't create document resource. Only pdf are allowed."
         }
-
+        redirect(controller: "topic", action: "show", id: "${params.topic.id}")
     }
 
     def show(Long id) {
