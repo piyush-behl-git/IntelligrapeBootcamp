@@ -1,6 +1,7 @@
 package com.ig.bc
 
 import com.ig.bc.enums.Seriousness
+import javax.swing.text.Document
 
 class User {
     String email
@@ -45,7 +46,7 @@ class User {
         List<Resource> resources = getResources()
         List<DocumentResource> documentResources = resources.collect {resource ->
             if(resource.instanceOf(DocumentResource))
-                return resource
+                return (DocumentResource)resource
         }
     }
 
@@ -54,8 +55,20 @@ class User {
         return readingItems
     }
 
-    Integer getReadingItemsCount() {
+    Integer getGetReadingItemCount() {
         return ReadingItem.countByUser(this)
+    }
+
+    List<Subscription> getSubscriptions() {
+        return Subscription.findAllBySubscriber(this)
+    }
+
+    Integer getSubscriptionCount() {
+        return Subscription.countBySubscriber(this)
+    }
+
+    List<Topic> getSubscribedTopics() {
+        return Subscription.findBySubscriber(this)
     }
 
     String toString() {
