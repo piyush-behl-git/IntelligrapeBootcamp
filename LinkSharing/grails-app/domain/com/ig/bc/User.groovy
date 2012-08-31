@@ -49,6 +49,15 @@ class User {
         }
     }
 
+    List<ReadingItem> getReadingItems() {
+        List<ReadingItem> readingItems = ReadingItem.findAllByUser(this)
+        return readingItems
+    }
+
+    Integer getReadingItemsCount() {
+        return ReadingItem.countByUser(this)
+    }
+
     String toString() {
         fullName
     }

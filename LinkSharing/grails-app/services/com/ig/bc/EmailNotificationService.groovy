@@ -2,6 +2,7 @@ package com.ig.bc
 
 import com.ig.bc.co.InvitationCommand
 import com.ig.bc.vo.TopicResourceVO
+import com.ig.bc.dto.EmailDTO
 
 class EmailNotificationService {
     def asynchronousMailService
@@ -27,15 +28,12 @@ class EmailNotificationService {
     //TODO name should start with verb
     def newResourceEmailAlerts() {
         List<String> emails = userService.getAllRegisteredEmails()
-        //TODO no printlns
-        println emails
         for (email in emails) {
             Map<Topic, Resource> topicResourceMap = resourceService.allUpdatesAboutUserSubscriptions(email)
-            println topicResourceMap
             Set<Topic> topics = topicResourceMap.keySet()
             List<TopicResourceVO> newTopicResourceList = []
             for (topic in topics) {
-               newTopicResourceList << new TopicResourceVO(topic: topic, resources: topicResourceMap[topic])
+                newTopicResourceList << new TopicResourceVO(topic: topic, resources: topicResourceMap[topic])
             }
             //TODO make common function
             asynchronousMailService.sendAsynchronousMail {
@@ -44,6 +42,15 @@ class EmailNotificationService {
                 html "${groovyPageRenderer.render(template: "/mail/newResources", model: [newTopicResourceList: newTopicResourceList])}"
 
             }
+        }
+    }
+
+    private sendEmail(EmailDTO email) {
+        asynchronousMailService.sendAsynchronousMail {
+            to email.receiverEmail
+            subject email.subject
+            html "${groovyPageRenderer.render(template: "/mail/newResources", model: [newTopicResourceList: newTopicResourceList])}"
+
         }
     }
 }
