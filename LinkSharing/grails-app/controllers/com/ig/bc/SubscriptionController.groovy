@@ -24,9 +24,9 @@ class SubscriptionController {
 
     def create() {
         String currentLoggedInUserEmail = session.email
-        User currentLoggedInUser = userService.getCurrentUser(currentLoggedInUserEmail)
-        List<Topic> allPublicOrOwnedTopics = topicService.getCurrentLoggedInUserAllOwnedOrPublicTopics(currentLoggedInUserEmail)
-        [subscriptionInstance: new Subscription(params), topicInstanceList: allPublicOrOwnedTopics, currentLoggedInUser: currentLoggedInUser]
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        List<Topic> subscribedTopics = currentUser.getSubscribedTopics()
+        [subscriptionInstance: new Subscription(params), topicInstanceList: subscribedTopics, currentLoggedInUser: currentUser]
     }
 
     def save() {
