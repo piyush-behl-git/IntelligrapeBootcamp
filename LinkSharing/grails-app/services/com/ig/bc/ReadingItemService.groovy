@@ -8,26 +8,6 @@ class ReadingItemService {
     def userService
     def subscriptionService
 
-    def serviceMethod() {
-
-    }
-
-    //TODO move to User domain
-    def getCurrentLoggedInUserReadingItems(String currentLoggedInUserEmail) {
-        User currentLoggedInUserInstance = userService.getCurrentUser(currentLoggedInUserEmail)
-        List<ReadingItem> currentLoggedInUserReadingItems = ReadingItem.findAllByUser(currentLoggedInUserInstance)
-        return currentLoggedInUserReadingItems
-    }
-
-    //TODO move to User domain
-    def countCurrentLoggedInUserTotalReadingItems(String currentLoggedInUserEmail) {
-        User currentLoggedInUser = userService.getCurrentUser(currentLoggedInUserEmail)
-        Integer currentUserTotalReadingItems = ReadingItem.createCriteria().count {
-            eq("user", currentLoggedInUser)
-        }
-        return currentUserTotalReadingItems
-    }
-
     //TODO move to Topic domain & specify <Type> in list
     List getMostReadResourcesForTopic(Topic topic) {
         Set<Resource> topicSpecificSubscribedResourceList = topic.resources
@@ -54,9 +34,10 @@ class ReadingItemService {
 
     //TODO def ??????
     def currentUserSubscribedTopicsMostReadResources(String currentLoggedInUserEmail) {
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
         List<TopicResourceCount> topicResourceCountList = []
         //TODO def ?????
-        def topics = subscriptionService.getCurrentLoggedInUserAllSubscribedTopics(currentLoggedInUserEmail)
+        List<Topic> topics = currentUser.getSubscribedTopics()
         for (topic in topics) {
             List<ResourceVO> resourceAndCountList = getMostReadResourcesForTopic(topic)
             TopicResourceCount topicResourceCount = new TopicResourceCount(topic: topic, resourceAndCountList: resourceAndCountList)
