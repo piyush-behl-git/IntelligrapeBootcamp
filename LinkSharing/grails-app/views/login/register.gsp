@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: intelligrape
-  Date: 28/8/12
-  Time: 8:07 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="com.ig.bc.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
