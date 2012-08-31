@@ -44,8 +44,6 @@ class LoginController {
             renderStatus = "false"
         else
             renderStatus = "true"
-        //TODO remove printlns
-        println "render status : ${renderStatus}"
         render(renderStatus)
     }
 
