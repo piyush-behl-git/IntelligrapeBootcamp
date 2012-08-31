@@ -19,7 +19,9 @@
 
             <td><g:link controller="readingItem" action="show" id="${item.id}">${fieldValue(bean: item, field: "isFavorite")}</g:link></td>
 
-            <td>%{--<g:link controller="readingItem" action="markRead" id="${item.id}">--}%<g:link controller="readingItem" action="markRead" id="${item.id}"><g:formatBoolean boolean="${item.isRead}" /></g:link></td>
+            <td><g:link controller="readingItem" action="markRead" id="${item.id}">
+            <g:checkBox name="isRead" value="${item.isRead}" />
+            </g:link></td>
 
             <td>${fieldValue(bean: item, field: "resource")}</td>
 
