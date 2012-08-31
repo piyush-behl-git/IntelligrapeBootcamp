@@ -7,18 +7,10 @@ class ResourceService {
     def groovyPageRenderer
     def userService
 
-    //TODO def ????? move to User domain
-    def getCurrentUserResources(String currentUserEmail) {
-        List<Topic> currentUserSubscribedTopics = subscriptionService.getCurrentUserSubscribedTopics(currentUserEmail)
-        List<Resource> currentUserResourceList = currentUserSubscribedTopics.collect { topic ->
-            topic.resources
-        }
-        return currentUserResourceList
-    }
-
     //TODO def ??? move to User domain
-    def allUnreadResources(String email) {
-        List<Topic> topicsSubList = subscriptionService.getAllImportantTopics(email)
+    def allUnreadResources(String currentLoggedInUserEmail) {
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        List<Topic> topicsSubList = currentUser.getAllVerySeriousTopics()
         List<Resource> unreadResources = Resource.createCriteria().list {
             inList("topic", topicsSubList)
             'readingItems' {
@@ -29,9 +21,9 @@ class ResourceService {
     }
 
     //TODO def ???? also move to User domain
-    def allUpdatesAboutUserSubscriptions(String email) {
-
-        List<Topic> topicsSubList = subscriptionService.getAllImportantTopics(email)
+    def allUpdatesAboutUserSubscriptions(String currentLoggedInUserEmail) {
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        List<Topic> topicsSubList = currentUser.getAllVerySeriousTopics()
         List<Resource> newResources = Resource.createCriteria().list {
             inList("topic", topicsSubList)
             lt("dateCreated", new Date())
