@@ -2,6 +2,11 @@
     <thead>
     <tr>
 
+        <th><g:select id="selectTopic" name="selectTopic"
+                  from="['Select Options','Check All', 'Uncheck All', 'Inverse']">
+        </g:select>
+        </th>
+
         <g:sortableColumn property="name" title="${message(code: 'topic.name.label', default: 'Name')}" />
 
         <th><g:message code="topic.owner.label" default="Owner" /></th>
@@ -13,6 +18,8 @@
     <tbody>
     <g:each in="${list}" status="i" var="item">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+            <td><g:checkBox name="status" value="${item.id}"/></td>
 
             <td><g:link controller="topic" action="show" id="${item.id}">${fieldValue(bean: item, field: "name")}</g:link></td>
 

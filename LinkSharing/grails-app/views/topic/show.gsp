@@ -1,4 +1,4 @@
-<%@ page import="com.ig.bc.Topic" %>
+<%@ page import="com.ig.bc.LinkResource; com.ig.bc.DocumentResource; com.ig.bc.Topic" %>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
@@ -49,7 +49,16 @@
                 <span id="resources-label" class="property-label"><g:message code="topic.resources.label" default="Resources"/></span>
 
                 <g:each in="${topicInstance.resources}" var="r">
-                    <span class="property-value" aria-labelledby="resources-label"><g:link controller="resource" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></span>
+                    <g:if test="${r.instanceOf(DocumentResource)}">
+                        <span class="property-value" aria-labelledby="resources-label">
+                            <g:link controller="documentResource" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link>
+                        </span>
+                    </g:if>
+                    <g:if test="${r.instanceOf(LinkResource)}">
+                        <span class="property-value" aria-labelledby="resources-label">
+                            <g:link controller="linkResource" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link>
+                        </span>
+                    </g:if>
                 </g:each>
 
             </li>
@@ -92,7 +101,7 @@
     <table>
         <tr><td><a href="javascript:void(0)" id="docButton">Add Document Resource</a></td></tr>
         <tr><td><a href="javascript:void(0)" id="linkButton">Addd Link Resource</a></td></tr>
-</table>
+    </table>
 </div>
 
 <div id="document-dialog">
@@ -105,7 +114,7 @@
 <script type="text/javascript">
     urls = {
         checkDocUrl:"${createLink(controller: 'documentResource', action: 'checkDocumentResourceTitle')}",
-        checkDocContentTypeUrl: "${createLink(controller: "documentResource", action: "checkDocumentResourceContentType")}"
+        checkDocContentTypeUrl:"${createLink(controller: "documentResource", action: "checkDocumentResourceContentType")}"
     }
 </script>
 </body>

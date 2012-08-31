@@ -20,32 +20,7 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>
-					
-						<g:sortableColumn property="name" title="${message(code: 'topic.name.label', default: 'Name')}" />
-					
-						<th><g:message code="topic.owner.label" default="Owner" /></th>
-					
-						<g:sortableColumn property="visibility" title="${message(code: 'topic.visibility.label', default: 'Visibility')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${topicInstanceList}" status="i" var="topicInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link controller="topic" action="show" id="${topicInstance.id}">${fieldValue(bean: topicInstance, field: "name")}</g:link></td>
-					
-						<td>${fieldValue(bean: topicInstance, field: "owner")}</td>
-					
-						<td>${fieldValue(bean: topicInstance, field: "visibility")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
+			<g:render template="list" model="[list: topicInstanceList]"/>
 			<div class="pagination">
 				<g:paginate total="${topicInstanceTotal}" />
 			</div>
