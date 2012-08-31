@@ -1,9 +1,9 @@
 <%@ page import="com.ig.bc.LinkResource" %>
 
 <div id="create-linkResource" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
+    <h1><g:message code="default.create.link.label" args="[entityName]"/></h1>
+    <g:if test="${flash.linkResource}">
+        <div class="message" role="status">${flash.linkResource}</div>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#link-dialog').dialog('open')
