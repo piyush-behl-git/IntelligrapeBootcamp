@@ -10,9 +10,6 @@ class BootstrapService {
     def resourceService
     def userService
 
-    def serviceMethod() {
-
-    }
 
     def initializeData() {
         initializeUsers()
@@ -52,7 +49,7 @@ class BootstrapService {
     }
 
     void createAndSubscribeTopic(String topicName, Visibility visibility, String email) {
-        def owner = User.findByEmail(email)
+        User owner = User.findByEmail(email)
         if (owner) {
             Topic topic = new Topic(name: topicName, visibility: visibility, owner: owner)
             topic.save(failOnError: true)
@@ -71,6 +68,13 @@ class BootstrapService {
             subscribeTopic(user, topic, Seriousness.SERIOUS)
     }
 
+    void subscribeTopic(User user, Topic topic, Seriousness seriousness) {
+        if (topic.visibility == Visibility.PUBLIC || (topic.visibility == Visibility.PRIVATE && topic.owner == user)) {
+            Subscription subscription = new Subscription(subscriber: user, topic: topic, seriousness: seriousness)
+            subscription.save(failOnError: true)
+        }
+    }
+
     void subscribeRandomTopics() {
         List<Topic> topics = Topic.list()
         for (topic in topics) {
@@ -79,18 +83,6 @@ class BootstrapService {
             Collections.shuffle(users)
             subscribeTopic(users.first(), topic, Seriousness.CASUAL)
             subscribeTopic(users.last(), topic, Seriousness.SERIOUS)
-        }
-    }
-
-    void subscribeTopic(User user, Topic topic, Seriousness seriousness) {
-        Subscription subscription
-        if (topic.visibility == Visibility.PUBLIC || (topic.visibility == Visibility.PRIVATE && topic.owner == user)) {
-            subscription = new Subscription(subscriber: user, topic: topic, seriousness: seriousness)
-            user.addToTopics topic
-            user.save(failOnError: true)
-            subscription.save(failOnError: true)
-            topic.addToSubscriptions(subscription)
-            topic.save(failOnError: true)
         }
     }
 
