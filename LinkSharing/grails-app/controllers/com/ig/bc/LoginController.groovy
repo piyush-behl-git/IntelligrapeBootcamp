@@ -1,6 +1,7 @@
 package com.ig.bc
 
 class LoginController {
+    static final dateFormat = 'dd/mm/yyyy'
 
     def beforeInterceptor = [action: this.&checkSession, except: 'logout']
 
@@ -28,8 +29,7 @@ class LoginController {
     }
 
     def registrationHandler() {
-        //TODO create dd/mm/yyyy a constant or define in config
-        params.dateOfBirth = Date.parse("dd/mm/yyyy", params.dateOfBirth)
+        params.dateOfBirth = Date.parse(dateFormat, params.dateOfBirth)
         User userInstance = new User(params);
         userInstance.save(failOnError: true)
         flash.message = "User registered successfully."

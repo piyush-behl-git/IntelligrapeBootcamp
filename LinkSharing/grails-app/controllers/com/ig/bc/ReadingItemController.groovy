@@ -18,7 +18,7 @@ class ReadingItemController {
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
         params.max = Math.min(max ?: 10, 100)
         [readingItemInstanceList: currentUser.getReadingItems(),
-                readingItemInstanceTotal: currentUser.getGetReadingItemCount()]
+                readingItemInstanceTotal: currentUser.getReadingItemCount()]
     }
 
     def create() {

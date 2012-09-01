@@ -21,8 +21,8 @@ class TopicController {
 
     def create() {
         String currentLoggedInUserEmail = session.email
-        User currentUserInstance = userService.getCurrentUser(currentLoggedInUserEmail)
-        [topicInstance: new Topic(params), currentUserInstance: currentUserInstance]
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        [topicInstance: new Topic(params), currentUserInstance: currentUser]
     }
 
     def save() {
