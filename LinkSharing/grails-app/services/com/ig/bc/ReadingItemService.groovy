@@ -1,7 +1,7 @@
 package com.ig.bc
 
-import com.ig.bc.vo.TopicResourceCount
 import com.ig.bc.vo.ResourceVO
+import com.ig.bc.vo.TopicResourceCount
 
 class ReadingItemService {
 

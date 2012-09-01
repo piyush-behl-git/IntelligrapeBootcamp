@@ -10,7 +10,7 @@ class ResourceService {
     //TODO def ??? move to User domain
     def allUnreadResources(String currentLoggedInUserEmail) {
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        List<Topic> topicsSubList = currentUser.getAllVerySeriousTopics()
+        List<Topic> topicsSubList = currentUser.getVerySeriousTopics()
         List<Resource> unreadResources = Resource.createCriteria().list {
             inList("topic", topicsSubList)
             'readingItems' {
@@ -23,7 +23,7 @@ class ResourceService {
     //TODO def ???? also move to User domain
     def allUpdatesAboutUserSubscriptions(String currentLoggedInUserEmail) {
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        List<Topic> topicsSubList = currentUser.getAllVerySeriousTopics()
+        List<Topic> topicsSubList = currentUser.getVerySeriousTopics()
         List<Resource> newResources = Resource.createCriteria().list {
             inList("topic", topicsSubList)
             lt("dateCreated", new Date())
@@ -35,8 +35,7 @@ class ResourceService {
     }
     //TODO name refactor, userService to User domain
      def subscriptionAlerts() {
-        //TODO move to user domain
-        List<String> emails = userService.getAllRegisteredEmails()
+        List<String> emails = User.getRegisteredEmails()
         for (email in emails) {
             List<Resource> unreadResourceList = allUnreadResources(email)
             //TODO unused variable

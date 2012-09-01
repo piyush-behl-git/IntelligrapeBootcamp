@@ -1,8 +1,8 @@
 package com.ig.bc
 
 import com.ig.bc.co.InvitationCommand
-import com.ig.bc.vo.TopicResourceVO
 import com.ig.bc.dto.EmailDTO
+import com.ig.bc.vo.TopicResourceVO
 
 class EmailNotificationService {
     def asynchronousMailService
@@ -26,8 +26,8 @@ class EmailNotificationService {
     }
 
     //TODO name should start with verb
-    def newResourceEmailAlerts() {
-        List<String> emails = userService.getAllRegisteredEmails()
+    def sendResourceEmailAlerts() {
+        List<String> emails = User.getRegisteredEmails()
         for (email in emails) {
             Map<Topic, Resource> topicResourceMap = resourceService.allUpdatesAboutUserSubscriptions(email)
             Set<Topic> topics = topicResourceMap.keySet()

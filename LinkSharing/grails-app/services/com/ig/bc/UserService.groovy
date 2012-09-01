@@ -12,12 +12,6 @@ class UserService {
         return userStatus
     }
 
-    //TODO faltu function find usage & modify it
-    User getCurrentUser(String currentUserEmail) {
-        User currentUser = User.findByEmail(currentUserEmail)
-        return currentUser
-    }
-
     //TODO move to user domain
     List<String> getAllRegisteredEmails() {
         List<User> userList = User.list()
