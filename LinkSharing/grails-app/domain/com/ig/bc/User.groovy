@@ -1,7 +1,6 @@
 package com.ig.bc
 
 import com.ig.bc.enums.Seriousness
-import javax.swing.text.Document
 
 class User {
     String email
@@ -27,7 +26,7 @@ class User {
         })
     }
 
-    List<Topic> getAllVerySeriousTopics() {
+    List<Topic> getVerySeriousTopics() {
         List<Topic> topics = Subscription.createCriteria().list {
             projections {
                 property("topic")
@@ -45,8 +44,8 @@ class User {
     List<DocumentResource> getDocumentResources() {
         List<Resource> resources = getResources()
         List<DocumentResource> documentResources = resources.collect {resource ->
-            if(resource.instanceOf(DocumentResource))
-                return (DocumentResource)resource
+            if (resource.instanceOf(DocumentResource))
+                return (DocumentResource) resource
         }
     }
 
@@ -55,7 +54,7 @@ class User {
         return readingItems
     }
 
-    Integer getGetReadingItemCount() {
+    Integer getReadingItemCount() {
         return ReadingItem.countByUser(this)
     }
 
@@ -69,6 +68,31 @@ class User {
 
     List<Topic> getSubscribedTopics() {
         return Subscription.findBySubscriber(this)
+    }
+
+    static List<String> getRegisteredEmails() {
+        return User.list()*.email as List<String>
+    }
+
+    List<Resource> getUnreadResources() {
+        List<Topic> topicsSubList = getVerySeriousTopics()
+        List<Resource> unreadResources = Resource.createCriteria().list {
+            inList("topic", topicsSubList)
+            'readingItems' {
+                eq("isRead", false)
+            }
+        }
+        return unreadResources
+    }
+
+    Integer totalUnreadResources() {
+        Integer totalUnreadResources = Resource.createCriteria().count {
+            inList("topic", getVerySeriousTopics())
+            'readingItems' {
+                eq("isRead", false)
+            }
+        }
+        return totalUnreadResources
     }
 
     String toString() {
