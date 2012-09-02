@@ -31,3 +31,7 @@
     </g:each>
     </tbody>
 </table>
+<fieldset class="buttons">
+    <input type="button" name="subscribe-button" class="save" value="Subscribe"/>
+    <input type="button" name="unsubscribe-button" class="save" value="Unsubscribe"/>
+</fieldset>
