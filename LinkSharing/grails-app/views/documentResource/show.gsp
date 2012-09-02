@@ -45,7 +45,7 @@
 				<li class="fieldcontain">
 					<span id="fileName-label" class="property-label"><g:message code="documentResource.fileName.label" default="File Name" /></span>
 					
-						<span class="property-value" aria-labelledby="fileName-label"><g:link controller="documentResource" action="documentDownload" id="${documentResourceInstance?.id}">
+						<span class="property-value" aria-labelledby="fileName-label"><g:link controller="documentResource" action="download" id="${documentResourceInstance?.id}">
                             <g:fieldValue bean="${documentResourceInstance}" field="fileName"/>
                         </g:link></span>
 					

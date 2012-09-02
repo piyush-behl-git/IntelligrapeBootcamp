@@ -1,5 +1,6 @@
 package com.ig.bc
 
+import com.ig.bc.dto.TopicResourceDTO
 import org.springframework.dao.DataIntegrityViolationException
 
 class ReadingItemController {
@@ -108,7 +109,7 @@ class ReadingItemController {
     }
 
     def markRead(Long id) {
-        def readingItem = ReadingItem.get(id)
+        ReadingItem readingItem = ReadingItem.get(id)
         readingItem.isRead = true
         readingItem.save(failOnError: true)
         redirect(controller: "user", action: "dashboard")
@@ -116,7 +117,8 @@ class ReadingItemController {
 
     def mostReadResources() {
         String currentLoggedInUserEmail = session.email
-        def topicResourceCountList = readingItemService.currentUserSubscribedTopicsMostReadResources(currentLoggedInUserEmail)
-        [topicResourceCountList: topicResourceCountList]
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        List<TopicResourceDTO> topicsMostReadResources = currentUser.getTopicsMostReadResources()
+        [topicsMostReadResources: topicsMostReadResources]
     }
 }

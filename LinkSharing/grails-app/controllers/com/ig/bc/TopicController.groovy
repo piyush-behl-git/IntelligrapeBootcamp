@@ -106,8 +106,7 @@ class TopicController {
         }
     }
 
-    //TODO refactor name, it should start with verb
-    def invitationBinding(InvitationCommand invitationCommand) {
+    def bindInvitation(InvitationCommand invitationCommand) {
         emailNotificationService.invitation(invitationCommand)
         flash.message = "Invitations sent"
         redirect(action: 'list')

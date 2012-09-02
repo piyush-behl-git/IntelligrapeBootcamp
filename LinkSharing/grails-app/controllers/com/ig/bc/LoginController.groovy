@@ -16,10 +16,6 @@ class LoginController {
         return returnStatus
     }
 
-    def index() {
-
-    }
-
     def login() {
         render(view: 'login')
     }

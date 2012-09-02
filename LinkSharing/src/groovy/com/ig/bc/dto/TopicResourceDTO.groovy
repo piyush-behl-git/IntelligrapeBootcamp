@@ -1,9 +1,9 @@
-package com.ig.bc.vo
+package com.ig.bc.dto
 
 import com.ig.bc.Topic
 import com.ig.bc.Resource
 
-class TopicResourceVO {
+class TopicResourceDTO {
     Topic topic
     List<Resource> resources
 }

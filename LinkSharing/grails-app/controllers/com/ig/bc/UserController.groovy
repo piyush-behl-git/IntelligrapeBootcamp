@@ -1,6 +1,7 @@
 package com.ig.bc
 
 import org.springframework.dao.DataIntegrityViolationException
+import com.ig.bc.dto.TopicSubscriptionDTO
 
 class UserController {
 
@@ -15,7 +16,6 @@ class UserController {
     }
 
     def loginHandler() {
-        //TODO move to domain class
         User user = User.findByEmailAndPassword(params.email, params.password)
         if (user) {
             session.email = params.email
@@ -25,15 +25,14 @@ class UserController {
     }
 
     def dashboard() {
-        //TODO move to domain class
-        User user = User.findByEmail(session.email)
-        //TODO move to domain class
-        List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndIsRead(user, false)
-        //TODO move to domain class
-        List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
-        //TODO move to domain class
-        List<Topic> topics = Topic.findAllByOwner(user)
-        Topic highestSubscribedTopic = subscriptionService.findHighestSubscribedPublicTopic().topic
+
+        String currentLoggedInUserEmail = session.email
+        User user = User.findByEmail(currentLoggedInUserEmail)
+        List<ReadingItem> unreadReadingItems = user.getUnreadReadingItems()
+        List<Subscription> subscriptions = user.subscriptions as List
+        List<Topic> topics = user.ownedTopics
+        List<TopicSubscriptionDTO> highestSubscribedTopics = Subscription.getHighestSubscribedTopics()
+        Topic highestSubscribedTopic = highestSubscribedTopics.first().topic
         [highestSubscribedTopic: highestSubscribedTopic]
     }
 

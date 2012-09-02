@@ -27,7 +27,7 @@
 		</div>
 
         <div id="invitationDiv">
-            <g:form action="invitationBinding">
+            <g:form action="bindInvitation">
                 <pre>
                     Email :<g:textField name="email1" />
                     Email :<g:textField name="email2" />

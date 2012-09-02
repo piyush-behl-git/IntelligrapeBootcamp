@@ -1,8 +1,7 @@
 package com.ig.bc
 
-import org.springframework.dao.DataIntegrityViolationException
-import org.springframework.web.multipart.MultipartFile
 import com.ig.bc.co.FileCommand
+import org.springframework.dao.DataIntegrityViolationException
 
 class DocumentResourceController {
 
@@ -26,18 +25,13 @@ class DocumentResourceController {
 
     def save(FileCommand fileCommand) {
         if (fileCommand.file.contentType == 'application/pdf') {
-            params.put("contentType",fileCommand.file.contentType)
-            params.put("fileName",fileCommand.file.originalFilename)
+            params.put("contentType", fileCommand.file.contentType)
+            params.put("fileName", fileCommand.file.originalFilename)
             DocumentResource documentResourceInstance = new DocumentResource(params)
-            println("just check the flow ${documentResourceInstance}")
             if (!documentResourceInstance.save(flush: true)) {
                 flash.message = "Error! Saving to database"
             } else {
-                //TODO create separate function for uploading file & call it here
-                File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
-                fileCommand.file.transferTo(fileToSave)
-                flash.documentResource = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'),
-                        documentResourceInstance.id])
+                uploadDocument(documentResourceInstance, fileCommand)
             }
         } else {
             flash.documentResource = "Sorry! couldn't create document resource. Only pdf are allowed."
@@ -52,20 +46,14 @@ class DocumentResourceController {
             redirect(action: "list")
             return
         }
-        //TODO change variable name documentLink
-        String documentLink = grailsApplication.config.uploadPath + "/" + id
-        [documentResourceInstance: documentResourceInstance, documentLink: documentLink]
+        String documentUploadPath = grailsApplication.config.uploadPath + "/" + id
+        [documentResourceInstance: documentResourceInstance, documentLink: documentUploadPath]
 
     }
 
-    //TODO name of function should be verb
-    def documentDownload(Long id) {
-        def documentResourceInstance = DocumentResource.get(id)
-        byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}").bytes
-        response.setContentType("application/pdf")
-        response.setHeader("Content-disposition", "attachment; filename=" + documentResourceInstance.fileName)
-        response.contentLength = sourcePdf.length
-        response.outputStream << sourcePdf
+    def download(Long id) {
+        DocumentResource documentResource = DocumentResource.get(id)
+        generateResponse(id, documentResource)
     }
 
     def edit(Long id) {
@@ -124,5 +112,20 @@ class DocumentResourceController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'), id])
             redirect(action: "show", id: id)
         }
+    }
+
+    private void uploadDocument(DocumentResource documentResourceInstance, FileCommand fileCommand) {
+        File fileToSave = new File("${grailsApplication.config.uploadPath}/${documentResourceInstance.id}")
+        fileCommand.file.transferTo(fileToSave)
+        flash.documentResource = message(code: 'default.created.message', args: [message(code: 'documentResource.label', default: 'DocumentResource'),
+                documentResourceInstance.id])
+    }
+
+    private void generateResponse(long id, DocumentResource documentResource) {
+        byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}").bytes
+        response.setContentType("application/pdf")
+        response.setHeader("Content-disposition", "attachment; filename=" + documentResource.fileName)
+        response.contentLength = sourcePdf.length
+        response.outputStream << sourcePdf
     }
 }

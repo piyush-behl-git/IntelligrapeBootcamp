@@ -1,7 +1,7 @@
 package com.ig.bc
 
-import com.ig.bc.enums.Seriousness
 import com.ig.bc.dto.TopicSubscriptionDTO
+import com.ig.bc.enums.Seriousness
 import com.ig.bc.enums.Visibility
 
 class Subscription {
@@ -14,11 +14,20 @@ class Subscription {
     static constraints = {
     }
 
-    List<TopicSubscriptionDTO> getTopicAndSubscriptionCount() {
-        List<TopicSubscriptionDTO> topicSubscriptionDTOs = Subscription.createCriteria().list {
+    static List<TopicSubscriptionDTO> getHighestSubscribedTopics() {
+        List<Object[]> topicAndSubscriptionCountList = topicAndSubscriptionCriteria()
+        List<TopicSubscriptionDTO> highestSubscribedTopics = []
+        for (topicAndSubscriptionCount in topicAndSubscriptionCountList) {
+            highestSubscribedTopics << new TopicSubscriptionDTO(topic: topicAndSubscriptionCount.first(), subscriptionCount: topicAndSubscriptionCount.last())
+        }
+        return highestSubscribedTopics
+    }
+
+    private static List<Object[]> topicAndSubscriptionCriteria() {
+        List topicAndSubscriptionCountList = Subscription.createCriteria().list {
             projections {
                 groupProperty('topic')
-                count('topc', 't')
+                count('topic', 't')
             }
             'topic' {
                 eq("visibility", Visibility.PUBLIC)
@@ -26,7 +35,7 @@ class Subscription {
             maxResults MAX_RESULT_COUNT
             order('t', 'desc')
         }
-        return topicSubscriptionDTOs
+        topicAndSubscriptionCountList
     }
 
     String toString() {

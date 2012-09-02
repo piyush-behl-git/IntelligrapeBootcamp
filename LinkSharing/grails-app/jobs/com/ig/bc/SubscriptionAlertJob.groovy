@@ -3,8 +3,7 @@ package com.ig.bc
 
 
 class SubscriptionAlertJob {
-    def asynchronousMailService
-    def resourceService
+    def emailNotificationService
 
     static triggers = {
 //        simple repeatInterval: 1000*60
@@ -12,6 +11,6 @@ class SubscriptionAlertJob {
     }
 
     def execute() {
-        resourceService.subscriptionAlerts()
+        emailNotificationService.subscriptionAlerts()
     }
 }

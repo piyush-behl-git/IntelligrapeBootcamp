@@ -22,31 +22,31 @@
         <div class="message" role="status">${flash.message}</div>
     </g:if>
     <table id="dlist">
-        <g:each in="${topicResourceCountList}" status="i" var="item">
+        <g:each in="${topicsMostReadResources}" status="i" var="topicMostReadResources">
             <thead>
             <tr>
-                <th>${item.topic.name}</th>
+                <th>${topicMostReadResources.topic.name}</th>
             </tr>
             <tr>
                 <th>Resource</th>
                 <g:sortableColumn property="dateCreated" title="${message(code: 'documentResource.dateCreated.label', default: 'Date Created')}"/>
                 <g:sortableColumn property="lastUpdated" title="${message(code: 'documentResource.lastUpdated.label', default: 'Last Updated')}"/>
-                <th>Subscription Count</th>
+                <th>Read Count</th>
             </tr>
             </thead>
-            <g:each in="${item.resourceAndCountList}" status="j" var="rc">
+            <g:each in="${topicMostReadResources.mostReadResources}" status="j" var="mostReadResource">
                 <tr class="${(j % 2) == 0 ? 'even' : 'odd'}">
-                <g:if test="${rc.resource.instanceOf(DocumentResource)}">
-                    <td>
-                        <g:link controller="documentResource" action="show" id="${rc.resource?.id}">${rc.resource?.fileName}</g:link>
-                    </td>
-                </g:if>
-                <g:if test="${rc.resource.instanceOf(LinkResource)}">
-                    <td><g:link controller="linkResource" action="show" id="${rc.resource?.id}">${rc.resource?.url}</g:link></td>
-                </g:if>
-                <td><ls:formattedDate date="${rc.resource.dateCreated}"/></td>
-                <td><ls:formattedDate date="${rc.resource.lastUpdated}"/></td>
-                <td>${rc.subscriptionCount}</td>
+                    <g:if test="${mostReadResource.resource.instanceOf(DocumentResource)}">
+                        <td>
+                            <g:link controller="documentResource" action="show" id="${mostReadResource.resource?.id}">${mostReadResource.resource?.fileName}</g:link>
+                        </td>
+                    </g:if>
+                    <g:if test="${mostReadResource.resource.instanceOf(LinkResource)}">
+                        <td><g:link controller="linkResource" action="show" id="${mostReadResource.resource?.id}">${mostReadResource.resource?.url}</g:link></td>
+                    </g:if>
+                    <td><ls:formattedDate date="${mostReadResource.resource.dateCreated}"/></td>
+                    <td><ls:formattedDate date="${mostReadResource.resource.lastUpdated}"/></td>
+                    <td>${mostReadResource.readCount}</td>
                 </tr>
             </g:each>
         </g:each>

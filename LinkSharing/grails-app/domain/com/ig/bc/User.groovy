@@ -1,5 +1,6 @@
 package com.ig.bc
 
+import com.ig.bc.dto.TopicResourceDTO
 import com.ig.bc.enums.Seriousness
 
 class User {
@@ -37,8 +38,20 @@ class User {
         return topics
     }
 
+    Map<Topic, Resource> getSubscriptionUpdates() {
+        List<Topic> verySeriousTopics = getVerySeriousTopics()
+        List<Resource> newResources = Resource.createCriteria().list {
+            inList("topic", verySeriousTopics)
+            lt("dateCreated", new Date())
+        }
+        Map<Topic, List<Resource>> topicResource = newResources.groupBy { resource ->
+            resource.topic
+        }
+        return topicResource
+    }
+
     List<Resource> getResources() {
-        return Resource.findAllByUser(this)
+        return Resource.findAllByOwner(this)
     }
 
     List<DocumentResource> getDocumentResources() {
@@ -56,10 +69,6 @@ class User {
 
     Integer getReadingItemCount() {
         return ReadingItem.countByUser(this)
-    }
-
-    List<Subscription> getSubscriptions() {
-        return Subscription.findAllBySubscriber(this)
     }
 
     Integer getSubscriptionCount() {
@@ -93,6 +102,26 @@ class User {
             }
         }
         return totalUnreadResources
+    }
+
+    List<TopicResourceDTO> getTopicsMostReadResources() {
+        List<TopicResourceDTO> topicsMostReadResources = []
+        for (topic in this.topics) {
+            topicsMostReadResources << new TopicResourceDTO(topic: topic, resources: topic.getMostReadResources())
+        }
+        return topicsMostReadResources
+    }
+
+    List<ReadingItem> getUnreadReadingItems() {
+        List<ReadingItem> unreadReadingItems = ReadingItem.findAllByUserAndIsRead(this, false)
+        return unreadReadingItems
+    }
+
+    List<Topic> getOwnedTopics() {
+        List<Topic> ownedTopics = Topic.createCriteria().list {
+            eq('owner', this)
+        }
+        return ownedTopics
     }
 
     String toString() {
