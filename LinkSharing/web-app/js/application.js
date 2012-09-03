@@ -5,7 +5,9 @@ var urls = {
     markReadUrl:"",
     markUnreadUrl:"",
     subscribeUrl:"",
-    unsubscribeUrl:""
+    unsubscribeUrl:"",
+    markFavUrl:"",
+    unmarkFavUrl:""
 };
 if (typeof jQuery !== 'undefined') {
     (function ($) {
@@ -205,4 +207,22 @@ $(document).ready(function () {
         });
     });
 });
+function changeFavStatusUnmark(id) {
+    $.ajax({
+        url: urls.unmarkFavUrl,
+        data:"id="+id,
+        success:function(html) {
+            $('div#readingItemListDiv').html(html)
+        }
+    })
+}
+function changeFavStatusMark(id) {
+    $.ajax({
+        url: urls.markFavUrl,
+        data:"id="+id,
+        success:function(html) {
+            $('div#readingItemListDiv').html(html)
+        }
+    })
+}
 

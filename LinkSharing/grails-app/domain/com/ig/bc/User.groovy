@@ -62,6 +62,14 @@ class User {
         }
     }
 
+    List<LinkResource> getLinkResource() {
+        List<Resource> resources = getResources()
+        List<LinkResource> linkResources = resources.collect {  resource ->
+            if (resource.instanceOf(LinkResource))
+                return resource
+        }
+    }
+
     List<ReadingItem> getReadingItems() {
         List<ReadingItem> readingItems = ReadingItem.findAllByUser(this)
         return readingItems
@@ -128,3 +136,6 @@ class User {
         fullName
     }
 }
+
+
+//{--<td><img src="${resource(dir: 'images',file: 'star_off.png')}" alt="" name=""/> </td>--}

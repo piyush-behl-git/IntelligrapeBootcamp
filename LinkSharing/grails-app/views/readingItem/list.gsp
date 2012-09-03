@@ -31,7 +31,9 @@
 <script type="text/javascript">
     urls = {
         markReadUrl: "${createLink(controller: "readingItem", action: "markRead")}",
-        markUnreadUrl: "${createLink(controller: 'readingItem', action: 'markUnread')}"
+        markUnreadUrl: "${createLink(controller: 'readingItem', action: 'markUnread')}",
+        markFavUrl: "${createLink(controller: 'readingItem', action: 'markFav')}",
+        unmarkFavUrl:"${createLink(controller: 'readingItem', action: 'unmarkFav')}"
     }
 </script>
 </body>

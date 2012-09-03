@@ -4,6 +4,7 @@ import com.ig.bc.dto.TopicResourceDTO
 import org.springframework.dao.DataIntegrityViolationException
 
 class ReadingItemController {
+    def readingItemService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -142,5 +143,21 @@ class ReadingItemController {
         List<TopicResourceDTO> topicsMostReadResources = currentUser.getTopicsMostReadResources()
 
         [topicsMostReadResources: topicsMostReadResources]
+    }
+
+    def markFav() {
+        Long readingItemId = Long.parseLong(params.id)
+        readingItemService.markFav(readingItemId)
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+    }
+
+    def unmarkFav() {
+        Long readingItemId = Long.parseLong(params.id)
+        readingItemService.unmarkFav(readingItemId)
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
     }
 }

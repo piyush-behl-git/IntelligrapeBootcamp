@@ -11,8 +11,20 @@ class ReadingItemService {
     }
 
     def removeReadingItems(List<ReadingItem> readingItems) {
-            readingItems.each{ readingItem->
-                readingItem.delete(flush: true)
-            }
+        readingItems.each { readingItem ->
+            readingItem.delete(flush: true)
+        }
+    }
+
+    def markFav(Long id) {
+        ReadingItem readingItem = ReadingItem.get(id)
+        readingItem.isFavorite = true
+        readingItem.save(failOnError: true)
+    }
+
+    def unmarkFav(Long id) {
+        ReadingItem readingItem = ReadingItem.get(id)
+        readingItem.isFavorite = false
+        readingItem.save(failOnError: true)
     }
 }
