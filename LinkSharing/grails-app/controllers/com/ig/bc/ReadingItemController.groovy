@@ -108,17 +108,41 @@ class ReadingItemController {
         }
     }
 
-    def markRead(Long id) {
-        ReadingItem readingItem = ReadingItem.get(id)
-        readingItem.isRead = true
-        readingItem.save(failOnError: true)
-        redirect(controller: "user", action: "dashboard")
+    def markRead() {
+        List<String> readingItemsIds = params.ids.split(',')
+        List<Long> idList = readingItemsIds.collect {
+            Long.parseLong(it)
+        }
+        List<ReadingItem> readingItemList = ReadingItem.getAll(idList)
+        readingItemList.each {readingItem ->
+            readingItem.isRead = true
+            readingItem.save(failOnError: true)
+        }
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+    }
+
+    def markUnread() {
+        List<String> readingItemsIds = params.ids.split(',')
+        List<Long> idList = readingItemsIds.collect {
+            Long.parseLong(it)
+        }
+        List<ReadingItem> readingItemList = ReadingItem.getAll(idList)
+        readingItemList.each {readingItem ->
+            readingItem.isRead = false
+            readingItem.save(failOnError: true)
+        }
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
     }
 
     def mostReadResources() {
         String currentLoggedInUserEmail = session.email
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
         List<TopicResourceDTO> topicsMostReadResources = currentUser.getTopicsMostReadResources()
+
         [topicsMostReadResources: topicsMostReadResources]
     }
 }
