@@ -5,9 +5,6 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class ReadingItemController {
 
-    def readingItemService
-    def subscriptionService
-
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -120,6 +117,7 @@ class ReadingItemController {
         }
         String currentLoggedInUserEmail = session.email
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        flash.message = "All selected are marked as read."
         render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
     }
 
