@@ -14,8 +14,9 @@ class DocumentResourceController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        [documentResourceInstanceList: DocumentResource.list(params), documentResourceInstanceTotal: DocumentResource.count()]
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        [documentResourceInstanceList: currentUser.getDocumentResources() ,documentResourceInstanceTotal: currentUser.getDocumentResources().size()]
     }
 
     def create() {

@@ -144,11 +144,6 @@ $(document).ready(function () {
             });
         }
     });
-    $('input[name=subscribe-button]').bind('click', function () {
-        $('input#status:checked').each(function () {
-            alert($(this).val())
-        })
-    });
     $('input[name=mark-read-button]').bind('click', function () {
         var idValues = ''
         $('input#status:checked').each(function () {

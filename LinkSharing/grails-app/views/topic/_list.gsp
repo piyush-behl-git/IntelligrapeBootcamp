@@ -3,15 +3,15 @@
     <tr>
 
         <th><g:select id="selectTopic" name="selectTopic"
-                  from="['Select Options','Check All', 'Uncheck All', 'Inverse']">
+                      from="['Select Options', 'Check All', 'Uncheck All', 'Inverse']">
         </g:select>
         </th>
 
-        <g:sortableColumn property="name" title="${message(code: 'topic.name.label', default: 'Name')}" />
+        <g:sortableColumn property="name" title="${message(code: 'topic.name.label', default: 'Name')}"/>
 
-        <th><g:message code="topic.owner.label" default="Owner" /></th>
+        <th><g:message code="topic.owner.label" default="Owner"/></th>
 
-        <g:sortableColumn property="visibility" title="${message(code: 'topic.visibility.label', default: 'Visibility')}" />
+        <g:sortableColumn property="visibility" title="${message(code: 'topic.visibility.label', default: 'Visibility')}"/>
 
     </tr>
     </thead>

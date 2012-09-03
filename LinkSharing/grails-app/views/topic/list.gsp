@@ -38,5 +38,11 @@
                 </pre>
             </g:form>
         </div>
+    <script type="text/javascript">
+        urls = {
+            subscribeUrl: "${createLink(controller: "topic", action: "subscribe")}",
+            unsubscribeUrl: "${createLink(controller: 'topic', action: 'unsubscribe')}"
+        }
+    </script>
 	</body>
 </html>
