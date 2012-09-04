@@ -16,27 +16,23 @@ class ReadingItemService {
         }
     }
 
-    def markFav(Long id) {
+    def markUnmarkFav(Long id) {
+        String returnStatus
         ReadingItem readingItem = ReadingItem.get(id)
-        readingItem.isFavorite = true
+        if (readingItem.isFavorite) {
+            readingItem.isFavorite = false
+            returnStatus=false
+        } else {
+            readingItem.isFavorite = true
+            returnStatus = "true"
+        }
         readingItem.save(failOnError: true)
-    }
-
-    def unmarkFav(Long id) {
-        ReadingItem readingItem = ReadingItem.get(id)
-        readingItem.isFavorite = false
-        readingItem.save(failOnError: true)
+        return returnStatus
     }
 
     def markCurrentRead(Long id) {
         ReadingItem readingItem = ReadingItem.get(id)
-        readingItem.isRead=true
-        readingItem.save(failOnError: true)
-    }
-
-    def markCurrentUnread(Long id) {
-        ReadingItem readingItem = ReadingItem.get(id)
-        readingItem.isRead=false
+        readingItem.isRead = true
         readingItem.save(failOnError: true)
     }
 }

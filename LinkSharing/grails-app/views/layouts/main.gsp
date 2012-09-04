@@ -31,5 +31,13 @@
     <div class="footer" role="contentinfo"></div>
     <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 </div>
+<script type="text/javascript">
+    urls = {
+        markReadUrl: "${createLink(controller: "readingItem", action: "markRead")}",
+        markUnreadUrl: "${createLink(controller: 'readingItem', action: 'markUnread')}",
+        markUnmarkFavUrl: "${createLink(controller: 'readingItem', action: 'markUnmarkFav')}",
+        markCurrentReadUrl:"${createLink(controller: 'readingItem', action: 'markCurrentRead')}"
+    }
+</script>
 </body>
 </html>

@@ -145,16 +145,11 @@ class ReadingItemController {
         [topicsMostReadResources: topicsMostReadResources]
     }
 
-    def markFav() {
+    def markUnmarkFav() {
         Long readingItemId = Long.parseLong(params.id)
-        readingItemService.markFav(readingItemId)
-        render "true"
-    }
-
-    def unmarkFav() {
-        Long readingItemId = Long.parseLong(params.id)
-        readingItemService.unmarkFav(readingItemId)
-        render "true"
+        String renderStatus = readingItemService.markUnmarkFav(readingItemId)
+        println renderStatus
+        render renderStatus
     }
 
     def markCurrentRead() {

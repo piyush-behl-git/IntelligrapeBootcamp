@@ -19,6 +19,7 @@
 
 <div id="list-readingItem" class="content scaffold-list" role="main">
     <h1><g:message code="default.list.label" args="[entityName]"/></h1>
+
     <div id="readingItemListDiv">
         <g:render template="list" model="[list: readingItemInstanceList]"/>
     </div>
@@ -27,16 +28,5 @@
         <g:paginate total="${readingItemInstanceTotal}"/>
     </div>
 </div>
-
-<script type="text/javascript">
-    urls = {
-        markReadUrl: "${createLink(controller: "readingItem", action: "markRead")}",
-        markUnreadUrl: "${createLink(controller: 'readingItem', action: 'markUnread')}",
-        markFavUrl: "${createLink(controller: 'readingItem', action: 'markFav')}",
-        unmarkFavUrl:"${createLink(controller: 'readingItem', action: 'unmarkFav')}",
-        markCurrentReadUrl:"${createLink(controller: 'readingItem', action: 'markCurrentRead')}",
-        markCurrentUnreadUrl:"${createLink(controller: 'readingItem', action: 'markCurrentUnread')}"
-    }
-</script>
 </body>
 </html>
