@@ -27,6 +27,8 @@
         test="${session.email}">
     </g:if></div>
 
+    <div id="searchBox">Search <g:textField name="searchField" id="searchField" /></div>
+
     <g:layoutBody/>
     <div class="footer" role="contentinfo"></div>
     <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
