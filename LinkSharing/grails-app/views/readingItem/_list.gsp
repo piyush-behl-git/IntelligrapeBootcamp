@@ -23,17 +23,18 @@
             <td>
                 <g:checkBox name="status" value="${item.id}"/>
             </td>
-
-            <g:if test="${item.isFavorite}">
-                <td><img name="on" id="fav-img" src="${resource(dir: 'images', file: 'star_on.png')}" alt="true" onclick="changeFavStatusUnmark(${item.id})"></td>
-            </g:if>
-            <g:else>
-                <td><img name="off" id="fav-img" src="${resource(dir: 'images', file: 'star_off.png')}" alt="false" onclick="changeFavStatusMark(${item.id})"></td>
-            </g:else>
+            <td>
+                <g:if test="${item.isFavorite}">
+                    <img name="on" id="fav-img" src="${resource(dir: 'images', file: 'star_on.png')}" alt="true" onclick="changeFavStatusUnmark(${item.id})">
+                </g:if>
+                <g:else>
+                    <img name="off" id="fav-img" src="${resource(dir: 'images', file: 'star_off.png')}" alt="false" onclick="changeFavStatusMark(${item.id})">
+                </g:else>
+            </td>
 
             <td>
                 <g:if test="${item.isRead}">
-                    <span onclick="markCurrentUnread(${item.id})" >
+                    <span onclick="markCurrentUnread(${item.id})">
                         ${fieldValue(bean: item, field: "resource")}
                     </span>
                 </g:if>

@@ -1,8 +1,5 @@
 package com.ig.bc
 
-import com.ig.bc.dto.TopicResourceDTO
-import com.ig.bc.enums.Seriousness
-
 class User {
     String email
     String password
@@ -27,17 +24,6 @@ class User {
         })
     }
 
-    List<Topic> getVerySeriousTopics() {
-        List<Topic> topics = Subscription.createCriteria().list {
-            projections {
-                property("topic")
-            }
-            eq("seriousness", Seriousness.VERY_SERIOUS)
-            eq("subscriber", this)
-        }
-        return topics
-    }
-
     Map<Topic, Resource> getSubscriptionUpdates() {
         List<Topic> verySeriousTopics = getVerySeriousTopics()
         List<Resource> newResources = Resource.createCriteria().list {
@@ -48,6 +34,17 @@ class User {
             resource.topic
         }
         return topicResource
+    }
+
+    List<Topic> getVerySeriousTopics() {
+        List<Topic> topics = Subscription.createCriteria().list {
+            projections {
+                property("topic")
+            }
+            eq("seriousness", Seriousness.VERY_SERIOUS)
+            eq("subscriber", this)
+        }
+        return topics
     }
 
     List<Resource> getResources() {
@@ -96,10 +93,6 @@ class User {
         return Subscription.findBySubscriber(this)
     }
 
-    static List<String> getRegisteredEmails() {
-        return User.list()*.email as List<String>
-    }
-
     List<Resource> getUnreadResources() {
         List<Topic> topicsSubList = getVerySeriousTopics()
         List<Resource> unreadResources = Resource.createCriteria().list {
@@ -141,7 +134,14 @@ class User {
         return ownedTopics
     }
 
+    static List<String> getRegisteredEmails() {
+        return User.list()*.email as List<String>
+    }
+
     String toString() {
         fullName
     }
 }
+import com.ig.bc.dto.TopicResourceDTO
+
+import com.ig.bc.enums.Seriousness

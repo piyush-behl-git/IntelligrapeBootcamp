@@ -48,7 +48,7 @@
 
                 <td>${fieldValue(bean: documentResourceInstance, field: "title")}</td>
 
-                <td>${fieldValue(bean: documentResourceInstance, field: "fileName")}</td>
+                <td><g:link action="show" id="${documentResourceInstance.id}">${fieldValue(bean: documentResourceInstance, field: "fileName")}</g:link></td>
 
                 <td><ls:formattedDate date="${documentResourceInstance.dateCreated}"/></td>
 

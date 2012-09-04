@@ -122,8 +122,10 @@ class TopicController {
         String currentLoggedInUserEmail = session.email
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
         List<Topic> topics = Topic.getAll(idList)
-        subscriptionService.subscribe(currentUser, topics)
+        String errors = subscriptionService.subscribe(currentUser, topics)
         flash.message = "Topics subscribed successfully"
+        if (errors)
+            flash.message = errors
         render(template: "/topic/list", model: [list: currentUser.getTopics()])
     }
 

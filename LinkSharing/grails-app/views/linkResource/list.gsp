@@ -43,9 +43,9 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
 
-                        <td>${fieldValue(bean: linkResourceInstance, field: "title")}</td>
+                        <td><g:link action="show" id="${linkResourceInstance.id}">${fieldValue(bean: linkResourceInstance, field: "title")}</g:link></td>
 
-                        <td>${fieldValue(bean: linkResourceInstance, field: "url")}</td>
+                        <td><a href="${linkResourceInstance.url}">${fieldValue(bean: linkResourceInstance, field: "url")}</a></td>
 
                         <td><g:formatDate date="${linkResourceInstance.dateCreated}" /></td>
 
@@ -53,7 +53,7 @@
 
                         <td>${fieldValue(bean: linkResourceInstance, field: "topic")}</td>
 
-                        <td><g:link action="show" id="${linkResourceInstance.id}">${fieldValue(bean: linkResourceInstance, field: "summary")}</g:link></td>
+                        <td>${fieldValue(bean: linkResourceInstance, field: "summary")}</td>
                     </tr>
                 </g:each>
 				</tbody>
