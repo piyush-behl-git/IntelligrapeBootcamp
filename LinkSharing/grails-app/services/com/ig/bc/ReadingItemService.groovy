@@ -27,4 +27,16 @@ class ReadingItemService {
         readingItem.isFavorite = false
         readingItem.save(failOnError: true)
     }
+
+    def markCurrentRead(Long id) {
+        ReadingItem readingItem = ReadingItem.get(id)
+        readingItem.isRead=true
+        readingItem.save(failOnError: true)
+    }
+
+    def markCurrentUnread(Long id) {
+        ReadingItem readingItem = ReadingItem.get(id)
+        readingItem.isRead=false
+        readingItem.save(failOnError: true)
+    }
 }

@@ -56,18 +56,27 @@ class User {
 
     List<DocumentResource> getDocumentResources() {
         List<Resource> resources = getResources()
-        List<DocumentResource> documentResources = resources.collect {resource ->
-            if (resource.instanceOf(DocumentResource))
-                return (DocumentResource) resource
+        List<DocumentResource> documentResources = []
+        resources.each {  resource->
+            if(resource.instanceOf(DocumentResource))        {
+                documentResources << (DocumentResource) resource
+            }
         }
+        return documentResources
+
+
+
     }
 
-    List<LinkResource> getLinkResource() {
+    List<LinkResource> getLinkResources() {
         List<Resource> resources = getResources()
-        List<LinkResource> linkResources = resources.collect {  resource ->
-            if (resource.instanceOf(LinkResource))
-                return resource
+        List<LinkResource> linkResources = []
+        resources.each {  resource->
+            if(resource.instanceOf(LinkResource))        {
+                linkResources << (LinkResource) resource
+            }
         }
+        return linkResources
     }
 
     List<ReadingItem> getReadingItems() {
@@ -136,6 +145,3 @@ class User {
         fullName
     }
 }
-
-
-//{--<td><img src="${resource(dir: 'images',file: 'star_off.png')}" alt="" name=""/> </td>--}

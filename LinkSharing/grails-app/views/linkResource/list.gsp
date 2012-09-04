@@ -23,9 +23,7 @@
 			<table>
 				<thead>
 					<tr>
-					
-						<g:sortableColumn property="summary" title="${message(code: 'linkResource.summary.label', default: 'Summary')}" />
-					
+
 						<g:sortableColumn property="title" title="${message(code: 'linkResource.title.label', default: 'Title')}" />
 					
 						<g:sortableColumn property="url" title="${message(code: 'linkResource.url.label', default: 'Url')}" />
@@ -35,27 +33,29 @@
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'linkResource.lastUpdated.label', default: 'Last Updated')}" />
 					
 						<th><g:message code="linkResource.topic.label" default="Topic" /></th>
+
+                        <g:sortableColumn property="summary" title="${message(code: 'linkResource.summary.label', default: 'Summary')}" />
 					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${linkResourceInstanceList}" status="i" var="linkResourceInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${linkResourceInstance.id}">${fieldValue(bean: linkResourceInstance, field: "summary")}</g:link></td>
-					
-						<td>${fieldValue(bean: linkResourceInstance, field: "title")}</td>
-					
-						<td>${fieldValue(bean: linkResourceInstance, field: "url")}</td>
-					
-						<td><g:formatDate date="${linkResourceInstance.dateCreated}" /></td>
-					
-						<td><g:formatDate date="${linkResourceInstance.lastUpdated}" /></td>
-					
-						<td>${fieldValue(bean: linkResourceInstance, field: "topic")}</td>
-					
-					</tr>
-				</g:each>
+
+
+                        <td>${fieldValue(bean: linkResourceInstance, field: "title")}</td>
+
+                        <td>${fieldValue(bean: linkResourceInstance, field: "url")}</td>
+
+                        <td><g:formatDate date="${linkResourceInstance.dateCreated}" /></td>
+
+                        <td><g:formatDate date="${linkResourceInstance.lastUpdated}" /></td>
+
+                        <td>${fieldValue(bean: linkResourceInstance, field: "topic")}</td>
+
+                        <td><g:link action="show" id="${linkResourceInstance.id}">${fieldValue(bean: linkResourceInstance, field: "summary")}</g:link></td>
+                    </tr>
+                </g:each>
 				</tbody>
 			</table>
 			<div class="pagination">

@@ -160,4 +160,20 @@ class ReadingItemController {
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
         render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
     }
+
+    def markCurrentRead() {
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        Long readingItemId = Long.parseLong(params.id)
+        readingItemService.markCurrentRead(readingItemId)
+        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+    }
+
+    def markCurrentUnread() {
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        Long readingItemId = Long.parseLong(params.id)
+        readingItemService.markCurrentUnread(readingItemId)
+        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+    }
 }

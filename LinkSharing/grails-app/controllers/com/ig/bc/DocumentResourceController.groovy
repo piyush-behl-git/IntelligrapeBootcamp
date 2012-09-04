@@ -15,7 +15,7 @@ class DocumentResourceController {
 
     def list(Integer max) {
         String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        User currentUser = User.findByEmail(session?.email)
         [documentResourceInstanceList: currentUser.getDocumentResources() ,documentResourceInstanceTotal: currentUser.getDocumentResources().size()]
     }
 

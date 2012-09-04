@@ -1,4 +1,6 @@
 var urls = {
+    markCurrentUnreadUrl:"",
+    markCurrentReadUrl:"",
     checkEmailUrl:"",
     checkDocUrl:"",
     checkDocContentTypeUrl:"",
@@ -219,6 +221,24 @@ function changeFavStatusUnmark(id) {
 function changeFavStatusMark(id) {
     $.ajax({
         url: urls.markFavUrl,
+        data:"id="+id,
+        success:function(html) {
+            $('div#readingItemListDiv').html(html)
+        }
+    })
+}
+function markCurrentRead(id) {
+    $.ajax({
+        url:urls.markCurrentReadUrl,
+        data:"id="+id,
+        success:function(html) {
+            $('div#readingItemListDiv').html(html)
+        }
+    })
+}
+function markCurrentUnread(id) {
+    $.ajax({
+        url:urls.markCurrentUnreadUrl,
         data:"id="+id,
         success:function(html) {
             $('div#readingItemListDiv').html(html)

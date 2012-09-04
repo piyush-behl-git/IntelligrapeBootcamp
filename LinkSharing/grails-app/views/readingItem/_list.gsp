@@ -9,7 +9,7 @@
                       from="['Select Options', 'Check All', 'Uncheck All', 'Inverse']">
         </g:select>
         </th>
-        <g:sortableColumn property="favorite" title="${message(code: 'readingItem.isFavorite.label', default: 'Favorite')}"/>
+        <th><g:message code="readingItem.isFavorite.label" default="Favorite'"/></th>
 
         <th><g:message code="readingItem.resource.label" default="Resource"/></th>
 
@@ -19,12 +19,11 @@
     </thead>
     <tbody>
     <g:each in="${list}" status="i" var="item">
-        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-            <td>%{--<g:link controller="readingItem" action="markRead" id="${item.id}">--}%
-            <g:checkBox name="status" value="${item.id}"/>
-            %{--</g:link>--}%</td>
+        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}" style="cursor: pointer">
+            <td>
+                <g:checkBox name="status" value="${item.id}"/>
+            </td>
 
-        %{--<td><g:link controller="readingItem" action="show" id="${item.id}">${fieldValue(bean: item, field: "isFavorite")}</g:link></td>--}%
             <g:if test="${item.isFavorite}">
                 <td><img name="on" id="fav-img" src="${resource(dir: 'images', file: 'star_on.png')}" alt="true" onclick="changeFavStatusUnmark(${item.id})"></td>
             </g:if>
@@ -32,7 +31,18 @@
                 <td><img name="off" id="fav-img" src="${resource(dir: 'images', file: 'star_off.png')}" alt="false" onclick="changeFavStatusMark(${item.id})"></td>
             </g:else>
 
-            <td>${fieldValue(bean: item, field: "resource")}</td>
+            <td>
+                <g:if test="${item.isRead}">
+                    <span onclick="markCurrentUnread(${item.id})" >
+                        ${fieldValue(bean: item, field: "resource")}
+                    </span>
+                </g:if>
+                <g:else>
+                    <span style="font-weight: bold;" onclick="markCurrentRead(${item.id})">
+                        ${fieldValue(bean: item, field: "resource")}
+                    </span>
+                </g:else>
+            </td>
 
             <td>${fieldValue(bean: item, field: "user")}</td>
 

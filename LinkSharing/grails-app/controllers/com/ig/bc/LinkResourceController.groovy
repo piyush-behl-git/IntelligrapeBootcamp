@@ -12,7 +12,9 @@ class LinkResourceController {
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        [linkResourceInstanceList: LinkResource.list(params), linkResourceInstanceTotal: LinkResource.count()]
+        String currentLoggedInEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInEmail)
+        [linkResourceInstanceList: currentUser.getLinkResources(), linkResourceInstanceTotal: currentUser.getLinkResources().size()]
     }
 
     def create() {
