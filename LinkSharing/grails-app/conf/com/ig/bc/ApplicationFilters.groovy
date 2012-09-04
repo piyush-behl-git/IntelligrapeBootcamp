@@ -3,6 +3,10 @@ package com.ig.bc
 class ApplicationFilters {
 
     def filters = {
+        all(controller: '*', action: '*') {
+            before = {
+            }
+        }
 
         allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'checkEmailUrl|login|loginHandler|register|registrationHandler', invert: true) {
             before = {
@@ -34,6 +38,7 @@ class ApplicationFilters {
             }
         }
 
+
         blockAccessToUserTopicAndResourceList(controller: "user", action: 'list') {
             before = {
                 if (session.email != "admin@intelligrape.com") {
@@ -43,7 +48,6 @@ class ApplicationFilters {
                 return
             }
         }
-
         all(controller: '*', action: '*') {
             before = {
 

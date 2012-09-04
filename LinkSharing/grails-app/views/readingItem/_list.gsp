@@ -19,16 +19,16 @@
     </thead>
     <tbody>
     <g:each in="${list}" status="i" var="item">
-        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}" style="cursor: pointer">
+        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}" style="cursor: pointer" id="row${item.id}">
             <td>
                 <g:checkBox name="status" value="${item.id}"/>
             </td>
             <td>
                 <g:if test="${item.isFavorite}">
-                    <img name="on" id="fav-img" src="${resource(dir: 'images', file: 'star_on.png')}" alt="true" onclick="changeFavStatusUnmark(${item.id})">
+                    <img id="img${item.id}" name="on" id="fav-img" src="${resource(dir: 'images', file: 'star_on.png')}" alt="true" onclick="changeFavStatusUnmark(${item.id})">
                 </g:if>
                 <g:else>
-                    <img name="off" id="fav-img" src="${resource(dir: 'images', file: 'star_off.png')}" alt="false" onclick="changeFavStatusMark(${item.id})">
+                    <img id="img${item.id}" name="off" id="fav-img" src="${resource(dir: 'images', file: 'star_off.png')}" alt="false" onclick="changeFavStatusMark(${item.id})">
                 </g:else>
             </td>
 

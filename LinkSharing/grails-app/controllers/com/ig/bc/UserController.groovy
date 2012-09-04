@@ -28,9 +28,6 @@ class UserController {
 
         String currentLoggedInUserEmail = session.email
         User user = User.findByEmail(currentLoggedInUserEmail)
-        List<ReadingItem> unreadReadingItems = user.getUnreadReadingItems()
-        List<Subscription> subscriptions = user.subscriptions as List
-        List<Topic> topics = user.ownedTopics
         List<TopicSubscriptionDTO> highestSubscribedTopics = Subscription.getHighestSubscribedTopics()
         Topic highestSubscribedTopic = highestSubscribedTopics.first().topic
         [highestSubscribedTopic: highestSubscribedTopic]
@@ -49,7 +46,6 @@ class UserController {
 
     def save() {
         def userInstance = new User(params)
-        println "User : ${userInstance.confirmPassword} >>>> ${userInstance.password} >>> ${userInstance.confirmPassword == userInstance.password}"
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
             return

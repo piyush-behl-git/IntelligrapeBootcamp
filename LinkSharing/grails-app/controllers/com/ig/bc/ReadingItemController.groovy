@@ -148,32 +148,24 @@ class ReadingItemController {
     def markFav() {
         Long readingItemId = Long.parseLong(params.id)
         readingItemService.markFav(readingItemId)
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+        render "true"
     }
 
     def unmarkFav() {
         Long readingItemId = Long.parseLong(params.id)
         readingItemService.unmarkFav(readingItemId)
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+        render "true"
     }
 
     def markCurrentRead() {
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
         Long readingItemId = Long.parseLong(params.id)
         readingItemService.markCurrentRead(readingItemId)
-        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+        render "true"
     }
 
     def markCurrentUnread() {
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
         Long readingItemId = Long.parseLong(params.id)
         readingItemService.markCurrentUnread(readingItemId)
-        render(template: "/readingItem/list", model: [list: currentUser.getReadingItems()])
+        render "true"
     }
 }

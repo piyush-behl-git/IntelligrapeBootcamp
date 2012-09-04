@@ -211,37 +211,43 @@ $(document).ready(function () {
 });
 function changeFavStatusUnmark(id) {
     $.ajax({
-        url: urls.unmarkFavUrl,
-        data:"id="+id,
-        success:function(html) {
-            $('div#readingItemListDiv').html(html)
+        url:urls.unmarkFavUrl,
+        data:"id=" + id,
+        success:function (result) {
+            if (result == "true")
+                $('#img' + id).attr('src', '/LinkSharing/images/star_on.png')
         }
     })
 }
 function changeFavStatusMark(id) {
+    console.log("url : " + urls.markFavUrl);
     $.ajax({
-        url: urls.markFavUrl,
-        data:"id="+id,
-        success:function(html) {
-            $('div#readingItemListDiv').html(html)
+        url:urls.markFavUrl,
+        data:"id=" + id,
+        success:function (result) {
+            if (result == "true")
+                $('#img' + id).attr('src', '/LinkSharing/images/star_on.png')
+
         }
     })
 }
 function markCurrentRead(id) {
     $.ajax({
         url:urls.markCurrentReadUrl,
-        data:"id="+id,
-        success:function(html) {
-            $('div#readingItemListDiv').html(html)
+        data:"id=" + id,
+        success:function (result) {
+            if (result == true)
+                $('#row' + id).css('font-weight', '400')
         }
     })
 }
 function markCurrentUnread(id) {
     $.ajax({
         url:urls.markCurrentUnreadUrl,
-        data:"id="+id,
-        success:function(html) {
-            $('div#readingItemListDiv').html(html)
+        data:"id=" + id,
+        success:function (result) {
+            if (result)
+                $('#row' + id).css('font-weight', 'bold')
         }
     })
 }
