@@ -233,8 +233,40 @@ function markCurrentRead(id) {
     })
 }
 $(function () {
-    $.ajax()
+    function log(message) {
+        $("<div/>").text(message).prependTo("#log");
+        $("#log").scrollTop(0);
+    }
     $('input#searchField').autocomplete({
-        source: urls.searchUrl
+        source:function (request, response) {
+            $.ajax({
+                url:urls.searchUrl,
+                dataType:"json",
+                data:{
+                    searchField_startsWith:request.term
+                },
+                success:function (data) {
+                    alert("asdfadsfsadf");
+                    response($.map(data.userNames, function (name) {
+                        console.debug(name) ;
+                        return {
+                            label:name,
+                            value:name
+                        }
+                    }));
+                }
+            });
+        },
+        select:function (event, ui) {
+            log(ui.item ?
+                "Selected: " + ui.item.label :
+                "Nothing selected, input was " + this.value);
+        },
+        open:function () {
+            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+        },
+        close:function () {
+            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+        }
     });
 });
