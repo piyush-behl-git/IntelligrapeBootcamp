@@ -38,7 +38,8 @@
         markReadUrl: "${createLink(controller: "readingItem", action: "markRead")}",
         markUnreadUrl: "${createLink(controller: 'readingItem', action: 'markUnread')}",
         markUnmarkFavUrl: "${createLink(controller: 'readingItem', action: 'markUnmarkFav')}",
-        markCurrentReadUrl:"${createLink(controller: 'readingItem', action: 'markCurrentRead')}"
+        markCurrentReadUrl:"${createLink(controller: 'readingItem', action: 'markCurrentRead')}",
+        searchUrl:"${createLink(controller: 'search', action: 'searchUsers')}"
     }
 </script>
 </body>

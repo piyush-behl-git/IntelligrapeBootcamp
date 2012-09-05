@@ -8,7 +8,8 @@ var urls = {
     subscribeUrl:"",
     unsubscribeUrl:"",
     markFavUrl:"",
-    markUnmarkFavUrl:""
+    markUnmarkFavUrl:"",
+    searchUrl:""
 };
 if (typeof jQuery !== 'undefined') {
     (function ($) {
@@ -211,11 +212,11 @@ $(document).ready(function () {
 function changeFav(id) {
     $.ajax({
         url:urls.markUnmarkFavUrl,
-        data:{id: id},
+        data:{id:id},
         success:function (result) {
             if (result == "true")
                 $('#img' + id).attr('src', '/LinkSharing/images/star_on.png')
-            else if(result == "false")
+            else if (result == "false")
                 $('#img' + id).attr('src', '/LinkSharing/images/star_off.png')
         }
     })
@@ -223,12 +224,17 @@ function changeFav(id) {
 function markCurrentRead(id) {
     $.ajax({
         url:urls.markCurrentReadUrl,
-        data:{id: id},
+        data:{id:id},
         success:function (result) {
-            if (result == "true")    {
-                $('#row'+id).css('font-weight', '400')
+            if (result == "true") {
+                $('#row' + id).css('font-weight', '400')
             }
         }
     })
 }
-
+$(function () {
+    $.ajax()
+    $('input#searchField').autocomplete({
+        source: urls.searchUrl
+    });
+});

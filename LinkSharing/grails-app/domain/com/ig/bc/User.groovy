@@ -138,6 +138,10 @@ class User {
         return User.list()*.email as List<String>
     }
 
+    static List<String> getAllUserNames() {
+        return User.list()*.fullName
+    }
+
     String toString() {
         fullName
     }
