@@ -48,7 +48,13 @@ class User {
     }
 
     List<Resource> getResources() {
-        return Resource.findAllByOwner(this)
+        List<Resource> resources = ReadingItem.createCriteria().list {
+            projections {
+                property('resource')
+            }
+            eq('user',this)
+        }
+        return resources
     }
 
     List<DocumentResource> getDocumentResources() {
@@ -56,7 +62,7 @@ class User {
         List<DocumentResource> documentResources = []
         resources.each {  resource->
             if(resource.instanceOf(DocumentResource))        {
-                documentResources << (DocumentResource) resource
+                documentResources << resource
             }
         }
         return documentResources
@@ -70,7 +76,7 @@ class User {
         List<LinkResource> linkResources = []
         resources.each {  resource->
             if(resource.instanceOf(LinkResource))        {
-                linkResources << (LinkResource) resource
+                linkResources << resource
             }
         }
         return linkResources
