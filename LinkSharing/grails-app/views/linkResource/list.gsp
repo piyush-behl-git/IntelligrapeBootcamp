@@ -9,12 +9,6 @@
 	</head>
 	<body>
 		<a href="#list-linkResource" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
 		<div id="list-linkResource" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -47,9 +41,9 @@
 
                         <td><a href="${linkResourceInstance.url}">${fieldValue(bean: linkResourceInstance, field: "url")}</a></td>
 
-                        <td><g:formatDate date="${linkResourceInstance.dateCreated}" /></td>
+                        <td><ls:formattedDate date="${linkResourceInstance.dateCreated}" /></td>
 
-                        <td><g:formatDate date="${linkResourceInstance.lastUpdated}" /></td>
+                        <td><ls:formattedDate date="${linkResourceInstance.lastUpdated}" /></td>
 
                         <td>${fieldValue(bean: linkResourceInstance, field: "topic")}</td>
 
@@ -58,6 +52,11 @@
                 </g:each>
 				</tbody>
 			</table>
+            <fieldset class="buttons">
+                <input type="button" name="markRead-button" class="save" value="Mark Read"/>
+                <input type="button" name="markUnread-button" class="save" value="Mark Unread"/>
+                <g:link class="create" controller="linkResource" action="create">Create</g:link>
+            </fieldset>
 			<div class="pagination">
 				<g:paginate total="${linkResourceInstanceTotal}" />
 			</div>
