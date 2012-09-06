@@ -12,6 +12,7 @@ class Subscription {
     static belongsTo = [subscriber: User, topic: Topic]
     static final MAX_RESULT_COUNT = 10
     static constraints = {
+       subscriber(unique: 'topic')
     }
 
     static List<TopicSubscriptionDTO> getHighestSubscribedTopics() {
