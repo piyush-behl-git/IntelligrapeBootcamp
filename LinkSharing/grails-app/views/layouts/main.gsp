@@ -1,9 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
+<html lang="en" class="no-js">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -23,23 +19,36 @@
 
 <body>
 <div>
-    <div id="grailsLogo" role="banner"><g:link controller="user" action="dashboard"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></g:link><g:if
-        test="${session.email}">
-    </g:if></div>
+    <ls:ifLoggedIn>
+        <div class="nav" role="navigation">
+            <ul>
+                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+                <li><a class="home" href="${createLink(controller: 'topic', action: 'list')}">Topics</a></li>
+                <li><a class="home" href="${createLink(controller: 'documentResource', action: 'list')}">Documents</a></li>
+                <li><a class="home" href="${createLink(controller: 'linkResource', action: 'list')}">Links</a></li>
+                <li><a class="home" href="${createLink(controller: 'subscription', action: 'list')}">Subscriptions</a></li>
 
-    <div id="searchBox">Search <g:textField name="searchField" id="searchField" /></div>
-
+                <ls:ifAdmin><li><g:link class="stats" controller="admin" action="stats">Statistics</g:link></li></ls:ifAdmin>
+                <ls:ifLoggedIn><li><g:textField name="searchField" id="searchField"/></li></ls:ifLoggedIn>
+                <li><g:link class="logout" controller="login" action="logout">Logout</g:link></li>
+            </ul>
+        </div>
+    </ls:ifLoggedIn>
     <g:layoutBody/>
     <div class="footer" role="contentinfo"></div>
+
     <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 </div>
 <script type="text/javascript">
     urls = {
-        markReadUrl: "${createLink(controller: "readingItem", action: "markRead")}",
-        markUnreadUrl: "${createLink(controller: 'readingItem', action: 'markUnread')}",
-        markUnmarkFavUrl: "${createLink(controller: 'readingItem', action: 'markUnmarkFav')}",
+        markReadUrl:"${createLink(controller: "readingItem", action: "markRead")}",
+        markUnreadUrl:"${createLink(controller: 'readingItem', action: 'markUnread')}",
+        markUnmarkFavUrl:"${createLink(controller: 'readingItem', action: 'markUnmarkFav')}",
         markCurrentReadUrl:"${createLink(controller: 'readingItem', action: 'markCurrentRead')}",
-        searchUrl:"${createLink(controller: 'search', action: 'searchUsers')}"
+        searchUrl:"${createLink(controller: 'search', action: 'searchUsers')}",
+        checkEmailUrl: "${createLink(controller: "login", action: "checkEmailUrl")}",
+        subscribeUrl:"${createLink(controller: "subscription", action: "subscribe")}",
+        unsubscribeUrl:"${createLink(controller: 'subscription', action: 'unsubscribe')}"
     }
 </script>
 </body>
