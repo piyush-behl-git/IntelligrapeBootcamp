@@ -30,15 +30,21 @@ class ApplicationTagLib {
 
     }
 
-    def highestSubscribedTopic = { attrs ->
-
-    }
-
     def formattedDate = { attrs ->
         Date date = attrs.date
-        if (date != null)
+        if (date)
             out << date.format("dd/MM/yyyy")
-        else
-            out << date
+    }
+
+    def ifAdmin = {attrs, body ->
+        if (session.email == "admin@intelligrape.com") {
+            out << body()
+        }
+    }
+
+    def ifLoggedIn = { attrs, body ->
+        if (session.email) {
+            out << body()
+        }
     }
 }
