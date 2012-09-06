@@ -89,5 +89,35 @@
 <div id="loginDiv">
     <g:render template="/login/login"/>
 </div>
+
+<div id="registrationDiv">
+    <g:if test="${flash.message}">
+        <div class="message" role="status">${flash.message}</div>
+    </g:if>
+    <g:form action='registrationHandler' method="get" name="registrationForm">
+        <fieldset class="form">
+            <g:render template="form"/>
+        </fieldset>
+        <fieldset class="buttons">
+            <g:submitButton name="Register" class="save" value="Register"/>
+        </fieldset>
+    </g:form>
+</div>
+
+<div id="forgotPasswordDiv">
+    <form action="${createLink(controller: 'user', action: 'loginHandler')}" method="POST">
+        <fieldset class="form">
+            <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'email', 'error')} required">
+                <label for="email">
+                    Email
+                </label>
+                <g:field type="email" name="email" value=""/>
+            </div>
+        </fieldset>
+        <fieldset class="buttons">
+            <g:submitButton name='forgotPasswordSubmit' value="Submit"/>
+        </fieldset>
+    </form>
+</div>
 </body>
 </html>
