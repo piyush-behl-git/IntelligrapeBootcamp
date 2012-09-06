@@ -113,34 +113,5 @@ class TopicController {
         flash.message = "Invitations sent"
         redirect(action: 'list')
     }
-
-    def subscribe() {
-        List<String> topicIds = params.ids.split(',')
-        List<Long> idList = topicIds.collect {
-            Long.parseLong(it)
-        }
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        List<Topic> topics = Topic.getAll(idList)
-        String errors = subscriptionService.subscribe(currentUser, topics)
-        flash.message = "Topics subscribed successfully"
-        if (errors)
-            flash.message = errors
-        render(template: "/topic/list", model: [list: currentUser.getTopics()])
-    }
-
-    def unsubscribe() {
-        List<String> topicIds = params.ids.split(',')
-        List<Long> idList = topicIds.collect {
-            Long.parseLong(it)
-        }
-        List<Topic> topics = Topic.getAll(idList)
-        String currentLoggedInUserEmail = session.email
-        User subscriber = User.findByEmail(currentLoggedInUserEmail)
-        subscriptionService.unsubscribe(subscriber, topics)
-        flash.message = "Topics unsubscribed successfully"
-
-        render(template: "/topic/list", model: [list: subscriber.getTopics()])
-    }
 }
 
