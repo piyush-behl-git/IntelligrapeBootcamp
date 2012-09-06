@@ -37,6 +37,11 @@ $(document).ready(function () {
             confirmPassword:{
                 required:true,
                 equalTo:"#password"
+            },
+            messages:{
+                email:{
+                    remote: jQuery.format("{0} is already in use")
+                }
             }
         }
     });
@@ -237,6 +242,7 @@ $(function () {
         $("<div/>").text(message).prependTo("#log");
         $("#log").scrollTop(0);
     }
+
     $('input#searchField').autocomplete({
         source:function (request, response) {
             $.ajax({
@@ -246,9 +252,7 @@ $(function () {
                     searchField_startsWith:request.term
                 },
                 success:function (data) {
-                    alert("asdfadsfsadf");
-                    response($.map(data.userNames, function (name) {
-                        console.debug(name) ;
+                    response($.map(data.results, function (name) {
                         return {
                             label:name,
                             value:name
@@ -256,17 +260,6 @@ $(function () {
                     }));
                 }
             });
-        },
-        select:function (event, ui) {
-            log(ui.item ?
-                "Selected: " + ui.item.label :
-                "Nothing selected, input was " + this.value);
-        },
-        open:function () {
-            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-        },
-        close:function () {
-            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
         }
     });
 });
