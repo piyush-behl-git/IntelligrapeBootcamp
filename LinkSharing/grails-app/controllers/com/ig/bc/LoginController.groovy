@@ -36,8 +36,9 @@ class LoginController {
         String renderStatus
         String emailId = params.email
         User user = User.findByEmail(emailId)
-        if (user)
+        if (user) {
             renderStatus = "false"
+        }
         else
             renderStatus = "true"
         render(renderStatus)

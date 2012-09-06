@@ -6,6 +6,7 @@ class SubscriptionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def subscriptionService
 
     def index() {
         redirect(action: "list", params: params)
@@ -70,8 +71,8 @@ class SubscriptionController {
         if (version != null) {
             if (subscriptionInstance.version > version) {
                 subscriptionInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'subscription.label', default: 'Subscription')] as Object[],
-                          "Another user has updated this Subscription while you were editing")
+                        [message(code: 'subscription.label', default: 'Subscription')] as Object[],
+                        "Another user has updated this Subscription while you were editing")
                 render(view: "edit", model: [subscriptionInstance: subscriptionInstance])
                 return
             }
@@ -105,5 +106,34 @@ class SubscriptionController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'subscription.label', default: 'Subscription'), id])
             redirect(action: "show", id: id)
         }
+    }
+
+    def subscribe() {
+        List<String> topicIds = params.ids.split(',')
+        List<Long> idList = topicIds.collect {
+            Long.parseLong(it)
+        }
+        String currentLoggedInUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedInUserEmail)
+        List<Topic> topics = Topic.getAll(idList)
+        String errors = subscriptionService.subscribe(currentUser, topics)
+        flash.message = "Topics subscribed successfully"
+        if (errors)
+            flash.message = errors
+        render(template: "/topic/list", model: [list: currentUser.getTopics()])
+    }
+
+    def unsubscribe() {
+        List<String> topicIds = params.ids.split(',')
+        List<Long> idList = topicIds.collect {
+            Long.parseLong(it)
+        }
+        List<Topic> topics = Topic.getAll(idList)
+        String currentLoggedInUserEmail = session.email
+        User subscriber = User.findByEmail(currentLoggedInUserEmail)
+        subscriptionService.unsubscribe(subscriber, topics)
+        flash.message = "Topics unsubscribed successfully"
+
+        render(template: "/topic/list", model: [list: subscriber.getTopics()])
     }
 }
