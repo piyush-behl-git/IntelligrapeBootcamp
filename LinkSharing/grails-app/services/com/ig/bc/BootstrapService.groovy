@@ -42,7 +42,7 @@ class BootstrapService {
         topic.addToResources(new DocumentResource(title: "${topic.owner}_${topic}_Doc", fileName: "Doc${topic.name}", owner: topic.owner))
         10.times {
             topic.addToResources(new LinkResource(title: "${topic.name} ${it}", url: "http://www.enfopedia.com/${it}",
-                    summary: "Details of topic ${topic.name} ${topic.id}", owner: topic.owner))
+                    summary: "Details of topic ${topic.name} ", owner: topic.owner))
         }
         topic.save(failOnError: true)
         subscribeTopicAndInitializeReadingItems(topic.owner, topic, Seriousness.VERY_SERIOUS)
