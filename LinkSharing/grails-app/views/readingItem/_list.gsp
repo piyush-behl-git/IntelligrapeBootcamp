@@ -1,3 +1,4 @@
+<%@ page import="com.ig.bc.DocumentResource; com.ig.bc.LinkResource" %>
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
@@ -13,7 +14,7 @@
 
         <th><g:message code="readingItem.resource.label" default="Resource"/></th>
 
-        <th><g:message code="readingItem.user.label" default="User"/></th>
+        <th>Topic</th>
 
     </tr>
     </thead>
@@ -38,16 +39,22 @@
         </td>
 
         <td>
-            <span onclick="markCurrentRead(${item.id})">${fieldValue(bean: item, field: "resource")}</span>
+            <span onclick="markCurrentRead(${item.id})">
+                <g:if test="${item.resource.instanceOf(LinkResource)}">
+                    <a href="${item.resource.url}" target="_blank">
+                </g:if>
+                <g:if test="${item.resource.instanceOf(DocumentResource)}">
+                    <a href="${createLink(action: 'download', controller: 'documentResource', id: item.resource.id)}" target="_blank">
+                </g:if>
+
+                ${fieldValue(bean: item, field: "resource")}
+            </a>
+            </span>
         </td>
 
-        <td>${fieldValue(bean: item, field: "user")}</td>
+        <td>${item.resource.topic.name}</td>
 
         </tr>
     </g:each>
     </tbody>
 </table>
-<fieldset class="buttons">
-    <input type="button" name="mark-read-button" class="save" value="Mark Read"/>
-    <input type="button" name="mark-unread-button" class="save" value="Mark Unread"/>
-</fieldset>
