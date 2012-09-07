@@ -12,17 +12,19 @@ class BootstrapService {
     }
 
     void initializeTestData() {
-        def vijay = new User(email: 'javajooba@gmail.com', password: 'admin123', confirmPassword: 'admin123', fullName: "Vijay Kumar", isMale: true)
+        def vijay = new User(dateOfBirth: '12/12/1980', email: 'javajooba@gmail.com', password: 'admin123', confirmPassword: 'admin123', fullName: "Vijay Kumar", isMale: true)
         vijay.save(failOnError: true)
         createTopicAndInitializeResources("Java", Visibility.PUBLIC, vijay)
-        def puneet = new User(email: 'puneet.behl007@gmail.com', password: '123456789', confirmPassword: '123456789', fullName: 'Puneet Behl', isMale: true)
+        def puneet = new User(dateOfBirth: '12/03/1990', email: 'puneet.behl007@gmail.com', password: '123456789', confirmPassword: '123456789', fullName: 'Puneet Behl',
+                isMale: true)
         puneet.save(failOnError: true)
         createTopicAndInitializeResources("Groovy & Grails", Visibility.PUBLIC, puneet)
         createTopicAndInitializeResources("html", Visibility.PUBLIC, puneet)
-        def admin = new User(email: 'admin@intelligrape.com', password: 'igdefault', confirmPassword: 'igdefault', fullName: 'Administrator', isMale: true)
+        def admin = new User(dateOfBirth: '26/07/2009', email: 'admin@intelligrape.com', password: 'igdefault', confirmPassword: 'igdefault', fullName: 'Administrator',
+                isMale: true)
         admin.save(failOnError: true)
         createTopicAndInitializeResources("Jquery", Visibility.PRIVATE, admin)
-        def hr = new User(email: 'hr@ig.com', password: 'hr', confirmPassword: 'hr', fullName: 'hr', isMale: true)
+        def hr = new User(dateOfBirth: '01/04/1982', email: 'hr@ig.com', password: 'hr', confirmPassword: 'hr', fullName: 'hr', isMale: true)
         hr.save(failOnError: true)
         createTopicAndInitializeResources("HRM", Visibility.PRIVATE, hr)
 
@@ -39,7 +41,7 @@ class BootstrapService {
     }
 
     void initializeResourcesInTopicAndSubscribe(Topic topic) {
-        topic.addToResources(new DocumentResource(title: "${topic.owner}_${topic}_Doc", fileName: "Doc${topic.name}", owner: topic.owner))
+        topic.addToResources(new DocumentResource(title: "${topic.owner}_${topic}_Doc", fileName: "Doc${topic.name}", owner: topic.owner,contentType: 'docs'))
         10.times {
             topic.addToResources(new LinkResource(title: "${topic.name} ${it}", url: "http://www.enfopedia.com/${it}",
                     summary: "Details of topic ${topic.name} ", owner: topic.owner))
