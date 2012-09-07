@@ -18,22 +18,18 @@ class UserController {
     def loginHandler() {
         User user = User.findByEmailAndPassword(params.email, params.password)
         if (user) {
-            session.email = params.email
+            session.email = user.email
             redirect action: "dashboard"
+        } else {
+            redirect(controller: 'login', action: 'login')
         }
-        render view: "/login/login"
     }
 
     def dashboard() {
-
-        String currentLoggedInUserEmail = session.email
-        User user = User.findByEmail(currentLoggedInUserEmail)
         List<TopicSubscriptionDTO> highestSubscribedTopics = Subscription.getHighestSubscribedTopics()
         Topic highestSubscribedTopic = highestSubscribedTopics.first().topic
-        [highestSubscribedTopic: highestSubscribedTopic]
+        render(view: 'dashboard', model: [highestSubscribedTopic: highestSubscribedTopic])
     }
-
-
 
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
