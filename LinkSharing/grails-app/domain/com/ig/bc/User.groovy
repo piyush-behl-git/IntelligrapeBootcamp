@@ -95,10 +95,6 @@ class User {
         return Subscription.countBySubscriber(this)
     }
 
-    List<Topic> getSubscribedTopics() {
-        return Subscription.findBySubscriber(this)
-    }
-
     List<Resource> getUnreadResources() {
         List<Topic> topicsSubList = getVerySeriousTopics()
         List<Resource> unreadResources = Resource.createCriteria().list {
@@ -140,6 +136,10 @@ class User {
         return ownedTopics
     }
 
+    static List<User> getAllUsers() {
+        return User.list()
+    }
+
     static List<String> getRegisteredEmails() {
         return User.list()*.email as List<String>
     }
@@ -152,6 +152,7 @@ class User {
         fullName
     }
 }
-import com.ig.bc.dto.TopicResourceDTO
 
+import com.ig.bc.dto.TopicResourceDTO
 import com.ig.bc.enums.Seriousness
+
