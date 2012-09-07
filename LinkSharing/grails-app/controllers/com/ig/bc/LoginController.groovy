@@ -1,7 +1,7 @@
 package com.ig.bc
 
 class LoginController {
-    static final dateFormat = 'dd/mm/yyyy'
+    static final dateFormat = 'yyyy-mm-dd'
 
     def beforeInterceptor = [action: this.&checkSession, except: 'logout']
 
@@ -17,7 +17,6 @@ class LoginController {
     }
 
     def login() {
-        render(view: 'login')
     }
 
     def register() {
@@ -25,11 +24,17 @@ class LoginController {
     }
 
     def registrationHandler() {
+        if (params) {
+            redirect action: 'login'
+        }
         params.dateOfBirth = Date.parse(dateFormat, params.dateOfBirth)
         User userInstance = new User(params);
-        userInstance.save(failOnError: true)
-        flash.message = "User registered successfully."
-        render(view: "register")
+        if(userInstance.save(failOnError: true))
+            flash.message="Sorry for inconvineince. Please try again later."
+        else {
+            flash.message = "User registered successfully."
+        }
+        redirect controller: 'login', action: 'login'
     }
 
     def checkEmailUrl() {
