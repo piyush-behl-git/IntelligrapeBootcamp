@@ -123,6 +123,7 @@ warn 'org.codehaus.groovy.grails.web.servlet',        // controllers
     'org.springframework',
     'org.hibernate',
     'net.sf.ehcache.hibernate'*/
+    info 'grails.app'
 }
 
 //Uploaded documents will be stored here
