@@ -37,7 +37,6 @@ class TopicController {
     }
 
     def show(Long id) {
-        flash.message = message(code: 'default.deleted.message', args: [message(code: 'subscription.label', default: 'Subscription'), id])
 
         def topicInstance = Topic.get(id)
         if (!topicInstance) {
