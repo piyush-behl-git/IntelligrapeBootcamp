@@ -5,18 +5,15 @@ class ApplicationFilters {
     def filters = {
         all(controller: '*', action: '*') {
             before = {
+                log.info "${params}"
             }
         }
 
         allExceptLoginRegisterLoginHandlerRegisterHandler(controller: '*', action: 'checkEmailUrl|login|loginHandler|register|registrationHandler', invert: true) {
             before = {
                 if (!session.email) {
-                    if (actionName) {
-                        redirect controller: 'login', action: 'login'
-                        return false
-                    }else {
-                        redirect controller: 'login', action: 'login'
-                    }
+                    redirect controller: 'login', action: 'login'
+                    return false
                 }
             }
         }
@@ -46,17 +43,6 @@ class ApplicationFilters {
                     return false
                 }
                 return
-            }
-        }
-        all(controller: '*', action: '*') {
-            before = {
-
-            }
-            after = { Map model ->
-
-            }
-            afterView = { Exception e ->
-
             }
         }
     }
