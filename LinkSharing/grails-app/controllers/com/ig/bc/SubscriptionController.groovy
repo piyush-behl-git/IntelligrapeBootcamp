@@ -20,13 +20,6 @@ class SubscriptionController {
                 subscriptionInstanceTotal: currentUser.getSubscriptionCount()]
     }
 
-    def create() {
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        List<Topic> subscribedTopics = currentUser.getSubscribedTopics()
-        [subscriptionInstance: new Subscription(params), topicInstanceList: subscribedTopics, currentLoggedInUser: currentUser]
-    }
-
     def save() {
         def subscriptionInstance = new Subscription(params)
         if (!subscriptionInstance.save(flush: true)) {
