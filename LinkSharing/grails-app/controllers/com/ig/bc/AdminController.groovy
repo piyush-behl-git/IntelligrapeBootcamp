@@ -10,20 +10,27 @@ class AdminController {
 
     private checkAdmin() {
         boolean accessForStats;
-        if (session.email=="admin@intelligrape.com")
-            accessForStats=true
+        if (session.email == "admin@intelligrape.com")
+            accessForStats = true
         else
-            accessForStats=false
+            accessForStats = false
         if (!accessForStats) {
-             redirect action: "accessDenied"
+            redirect action: "accessDenied"
         }
         return accessForStats
     }
 
     def stats() {
-        Integer numberOfUsers = User.count
-        Integer numberOfSubscriptions = Subscription.count
-        render view: "stats", model: [numberOfUsers: numberOfUsers, numberOfSubscriptions: numberOfSubscriptions]
+        [userInstanceList: User.getAllUsers(), userInstanceTotal: User.count]
+    }
+
+    def loadSubscriptions() {
+        Long id = Long.parseLong(params.id)
+        User subscriber = User.get(id)
+        List<Subscription> subscriptions = []
+        if (subscriber)
+              subscriptions = subscriber.subscriptions as List<Subscription>
+        render template: '/admin/subscriptionList', model: [list: subscriptions]
     }
 
     def accessDenied() {
