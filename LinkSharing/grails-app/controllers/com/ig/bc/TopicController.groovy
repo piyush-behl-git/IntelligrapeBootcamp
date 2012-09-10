@@ -15,8 +15,10 @@ class TopicController {
     }
 
     def list(Integer max) {
+        String currentLoggedUserEmail = session.email
+        User currentUser = User.findByEmail(currentLoggedUserEmail)
         params.max = Math.min(max ?: 10, 100)
-        [topicInstanceList: Topic.list(params), topicInstanceTotal: Topic.count()]
+        [topicInstanceList: currentUser.generateAndReturnTopicVOs(), topicInstanceTotal: Topic.count()]
     }
 
     def create() {
