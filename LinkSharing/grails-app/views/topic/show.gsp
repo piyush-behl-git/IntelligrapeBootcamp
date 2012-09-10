@@ -103,11 +103,17 @@
 <div id="link-dialog">
     <g:render template="/linkResource/form"/>
 </div>
-<script type="text/javascript">
-    urls = {
-        checkDocUrl:"${createLink(controller: 'documentResource', action: 'checkDocumentResourceTitle')}",
-        checkDocContentTypeUrl:"${createLink(controller: "documentResource", action: "checkDocumentResourceContentType")}"
-    }
-</script>
+<div id="invitationDiv">
+    <g:form controller="topic" action="bindInvitation">
+        <pre>
+            Email :<g:textField name="email1"/>
+            Email :<g:textField name="email2"/>
+            Email :<g:textField name="email3"/>
+            Content
+            <g:textArea name="content" rows="" cols=""/>
+            <g:submitButton name="submit" value="Invite"/>
+        </pre>
+    </g:form>
+</div>
 </body>
 </html>

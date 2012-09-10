@@ -2,44 +2,25 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="layout" content="main">
+    <meta name="layout" content="jQueryMobile">
     <g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
 </head>
 
 <body>
-<a href="#list-topic" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
 <div id="list-topic" class="content scaffold-list" role="main">
-    <h1><g:message code="default.list.label" args="[entityName]"/></h1>
-    <g:render template="list" model="[list: topicInstanceList]"/>
-    <fieldset class="buttons">
-        <input type="button" name="subscribe-button" class="save" value="Subscribe"/>
-        <input type="button" name="unsubscribe-button" class="save" value="Unsubscribe"/>
-        <g:link class="create" action="create">Create</g:link>
-    </fieldset>
-
+    <h1>Topics</h1>
+    <div class="status-message" role="status"></div>
+    <ul data-role="controlgroup" data-type="horizontal" class="localnav">
+        <li><a href="#" data-role="button" data-transition="fade" class="ui-btn-active">Add</a></li>
+        <li><a href="content-collapsible-set-options.html" data-role="button" data-transition="fade">Remove</a></li>
+        <li><input type="button" name="subscribe-button" data-transition="fade" value="Subscribe"></li>
+    </ul>
+    <g:render template="/topic/list" model="[list: topicInstanceList]"/>
     <div class="pagination">
         <g:paginate total="${topicInstanceTotal}"/>
     </div>
 </div>
-
-<div id="invitationDiv">
-    <g:form action="bindInvitation">
-        <pre>
-            Email :<g:textField name="email1"/>
-            Email :<g:textField name="email2"/>
-            Email :<g:textField name="email3"/>
-            Content
-            <g:textArea name="content" rows="" cols=""/>
-            <g:submitButton name="submit" value="Invite"/>
-        </pre>
-    </g:form>
-</div>
-<script type="text/javascript">
-    urls = {
-
-    }
-</script>
 </body>
 </html>

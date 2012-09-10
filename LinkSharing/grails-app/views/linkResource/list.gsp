@@ -1,65 +1,62 @@
-
 <%@ page import="com.ig.bc.LinkResource" %>
 <!doctype html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'linkResource.label', default: 'LinkResource')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#list-linkResource" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="list-linkResource" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<table>
-				<thead>
-					<tr>
+<head>
+    <meta name="layout" content="jQueryMobile">
+    <g:set var="entityName" value="${message(code: 'linkResource.label', default: 'LinkResource')}"/>
+    <title><g:message code="default.list.label" args="[entityName]"/></title>
+</head>
 
-						<g:sortableColumn property="title" title="${message(code: 'linkResource.title.label', default: 'Title')}" />
-					
-						<g:sortableColumn property="url" title="${message(code: 'linkResource.url.label', default: 'Url')}" />
-					
-						<g:sortableColumn property="dateCreated" title="${message(code: 'linkResource.dateCreated.label', default: 'Date Created')}" />
-					
-						<g:sortableColumn property="lastUpdated" title="${message(code: 'linkResource.lastUpdated.label', default: 'Last Updated')}" />
-					
-						<th><g:message code="linkResource.topic.label" default="Topic" /></th>
+<body>
+<h1>Link Resources</h1>
+<div class="status-message" role="status"></div>
+<ul data-role="controlgroup" data-type="horizontal" class="localnav">
+    <li><input type="button" name="mark-read-button" data-transition="fade" value="Mark Read"></li>
+    <li><input type="button" name="mark-unread-button" data-transition="fade" value="Mark Unread"></li>
+</ul>
+<ul data-role="listview" data-theme="c" data-inset="true" data-content-theme="d">
+    <li data-role="list-divider">
+        <div class="ui-grid-e">
+            <div
+                    class="ui-block-a"><g:select data-theme="c" id="selectTopic" data-iconpos="notext" name="selectTopic"
+                                                 from="['Select Option','Check All', 'Uncheck All', 'Inverse']"></g:select></div>
+            <div class="ui-block-b"><h3>Title</h3></div>
+            <div class="ui-block-c"><h3>Date Created</h3></div>
+            <div class="ui-block-d"><h3>Last Updated</h3></div>
+            <div class="ui-block-e"><h3>Summary</h3></div>
+            <div class="ui-block-f"><h3>Url</h3></div>
+        </div>
+    </li>
 
-                        <g:sortableColumn property="summary" title="${message(code: 'linkResource.summary.label', default: 'Summary')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${linkResourceInstanceList}" status="i" var="linkResourceInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+    <div data-role="collapsible-set" data-theme="c" data-content-theme="d">
+        <g:each in="${topicResourceMap}" status="i" var="item">
+            <g:if test="${i == 0}"><div data-role="collapsible" data-collapsed='false'></g:if>
+            <g:else><div data-role="collapsible"></g:else>
 
-
-                        <td><g:link action="show" id="${linkResourceInstance.id}">${fieldValue(bean: linkResourceInstance, field: "title")}</g:link></td>
-
-                        <td><a href="${linkResourceInstance.url}">${fieldValue(bean: linkResourceInstance, field: "url")}</a></td>
-
-                        <td><ls:formattedDate date="${linkResourceInstance.dateCreated}" /></td>
-
-                        <td><ls:formattedDate date="${linkResourceInstance.lastUpdated}" /></td>
-
-                        <td>${fieldValue(bean: linkResourceInstance, field: "topic")}</td>
-
-                        <td>${fieldValue(bean: linkResourceInstance, field: "summary")}</td>
-                    </tr>
+            <h3><li data-role="list-divider">${item.key}</li></h3>
+            <ul data-role="listview" data-theme="d">
+                <g:each in="${item.value}" var="readingItem">
+                    <li>
+                        <g:checkBox data-role="button" name="status" value="${readingItem.resource.id}" checked="false"/>
+                        <g:if test="${readingItem.isFavorite}"><img id="img${readingItem.id}" class="ui-li-icon" name="on" src="${resource(dir: 'images', file: 'star_on.png')}" alt="true" onclick="changeFav(${readingItem.id})"></g:if>
+                        <g:else><img id="img${readingItem.id}" class="ui-li-icon" name="off" src="${resource(dir: 'images', file: 'star_off.png')}" alt="false" onclick="changeFav(${readingItem.id})"></g:else>
+                        <div class="ui-grid-e">
+                            <div class="ui-block-a"></div>
+                            <div class="ui-block-b"><g:link action="show" id="${readingItem.resource.id}">${readingItem.resource.title}</g:link></div>
+                            <div class="ui-block-c"><ls:formattedDate date="${readingItem.resource.dateCreated}"/></div>
+                            <div class="ui-block-d"><ls:formattedDate date="${readingItem.resource.lastUpdated}"/></div>
+                            <div class="ui-block-e">${readingItem.resource.summary}</div>
+                            <div class="ui-block-f"><a href="${readingItem.resource.url}">${readingItem.resource.url}</a></div>
+                        </div>
+                    </li>
                 </g:each>
-				</tbody>
-			</table>
-            <fieldset class="buttons">
-                <input type="button" name="markRead-button" class="save" value="Mark Read"/>
-                <input type="button" name="markUnread-button" class="save" value="Mark Unread"/>
-                <g:link class="create" controller="linkResource" action="create">Create</g:link>
-            </fieldset>
-			<div class="pagination">
-				<g:paginate total="${linkResourceInstanceTotal}" />
-			</div>
-		</div>
-	</body>
+            </ul>
+            </div>
+        </g:each>
+    </div>
+</ul>
+<div class="pagination">
+    <g:paginate total="${linkResourceInstanceTotal}"/>
+</div>
+</body>
 </html>
