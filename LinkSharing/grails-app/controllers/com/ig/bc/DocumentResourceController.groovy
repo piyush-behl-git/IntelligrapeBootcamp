@@ -16,7 +16,11 @@ class DocumentResourceController {
     def list(Integer max) {
         String currentLoggedInUserEmail = session.email
         User currentUser = User.findByEmail(session?.email)
-        [documentResourceInstanceList: currentUser.getDocumentResources() ,documentResourceInstanceTotal: currentUser.getDocumentResources().size()]
+        Map<Topic, List<ReadingItem>> topicResourceMap = currentUser.getDocuments().groupBy {item ->
+            item.resource.topic
+        }
+        Integer total = topicResourceMap.size()
+        [topicResourceMap: topicResourceMap ,documentResourceInstanceTotal: total]
     }
 
     def create() {
@@ -123,7 +127,7 @@ class DocumentResourceController {
     }
 
     private void generateResponse(long id, DocumentResource documentResource) {
-        byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}").bytes
+        byte[] sourcePdf = new File("${grailsApplication.config.uploadPath}/${id}")?.bytes
         response.setContentType("application/pdf")
         response.setHeader("Content-disposition", "attachment; filename=" + documentResource.fileName)
         response.contentLength = sourcePdf.length
