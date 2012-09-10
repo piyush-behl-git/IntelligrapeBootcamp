@@ -1,5 +1,6 @@
 package com.ig.bc
 
-class TopicService {
+import com.ig.bc.vo.TopicVO
 
+class TopicService {
 }

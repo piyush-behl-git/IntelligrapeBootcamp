@@ -24,7 +24,6 @@ class SubscriptionService {
 
     def unsubscribe(User subscriber, List<Topic> topics) {
         List<Subscription> subscriptions = Subscription.findAllBySubscriberAndTopicInList(subscriber, topics)
-
         List<ReadingItem> readingItems = ReadingItem.createCriteria().list {
             eq('user', subscriber)
             'resource' {
