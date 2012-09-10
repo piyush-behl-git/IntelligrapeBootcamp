@@ -19,16 +19,18 @@ class UserController {
         User user = User.findByEmailAndPassword(params.email, params.password)
         if (user) {
             session.email = user.email
-            redirect action: "dashboard"
+            redirect controller: 'user', action: "dashboard"
+            return false
         } else {
             redirect(controller: 'login', action: 'login')
         }
+        return false
     }
 
     def dashboard() {
         List<TopicSubscriptionDTO> highestSubscribedTopics = Subscription.getHighestSubscribedTopics()
         Topic highestSubscribedTopic = highestSubscribedTopics.first().topic
-        render(view: 'dashboard', model: [highestSubscribedTopic: highestSubscribedTopic])
+        render(view: 'dashboard', model: [highestSubscribedTopic: highestSubscribedTopic, listName: 'Highest Subscribed Topics'])
     }
 
     def list(Integer max) {
