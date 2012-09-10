@@ -21,7 +21,7 @@ class ReadingItemService {
         ReadingItem readingItem = ReadingItem.get(id)
         if (readingItem.isFavorite) {
             readingItem.isFavorite = false
-            returnStatus=false
+            returnStatus = false
         } else {
             readingItem.isFavorite = true
             returnStatus = "true"
@@ -34,5 +34,12 @@ class ReadingItemService {
         ReadingItem readingItem = ReadingItem.get(id)
         readingItem.isRead = true
         readingItem.save(failOnError: true)
+    }
+
+    def getTopicReadingItems(List<ReadingItem> readingItems) {
+        Map<Topic, List<ReadingItem>> topicReadingItems = readingItems.groupBy {readingItem ->
+            readingItem.resource.topic
+        }
+        return topicReadingItems
     }
 }
