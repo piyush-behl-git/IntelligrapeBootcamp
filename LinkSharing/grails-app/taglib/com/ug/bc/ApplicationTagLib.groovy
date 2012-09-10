@@ -7,26 +7,28 @@ import com.ig.bc.Topic
 
 class ApplicationTagLib {
 
+    def readingItemService
     static namespace = "ls"
 
     def unreadItems = {  attrs ->
         User user = User.findByEmail(session.email)
-        List<ReadingItem> unreadItems = ReadingItem.findAllByUserAndIsRead(user, false, [max: attrs.count])
-        out << render(template: "/readingItem/list", model: [list: unreadItems])
+        List<ReadingItem> unreadItems = user.getUnreadReadingItems()
+        Map readingItemsGroupedByTopic = readingItemService.getTopicReadingItems(unreadItems)
+        out << render(template: "/user/readingItems", model: [list: readingItemsGroupedByTopic])
     }
 
     def subscribedTopics = {  attrs ->
         User user = User.findByEmail(session.email)
         List<Subscription> subscriptions = Subscription.findAllBySubscriber(user)
         List<Topic> subscribedTopics = subscriptions*.topic
-        out << render(template: "/topic/list", model: [list: subscribedTopics])
+        out << render(template: "/user/topics", model: [list: subscribedTopics, listName: attrs.listName])
     }
 
     def ownedTopics = { attrs, body ->
         out << "<strong><em>" << body() << "</strong></em>"
         User user = User.findByEmail(session.email)
         List<Topic> topics = Topic.findAllByOwner(user, [max: attrs.count])
-        out << render(template: "/topic/list", model: [list: topics])
+        out << render(template: "/user/topics", model: [list: topics, listName: attrs.listName])
 
     }
 
