@@ -1,0 +1,30 @@
+.my-ui-grid-a {
+    overflow: hidden;
+}
+
+.my-ui-grid-a .my-ui-block-a, .my-ui-grid-a .my-ui-block-b {
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 550px;
+}
+
+.my-ui-grid-a > :nth-child(n) {
+    width: 50%;
+    margin-right: -.5px;
+}
+
+.my-ui-grid-a .my-ui-block-a {
+    clear: left;
+}
+
+.my-ui-block-a, .my-ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    float: left;
+    min-height: 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}

@@ -9,7 +9,8 @@ var urls = {
     unsubscribeUrl:"",
     markFavUrl:"",
     markUnmarkFavUrl:"",
-    searchUrl:""
+    searchUrl:"",
+    loadSubscriptionsUrl:""
 };
 if (typeof jQuery !== 'undefined') {
     (function ($) {
@@ -40,7 +41,7 @@ $(document).ready(function () {
             },
             messages:{
                 email:{
-                    remote: jQuery.format("{0} is already in use")
+                    remote:jQuery.format("{0} is already in use")
                 }
             }
         }
@@ -214,29 +215,6 @@ $(document).ready(function () {
         });
     });
 });
-function changeFav(id) {
-    $.ajax({
-        url:urls.markUnmarkFavUrl,
-        data:{id:id},
-        success:function (result) {
-            if (result == "true")
-                $('#img' + id).attr('src', '/LinkSharing/images/star_on.png')
-            else if (result == "false")
-                $('#img' + id).attr('src', '/LinkSharing/images/star_off.png')
-        }
-    })
-}
-function markCurrentRead(id) {
-    $.ajax({
-        url:urls.markCurrentReadUrl,
-        data:{id:id},
-        success:function (result) {
-            if (result == "true") {
-                $('#row' + id).css('font-weight', '400')
-            }
-        }
-    })
-}
 $(function () {
     function log(message) {
         $("<div/>").text(message).prependTo("#log");
@@ -263,3 +241,38 @@ $(function () {
         }
     });
 });
+function changeFav(id) {
+    $.ajax({
+        url:urls.markUnmarkFavUrl,
+        data:{id:id},
+        success:function (result) {
+            if (result == "true")
+                $('#img' + id).attr('src', '/LinkSharing/images/star_on.png')
+            else if (result == "false")
+                $('#img' + id).attr('src', '/LinkSharing/images/star_off.png')
+        }
+    })
+}
+function markCurrentRead(id) {
+    $.ajax({
+        url:urls.markCurrentReadUrl,
+        data:{id:id},
+        success:function (result) {
+            if (result == "true") {
+                $('#row' + id).css('font-weight', '400')
+            }
+        }
+    })
+}
+function loadSubscriptions(id) {
+    $.ajax({
+        url:urls.loadSubscriptionsUrl,
+        data:{id:id},
+        success:function (subscriptionshtml) {
+            $('div#stats').html(subscriptionshtml)
+        }
+    })
+}
+function reloadPage() {
+    window.location.reload(true)
+}
