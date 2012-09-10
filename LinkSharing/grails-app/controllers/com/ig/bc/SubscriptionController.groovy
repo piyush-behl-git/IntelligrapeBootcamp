@@ -110,10 +110,10 @@ class SubscriptionController {
         User currentUser = User.findByEmail(currentLoggedInUserEmail)
         List<Topic> topics = Topic.getAll(idList)
         String errors = subscriptionService.subscribe(currentUser, topics)
-        flash.message = "Topics subscribed successfully"
+        String message = "Topics subscribed successfully"
         if (errors)
-            flash.message = errors
-        render(template: "/topic/list", model: [list: currentUser.getTopics()])
+            message = errors
+        render message
     }
 
     def unsubscribe() {
@@ -125,8 +125,8 @@ class SubscriptionController {
         String currentLoggedInUserEmail = session.email
         User subscriber = User.findByEmail(currentLoggedInUserEmail)
         subscriptionService.unsubscribe(subscriber, topics)
-        flash.message = "Topics unsubscribed successfully"
+        String message = "Topics unsubscribed successfully"
 
-        render(template: "/topic/list", model: [list: subscriber.getTopics()])
+        render message
     }
 }
