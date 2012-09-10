@@ -29,12 +29,12 @@ class LoginController {
         }
         params.dateOfBirth = Date.parse(dateFormat, params.dateOfBirth)
         User userInstance = new User(params);
-        if(userInstance.save(failOnError: true))
-            flash.message="Sorry for inconvineince. Please try again later."
-        else {
+        if (userInstance.save(failOnError: true))
             flash.message = "User registered successfully."
+        else {
+            flash.message = "Sorry for inconvineince. Please try again later."
         }
-        redirect controller: 'login', action: 'login'
+        render view: "/login/login"
     }
 
     def checkEmailUrl() {
