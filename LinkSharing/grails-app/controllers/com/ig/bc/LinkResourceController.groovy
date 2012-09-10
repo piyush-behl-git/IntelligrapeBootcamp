@@ -14,7 +14,11 @@ class LinkResourceController {
         params.max = Math.min(max ?: 10, 100)
         String currentLoggedInEmail = session.email
         User currentUser = User.findByEmail(currentLoggedInEmail)
-        [linkResourceInstanceList: currentUser.getLinkResources(), linkResourceInstanceTotal: currentUser.getLinkResources().size()]
+        Map<Topic, List<ReadingItem>> topicResourceMap = currentUser.getLinks().groupBy {item ->
+            item.resource.topic
+        }
+        Integer total = topicResourceMap.size()
+        [topicResourceMap: topicResourceMap, linkResourceInstanceTotal: total]
     }
 
     def create() {
