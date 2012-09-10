@@ -47,39 +47,26 @@ class User {
         return topics
     }
 
-    List<Resource> getResources() {
-        List<Resource> resources = ReadingItem.createCriteria().list {
-            projections {
-                property('resource')
+    List<ReadingItem> getDocuments() {
+        List<ReadingItem> readingItems = getReadingItems()
+        List<ReadingItem> documents = []
+        readingItems.each {  item ->
+            if (item.resource.instanceOf(DocumentResource)) {
+                documents << item
             }
-            eq('user',this)
         }
-        return resources
+        return documents
     }
 
-    List<DocumentResource> getDocumentResources() {
-        List<Resource> resources = getResources()
-        List<DocumentResource> documentResources = []
-        resources.each {  resource->
-            if(resource.instanceOf(DocumentResource))        {
-                documentResources << resource
+    List<ReadingItem> getLinks() {
+        List<ReadingItem> readingItems = getReadingItems()
+        List<ReadingItem> links = []
+        readingItems.each {  item ->
+            if (item.resource.instanceOf(LinkResource)) {
+                links << item
             }
         }
-        return documentResources
-
-
-
-    }
-
-    List<LinkResource> getLinkResources() {
-        List<Resource> resources = getResources()
-        List<LinkResource> linkResources = []
-        resources.each {  resource->
-            if(resource.instanceOf(LinkResource))        {
-                linkResources << resource
-            }
-        }
-        return linkResources
+        return links
     }
 
     List<ReadingItem> getReadingItems() {
@@ -136,6 +123,24 @@ class User {
         return ownedTopics
     }
 
+    List<TopicVO> generateAndReturnTopicVOs() {
+        List<TopicVO> topics = []
+        getAllTopics().each {  topic->
+            Subscription subscription = Subscription.findByTopicAndSubscriber(topic, this)
+            if(subscription)
+                topics << new TopicVO(topic: topic, isSubscribed: true)
+            else
+                topics << new TopicVO(topic: topic, isSubscribed: false)
+        }
+        return topics
+    }
+
+    private List<Topic> getAllTopics() {
+        List<Topic> topics = ownedTopics
+        topics+=Topic.findAllByVisibility(Visibility.PUBLIC)
+        return topics
+    }
+
     static List<User> getAllUsers() {
         return User.list()
     }
@@ -155,4 +160,6 @@ class User {
 
 import com.ig.bc.dto.TopicResourceDTO
 import com.ig.bc.enums.Seriousness
+import com.ig.bc.enums.Visibility
+import com.ig.bc.vo.TopicVO
 
