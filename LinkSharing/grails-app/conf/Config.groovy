@@ -128,6 +128,7 @@ warn 'org.codehaus.groovy.grails.web.servlet',        // controllers
 
 //Uploaded documents will be stored here
 uploadPath = "${basedir}/web-app/UploadedDocuments"
+rootPath = "${basedir}"
 
 //config for mail
 grails {
