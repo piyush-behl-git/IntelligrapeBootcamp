@@ -22,7 +22,9 @@
             searchUrl:"${createLink(controller: 'search', action: 'searchUsers')}",
             checkEmailUrl:"${createLink(controller: "login", action: "checkEmailUrl")}",
             subscribeUrl:"${createLink(controller: "subscription", action: "subscribe")}",
-            unsubscribeUrl:"${createLink(controller: 'subscription', action: 'unsubscribe')}"
+            topicSubscribeUrl:"${createLink(controller: 'subscription', action: 'subscribeIndividualTopic')}",
+            unsubscribeUrl:"${createLink(controller: 'subscription', action: 'unsubscribe')}",
+            deleteResourceUrl:"${createLink(controller: 'topic', action: 'deleteResource')}"
         }
     </script>
     <g:layoutHead/>
@@ -37,19 +39,17 @@
     </div>
     <ls:ifLoggedIn>
         <div class="ui-body ui-body-c">
-            <g:link uri="/" data-role="button" data-theme="c" data-icon="home" data-inline="true">Home</g:link>
-            <g:link controller="topic" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Topics</g:link>
-            <g:link controller="linkResource" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Link Resources</g:link>
-            <g:link controller="documentResource" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Document Resources</g:link>
-            <g:link controller="subscription" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Subscriptions</g:link>
+            <g:link data-ajax="false" uri="/" data-role="button" data-theme="c" data-icon="home" data-inline="true">Home</g:link>
+            <g:link data-ajax="false" controller="topic" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Topics</g:link>
+            <g:link data-ajax="false" controller="linkResource" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Link Resources</g:link>
+            <g:link data-ajax="false" controller="documentResource" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Document Resources</g:link>
+            <g:link data-ajax="false" controller="subscription" action="list" data-role="button" data-theme="c" data-icon="" data-inline="true">Subscriptions</g:link>
             <ls:ifAdmin><g:link controller="admin" action="stats" data-role="button" data-theme="c" data-icon="" data-inline="true">Statistics</g:link></ls:ifAdmin>
             <g:link controller="login" action="logout" data-role="button" data-theme="c" data-inline="true">Logout</g:link>
         </div>
     </ls:ifLoggedIn>
 
     <g:layoutBody/>
-    <div data-role="footer" data-theme="b">
-    </div>
 </div>
 </body>
 </html>
