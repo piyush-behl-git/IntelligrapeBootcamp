@@ -22,8 +22,11 @@ class SubscriptionService {
         return errors
     }
 
-    def unsubscribe(User subscriber, List<Topic> topics) {
-        List<Subscription> subscriptions = Subscription.findAllBySubscriberAndTopicInList(subscriber, topics)
+    def unsubscribe(User subscriber, List<Long> ids) {
+        List<Subscription> subscriptions = Subscription.getAll(ids)
+        List<Topic> topics = subscriptions.collect { subscription ->
+            subscription.topic
+        }
         List<ReadingItem> readingItems = ReadingItem.createCriteria().list {
             eq('user', subscriber)
             'resource' {
@@ -34,6 +37,5 @@ class SubscriptionService {
         subscriptions.each {subscription ->
             subscription.delete(flush: true)
         }
-
     }
 }
