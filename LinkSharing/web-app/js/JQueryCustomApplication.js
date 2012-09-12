@@ -7,9 +7,11 @@ var urls = {
     markUnreadUrl:"",
     subscribeUrl:"",
     unsubscribeUrl:"",
+    topicSubscribeUrl:"",
     markFavUrl:"",
     markUnmarkFavUrl:"",
-    searchUrl:""
+    searchUrl:"",
+    deleteResourceUrl:""
 };
 $(document).ready(function () {
     console.debug("ready");
@@ -118,14 +120,16 @@ $(document).ready(function () {
             url:urls.unsubscribeUrl,
             data:"ids=" + idValues,
             success:function (html) {
+                $('input#status:checked').each(function () {
+                    $('#li_'+$(this).val()).slideUp('normal', function () {
+                        $(this).remove()
+                    });
+                });
                 $('div.status-message').html(html)
             }
         });
     });
 });
-function reloadPage() {
-    window.location.reload(true)
-}
 function changeFav(id) {
     $.ajax({
         url:urls.markUnmarkFavUrl,
@@ -148,4 +152,34 @@ function markCurrentRead(id) {
             }
         }
     })
+}
+function deleteResource(id) {
+    $.ajax({
+        url:urls.deleteResourceUrl,
+        data:{id:id},
+        success:function (result) {
+            if (result == "true") {
+                $('#li' + id).slideUp("normal", function () {
+                    $(this).remove()
+                });
+            }
+            else {
+                $('#topicResourceStatusDiv').text("Cannot remove resource created by others.")
+            }
+        }
+    })
+}
+function subscribeIndividualTopic(id) {
+    alert("hello")
+    $.ajax({
+        url:urls.topicSubscribeUrl,
+        data:{id:id},
+        success:function (result) {
+            $('#topicStatusDiv').text(result)
+        }
+    });
+    return false;
+}
+function unsubscribeIndividualTopic(id) {
+
 }
