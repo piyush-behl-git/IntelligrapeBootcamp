@@ -28,3 +28,148 @@
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.my-resource-ui-grid-a {
+    overflow: hidden;
+}
+
+.my-resource-ui-grid-a .my-resource-ui-block-a {
+    clear: left;
+}
+
+.my-resource-ui-block-a, .my-resource-ui-block-b, .ui-resource-block-c, .ui-resource-block-d, .ui-resource-block-e {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    float: left;
+    min-height: 1px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.my-resource-ui-grid-a .my-resource-ui-block-a {
+    width: 450px;
+}
+.my-resource-ui-grid-a .my-resource-ui-block-b {
+    width: 30px;
+}
+
+@media all and (min-width: 650px){ 
+    .my-resource-content-secondary {
+        text-align: left;
+        float: left;
+        width: 550px;
+        background: none;
+    }
+    .my-resource-content-secondary,
+    .type-interior .my-resource-content-secondary {
+        margin: 30px 0 20px 2%;
+        padding: 20px 4% 0 0;
+        background: none;
+        border-top: none;
+    }
+    .type-index .my-resource-content-secondary {
+        padding: 0;
+    }
+    .my-resource-content-secondary .ui-collapsible {
+        margin: 0;
+        padding: 0;
+    }
+    .my-resource-content-secondary .ui-collapsible-content {
+        border: none;
+    }
+    .type-index .my-resource-content-secondary .ui-listview {
+        margin: 0;
+    }
+    
+    .my-resource-content-primary {
+        width: 475px;
+        float: right;
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+    .my-resource-content-primary ul:first-child {
+        margin-top: 0;
+    }
+    .my-resource-content-secondary h2 {
+        position: absolute;
+        left: -9999px;
+    }
+    .type-interior .my-resource-content-primary {
+        padding: 1.5em 6% 3em 0;
+        margin: 0;
+    }
+    
+    .my-resource-content-secondary .ui-collapsible-heading {
+        display: none;
+    }
+    .my-resource-content-secondary .ui-collapsible-contain {
+        margin:0;
+    }
+    .my-resource-content-secondary .ui-collapsible-content {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+    .type-interior  .my-resource-content-secondary .ui-li-divider {
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+    .type-interior .my-resource-content-secondary {
+        margin: 0;
+        padding: 0;
+    }
+
+}
+@media all and (min-width: 750px){
+    .my-resource-content-secondary {
+        width: 550px;
+    }
+    .my-resource-content-primary {
+        width: 475px;
+    }
+    .type-interior .ui-content {
+        background-position: 34%;
+    }
+}
+
+@media all and (min-width: 1200px){
+    .my-resource-content-secondary {
+        /*width: 30%;*/
+        width: 550px;
+        padding-right:6%;
+        margin: 30px 0 20px 5%;
+    }
+    .type-interior .my-resource-content-secondary {
+        margin: 0;
+        padding: 0;
+    }
+    .my-resource-content-primary {
+        /*width: 50%;*/
+        width: 475px;
+        margin-right: 5%;
+        /*padding-right: 3%;*/
+    }
+    .type-interior .my-resource-content-primary {
+        width: 60%;
+    }
+}
+
+.ui-field-contain label.ui-input-text {
+    display: inline-block;
+    margin: 0 2% 0 0;
+    vertical-align: top;
+    width: 20%;
+}
+label.ui-input-text {
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.4;
+    margin: 0 0 0.3em;
+}
+label {
+    cursor: default;
+}
