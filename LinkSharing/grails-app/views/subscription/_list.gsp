@@ -15,7 +15,7 @@
     </li>
 
     <g:each in="${subscriptionInstanceList}" status="i" var="subscription">
-        <li>
+        <li id="li_${subscription.id}">
             <g:checkBox data-role="button" name="status" value="${subscription.id}" checked="false"/>
             <div class="ui-grid-e">
                 <div class="ui-block-a"></div>
