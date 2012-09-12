@@ -22,13 +22,12 @@ class TopicController {
     }
 
     def create() {
-        String currentLoggedInUserEmail = session.email
-        User currentUser = User.findByEmail(currentLoggedInUserEmail)
-        [topicInstance: new Topic(params), currentUserInstance: currentUser]
     }
 
     def save() {
         def topicInstance = new Topic(params)
+        User currentUser = User.findByEmail(session.email)
+        topicInstance.owner=currentUser
         if (!topicInstance.save(flush: true)) {
             render(view: "create", model: [topicInstance: topicInstance])
             return
@@ -46,8 +45,11 @@ class TopicController {
             redirect(action: "list")
             return
         }
-
-        [topicInstance: topicInstance]
+        User user = User.findByEmail(session.email)
+        String subscriptionStatus
+        if (Subscription.findBySubscriberAndTopic(user, topicInstance))
+            subscriptionStatus="true"
+        [topicInstance: topicInstance, subscriptionStatus: subscriptionStatus]
     }
 
     def edit(Long id) {
@@ -113,6 +115,21 @@ class TopicController {
         emailNotificationService.invitation(invitationCommand)
         flash.message = "Invitations sent"
         redirect(action: 'list')
+    }
+
+    def deleteResource() {
+        String result="false"
+        Long id=Long.parseLong(params.id)
+        Resource resource = Resource.findById(id)
+        User user = User.findByEmail(session.email)
+        if (resource) {
+            if (session.email=="admin@intelligrape.com"||resource.owner==user)  {
+                resource.delete(flush: true)
+                result="true"
+            }
+        }
+        render result
+
     }
 }
 
