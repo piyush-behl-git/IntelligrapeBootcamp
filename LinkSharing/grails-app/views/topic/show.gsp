@@ -2,118 +2,65 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta name="layout" content="main">
+    <meta name="layout" content="jQueryMobile">
     <g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}"/>
     <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
 <body>
-<a href="#show-topic" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-
-<div id="show-topic" class="content scaffold-show" role="main">
-    <h1><g:message code="default.show.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <ol class="property-list topic">
-
-        <g:if test="${topicInstance?.name}">
-            <li class="fieldcontain">
-                <span id="name-label" class="property-label"><g:message code="topic.name.label" default="Name"/></span>
-
-                <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${topicInstance}" field="name"/></span>
-
+<div class="my-resource-content-primary">
+    <div data-role="collapsible-set" data-collapsed="false">
+        <div id="topicStatusDiv"></div>
+        <ul id="topicDetailsList" data-role="listview" data-theme="c" data-inset="true">
+            <li data-role="list-divider">${topicInstance.name} Details</li>
+            <li data-role="fieldcontain">
+                <label for="name">Topic Name</label>
+                <g:textField name="name" value="${topicInstance.name}" disabled="true"/>
             </li>
-        </g:if>
-
-        <g:if test="${topicInstance?.owner}">
-            <li class="fieldcontain">
-                <span id="owner-label" class="property-label"><g:message code="topic.owner.label" default="Owner"/></span>
-
-                <span class="property-value" aria-labelledby="owner-label"><g:link controller="user" action="show"
-                                                                                   id="${topicInstance?.owner?.id}">${topicInstance?.owner?.encodeAsHTML()}</g:link></span>
-
+            <li data-role="fieldcontain">
+                <label for="visibility">Visibility</label>
+                <g:textField name="visibility" value="${topicInstance.visibility}" class="ui-disabled"/>
             </li>
-        </g:if>
-
-        <g:if test="${topicInstance?.resources}">
-            <li class="fieldcontain">
-                <span id="resources-label" class="property-label"><g:message code="topic.resources.label" default="Resources"/></span>
-
-                <g:each in="${topicInstance.resources}" var="r">
-                    <g:if test="${r.instanceOf(DocumentResource)}">
-                        <span class="property-value" aria-labelledby="resources-label">
-                            <g:link controller="documentResource" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link>
-                        </span>
-                    </g:if>
-                    <g:if test="${r.instanceOf(LinkResource)}">
-                        <span class="property-value" aria-labelledby="resources-label">
-                            <g:link controller="linkResource" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link>
-                        </span>
-                    </g:if>
-                </g:each>
-
+            <li data-role="fieldcontain">
+                <label for="owner">Owner</label>
+                <g:textField name="owner" value="${topicInstance.owner.fullName}" class="ui-disabled"/>
             </li>
-        </g:if>
-
-        <g:if test="${topicInstance?.subscriptions}">
-            <li class="fieldcontain">
-                <span id="subscriptions-label" class="property-label"><g:message code="topic.subscriptions.label" default="Subscriptions"/></span>
-
-                <g:each in="${topicInstance.subscriptions}" var="s">
-                    <span class="property-value" aria-labelledby="subscriptions-label"><g:link controller="subscription" action="show"
-                                                                                               id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
-                </g:each>
-
-            </li>
-        </g:if>
-
-        <g:if test="${topicInstance?.visibility}">
-            <li class="fieldcontain">
-                <span id="visibility-label" class="property-label"><g:message code="topic.visibility.label" default="Visibility"/></span>
-
-                <span class="property-value" aria-labelledby="visibility-label"><g:fieldValue bean="${topicInstance}" field="visibility"/></span>
-
-            </li>
-        </g:if>
-
-    </ol>
-    <g:form>
-        <fieldset class="buttons">
-            <g:hiddenField name="id" value="${topicInstance?.id}"/>
-            <g:link class="edit" action="edit" id="${topicInstance?.id}"><g:message code="default.button.edit.label" default="Edit"/></g:link>
-            <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                            onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-            <a href="javascript:void(0)" id="addResource">Add Resource</a>
-        </fieldset>
-    </g:form>
+        </ul>
+        <ul data-role="controlgroup" data-type="horizontal" class="localnav">
+            <g:if test="${subscriptionStatus}"><li><input type="button" name="individual-topic-subscribe-button" data-transition="fade" value="Unsubscribe" onclick="unsubscribeIndividualTopic(${topicInstance.id})"></li> </g:if>
+            <g:else><li><input data-ajax="false" type="button" name="individual-topic-subscribe-button" data-transition="fade" value="Subscribe" onclick="subscribeIndividualTopic(${topicInstance.id})"></li></g:else>
+            <li><input type="button" name="mark-read-button" data-transition="fade" value="Edit Topic" data-inline="true"></li>
+            <li><input type="button" name="mark-read-button" data-transition="fade" value="Delete Topic" data-inline="true"></li>
+            <li><input type="button" name="mark-read-button" data-transition="fade" value="Add Resource" data-inline="true"></li>
+            <li><input type="button" name="mark-read-button" data-transition="fade" value="Invite" data-inline="true"></li>
+        </ul>
+    </div>
 </div>
 
-<div id="resource-dialog" title="New Resource">
-    <table>
-        <tr><td><a href="javascript:void(0)" id="docButton">Add Document Resource</a></td></tr>
-        <tr><td><a href="javascript:void(0)" id="linkButton">Addd Link Resource</a></td></tr>
-    </table>
-</div>
+<div class="my-resource-content-secondary">
+    <div data-role="collapsible-set" data-collapsed="false">
+        <div id="topicResourceStatusDiv"></div>
+        <ul id="topicResources" data-role="listview" data-theme="c" data-inset="true">
+            <li data-role="list-divider">
+                <div class="my-resource-ui-grid-a">
+                    <div class="my-resource-ui-block-a">Resource</div>
+                    <div class="my-resource-ui-block-b"></div>
+                </div>
+            </li>
+            <g:each in="${topicInstance.resources}" var="resource">
+                <li id="li${resource.id}">
+                    <div class="my-resource-ui-grid-a">
+                        <div class="my-resource-ui-block-a"><g:if test="${resource.instanceOf(DocumentResource)}"><a
+                                href="${createLink(action: 'download', controller: 'documentResource', id: resource.id)}" target="_blank">${resource.fileName}</a></g:if><g:else><a
+                                href="${resource.url}">${resource.url}</a></g:else></div>
 
-<div id="document-dialog">
-    <g:render template="/documentResource/form"/>
-</div>
-
-<div id="link-dialog">
-    <g:render template="/linkResource/form"/>
-</div>
-<div id="invitationDiv">
-    <g:form controller="topic" action="bindInvitation">
-        <pre>
-            Email :<g:textField name="email1"/>
-            Email :<g:textField name="email2"/>
-            Email :<g:textField name="email3"/>
-            Content
-            <g:textArea name="content" rows="" cols=""/>
-            <g:submitButton name="submit" value="Invite"/>
-        </pre>
-    </g:form>
+                        <div class="my-resource-ui-block-b"><a onclick="deleteResource(${resource.id})" data-role="button" data-icon="delete" data-mini="true"
+                                                               data-iconpos="notext">Delete</a></div>
+                    </div>
+                </li>
+            </g:each>
+        </ul>
+    </div>
 </div>
 </body>
 </html>
