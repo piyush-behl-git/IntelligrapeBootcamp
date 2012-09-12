@@ -8,10 +8,12 @@ class User {
     Date dateOfBirth
     Date dateCreated
     Date lastUpdated
+    String resetCode
     boolean isMale
     static hasMany = [topics: Topic, subscriptions: Subscription]
     static transients = ['confirmPassword']
     static constraints = {
+        resetCode(nullable: true, blank: true,unique: true)
         email(unique: true, blank: false, nullable: false, email: true)
         dateOfBirth(nullable: true)
         confirmPassword(bindable: true)
