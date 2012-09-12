@@ -1,30 +1,29 @@
-<%@ page import="com.ig.bc.Topic" %>
-<!doctype html>
 <html>
 <head>
-    <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}"/>
-    <title><g:message code="default.create.label" args="[entityName]"/></title>
+    <title>Create Topic</title>
 </head>
 
 <body>
-<a href="#create-topic" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+<div data-role="page" class="type-home" data-content-theme="c" data-theme="c">
+    <div data-role="header" data-theme="b">
+        <h1 class="ui-title" role="heading" aria-level="1">Enter Topic Details</h1>
+    </div>
 
-<div id="create-topic" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <g:hasErrors bean="${topicInstance}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${topicInstance}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-            </g:eachError>
+    <div id="topicStatusDiv"></div>
+    <g:form controller="topic" action="save">
+        <ul id="topicDetailsList" data-role="listview" data-theme="c">
+            <li data-role="fieldcontain">
+                <label for="name">Topic Name</label>
+                <g:textField name="name" value=""/>
+            </li>
+            <li data-role="fieldcontain">
+                <label for="visibility">Visibility</label>
+                <g:select id="visibility" from="['PUBLIC', 'PRIVATE']" name="visibility" value=""/>
+            </li>
+            <li>
+               <g:submitButton name="create" value="Create"/>
+            </li>
         </ul>
-    </g:hasErrors>
-    <g:form action="save">
-        <fieldset class="form"><g:render template="form"/></fieldset>
-        <fieldset class="buttons"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}"/></fieldset>
     </g:form>
 </div>
 </body>
