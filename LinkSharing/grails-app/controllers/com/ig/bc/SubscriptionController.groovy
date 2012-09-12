@@ -121,12 +121,25 @@ class SubscriptionController {
         List<Long> idList = topicIds.collect {
             Long.parseLong(it)
         }
-        List<Topic> topics = Topic.getAll(idList)
         String currentLoggedInUserEmail = session.email
         User subscriber = User.findByEmail(currentLoggedInUserEmail)
-        subscriptionService.unsubscribe(subscriber, topics)
+        subscriptionService.unsubscribe(subscriber, idList)
         String message = "Topics unsubscribed successfully"
+        render message
+    }
 
+    def subscribeIndividualTopic() {
+        String message
+        Long id = Long.parseLong(params.id)
+        Topic topic = Topic.get(id)
+        List<Topic> topics = []
+        topics << topic
+        User subscriber = User.findByEmail(session.email)
+        String errors = subscriptionService.subscribe(subscriber, topics)
+        if (errors)
+            message = errors
+        else
+            message = "Topic Subscribed"
         render message
     }
 }
